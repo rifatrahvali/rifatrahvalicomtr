@@ -1,0 +1,25 @@
+---
+trigger: always_on
+---
+
+# Deployment Guidelines
+
+## Environment Configuration
+
+- Configure environment-specific variables using `.env` files and config caching.
+- Implement safe database migration strategies with rollback capabilities.
+- Configure proper file permissions and ownership for production environments.
+
+## Process Management
+
+- Manage queue workers with proper monitoring and auto-restart mechanisms.
+- Set up log rotation, monitoring, and centralized logging systems.
+- Create health check endpoints for application and dependency monitoring.
+- Set up database backup and recovery procedures.
+
+## Deployment Strategies
+
+- Use deployment automation tools (CI/CD pipelines) for consistent releases.
+- Implement blue-green or rolling deployment strategies for zero downtime.
+- Monitor application metrics and set up alerting systems.
+- Add a comment line to the code you wrote.

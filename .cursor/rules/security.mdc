@@ -1,0 +1,65 @@
+---
+alwaysApply: true
+---
+
+# Security Guidelines
+
+## Input Validation & Sanitization
+
+- Always validate input using Laravel FormRequest classes.
+- Use array, string, max, and regex validation rules for structured inputs.
+- Sanitize user input using strip_tags() and htmlspecialchars() for untrusted content.
+- Cast JSON fields using protected $casts = ['field' => 'array']; in the model.
+
+## Mass Assignment Protection
+
+- Use $fillable or $guarded properly to control mass assignment.
+- Never trust user-submitted user_id, id, or related keys—bind via auth context.
+
+## XSS Prevention
+
+- Always escape output in Blade using `{{ $value }}`.
+- Never output raw content (`{!! !!}`) unless it's explicitly trusted and sanitized.
+- Sanitize all string/HTML inputs before saving to DB if they will be rendered in the UI.
+
+## Authorization & Access Control
+
+- Use Laravel's Gate or Policy for per-model action authorization.
+- Do not allow access or update to models without auth()->user()->can(...) checks.
+- Use route-level middleware for auth, can, or custom guards.
+
+## CSRF Protection
+
+- Ensure all form routes use @csrf directive.
+- Do not disable VerifyCsrfToken middleware except for API routes with token auth.
+
+## JSON Structure Validation
+
+- Validate JSON array structures with `'field' => 'array'`, `'field.*' => 'string'`, and `max` rules.
+- Avoid nested/unvalidated input trees that could break DB assumptions or inject payloads.
+
+## SQL Injection Protection
+
+- Always use Eloquent ORM or Query Builder—avoid raw SQL unless sanitized with bindings.
+- Never concatenate user input directly into queries.
+
+## File Upload Security
+
+- Validate uploaded files using file, mimes, mimetypes, and max.
+- Store only sanitized file names and generate random names on save.
+
+## Debug & Error Handling
+
+- Set APP_DEBUG=false in production environments.
+- Log sensitive errors via Log::error()—do not expose stack traces to the user.
+- Use try-catch blocks and custom exceptions for expected errors.
+
+## Session & Cookie Security
+
+- Set SESSION_SECURE_COOKIE=true and SESSION_DRIVER=file/redis in production.
+- Use HttpOnly and Secure flags for cookies via Laravel's default session config.
+
+## HTTPS Enforcement
+
+- Force HTTPS in production via middleware or $middlewarePriority (e.g., \App\Http\Middleware\ForceHttps::class).
+- Set config(['session.secure' => true]) in production.

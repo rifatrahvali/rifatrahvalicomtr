@@ -1,0 +1,20 @@
+---
+trigger: always_on
+---
+
+# Frontend Development Guidelines
+
+## Frontend (HTML5, CSS3, JavaScript)
+
+- Use vanilla JavaScript for dynamic user interfaces.
+- Organize JavaScript modules and functions.
+- Use modern JavaScript ES6+ features.
+- Use Fetch API or Axios for server interactions.
+- Properly manipulate the DOM with JavaScript.
+- Handle HTML forms and validations with JavaScript.
+- Use all modern features of CSS3 (Flexbox, Grid, etc.).
+- Define consistent styling with custom CSS variables.
+- Apply mobile-first responsive design principles.
+- Use CSS pre/post-processors for cross-browser compatibility.
+- Properly use semantic HTML5 tags.
+- Add a comment line to the code you wrote.
