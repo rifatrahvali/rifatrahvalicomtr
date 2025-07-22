@@ -2,6 +2,27 @@
 
 ---
 
+## ✅ [101] Laravel Sanctum Authentication
+
+*   **Görev**: Proje için API token tabanlı güvenli bir kimlik doğrulama sistemi kurmak.
+*   **Açıklama**: Laravel Sanctum, SPA (Tek Sayfa Uygulamaları), mobil uygulamalar ve basit, token tabanlı API'ler için hafif bir kimlik doğrulama sistemi sağlar. Bu görevde, Sanctum'un kurulumu ve temel yapılandırması tamamlanmıştır.
+*   **Yapılan İşlemler**:
+    1.  **Paket Kurulumu**: `composer require laravel/sanctum` komutu ile Sanctum paketi projeye dahil edildi.
+        *   **Kaynak**: `composer.json`
+    2.  **Varlıkların Yayınlanması**: `php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"` komutu çalıştırılarak Sanctum'un yapılandırma (`config/sanctum.php`) ve veritabanı göç dosyaları yayınlandı.
+    3.  **Veritabanı Göçü**: `php artisan migrate` komutu ile `personal_access_tokens` tablosu veritabanına eklendi. Bu tablo, API token'larını saklamak için kullanılır.
+    4.  **Middleware Yapılandırması**: `bootstrap/app.php` dosyası düzenlenerek API rotaları (`api.php`) ve Sanctum'un `statefulApi()` middleware'i eklendi. Bu, gelen API isteklerinin korunmasını sağlar.
+        *   **Kaynak**: `bootstrap/app.php`
+    5.  **User Modeli Güncellemesi**: `app/Models/User.php` modeline `Laravel\Sanctum\HasApiTokens` trait'i eklendi. Bu, `User` modelinin token oluşturma ve yönetme yeteneklerini kazanmasını sağladı.
+        *   **Kaynak**: `app/Models/User.php`
+    6.  `documents/TODO.md` dosyasındaki ilgili görev tamamlandı olarak (✅) işaretlendi.
+    7.  Bu detaylar `documents/completed-todos.md` dosyasına eklendi.
+*   **İlgili Kurallar**:
+    *   `security.md`: Kurulum, API güvenliği ve yetkilendirme standartlarına uygun olarak yapıldı.
+    *   `api.md`: Sanctum, API kimlik doğrulaması için en iyi pratiklerden biri olarak seçildi.
+
+---
+
 ## ✅ [005] Frontend Asset Setup
 
 *   **Görev**: Projenin frontend altyapısının (Vite, Tailwind CSS) kurulması ve yapılandırılması.
