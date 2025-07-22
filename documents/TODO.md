@@ -134,7 +134,7 @@ class RolePermissionSeeder extends Seeder
 }
 ```
 
-### [103] `[Completed]` 2FA (Two-Factor Authentication) [Öncelik: High] [Süre: 5 saat]
+### ✅ [103] 2FA (Two-Factor Authentication) [Öncelik: High] [Süre: 5 saat]
 * **Cursor Rules**: admin-panel-security.mdc
 * **Description**: Google Authenticator entegrasyonu
 * **Technical Steps**:
@@ -146,7 +146,7 @@ class RolePermissionSeeder extends Seeder
 * **Testing**: 2FA enable/disable ve login testleri
 * **Documentation**: 2FA kullanım kılavuzu
 
-### [104] **Rate Limiting & Brute Force Protection** [Öncelik: High] [Süre: 2 saat]
+### ✅ [104] Rate Limiting & Brute Force Protection [Öncelik: High] [Süre: 2 saat]
 * **Cursor Rules**: admin-panel-security.mdc, security.mdc
 * **Description**: Login attemps ve API rate limiting
 * **Technical Steps**:

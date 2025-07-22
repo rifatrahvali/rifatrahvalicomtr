@@ -2,6 +2,25 @@
 
 ---
 
+## ✅ [104] İstek Sınırlama (Rate Limiting) ve Kaba Kuvvet Koruması
+
+- **Tarih:** 22 Temmuz 2025
+- **Açıklama:** Projenin güvenliğini artırmak amacıyla, hem web arayüzündeki giriş denemelerine hem de API endpoint'lerine yönelik kaba kuvvet (brute-force) ve kötüye kullanım saldırılarına karşı koruma sağlayan istek sınırlama (rate limiting) mekanizması entegre edildi.
+
+- **Uygulanan Teknik Adımlar:**
+  1.  **Giriş (Login) Koruması:**
+      - Laravel'in standart kimlik doğrulama sistemi, `ThrottlesLogins` trait'ini kullanarak varsayılan olarak kaba kuvvet saldırılarına karşı koruma sağlar. Bu özellik, belirli bir süre içinde aynı IP adresinden yapılan başarısız giriş denemesi sayısını otomatik olarak sınırlar. Bu standart korumanın aktif olduğu teyit edildi ve ek bir manuel müdahaleye gerek duyulmadı.
+  2.  **API Koruması:**
+      - Projenin API'ını korumak için, `bootstrap/app.php` dosyasına `throttle:api` middleware'i eklendi. Bu işlem, `api` middleware grubuna dahil olan tüm rotalara otomatik olarak bir istek sınırı uygular.
+      - **Kaynak:** Bu değişiklik `bootstrap/app.php` dosyasında, `->withMiddleware()` metodu içinde `$middleware->throttle('api');` satırı eklenerek yapıldı.
+      - Laravel'in varsayılan `api` rate limiter'ı, bir kullanıcının dakikada 60 istek yapmasına izin verir. Bu, genel amaçlı API'lar için güvenli ve standart bir başlangıç noktasıdır.
+
+- **İlgili Kurallar:**
+  - `admin-panel-security.md`: Giriş rotalarında rate limiting uygulanması kuralına uyuldu.
+  - `api.md`: API için rate limiting uygulanması kuralına uyuldu.
+
+---
+
 ## ✅ [103] İki Faktörlü Kimlik Doğrulama (2FA) Entegrasyonu
 
 *   **Görev**: Projeye, `pragmarx/google2fa-laravel` paketi kullanılarak Google Authenticator tabanlı İki Faktörlü Kimlik Doğrulama (2FA) özelliği eklendi. Bu özellik, kullanıcıların hesap güvenliğini önemli ölçüde artırmaktadır. Kullanıcılar artık kendi profilleri üzerinden 2FA'yı etkinleştirebilir ve devre dışı bırakabilirler.

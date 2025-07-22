@@ -22,6 +22,11 @@ return Application::configure(basePath: dirname(__DIR__))
             '2fa' => \App\Http\Middleware\Google2FAMiddleware::class,
         ]);
         // Sanctum'un SPA kimlik doğrulama middleware'ini ekliyoruz.
+                // API rotaları için rate limiting (istek sınırlama) middleware'ini ekliyoruz.
+        // Bu, 'api' middleware grubuna dahil olan tüm rotaları korur.
+        // Varsayılan olarak, dakikada 60 istekle sınırlıdır.
+        $middleware->throttle('api');
+
         $middleware->statefulApi();
     })
     ->withExceptions(function (Exceptions $exceptions): void {
