@@ -198,7 +198,7 @@ Schema::create('user_profiles', function (Blueprint $table) {
 });
 ```
 
-### [202] **Experience Migration & Model** [Öncelik: Critical] [Süre: 2 saat]
+### ✅ [202] Experience Migration & Model [Öncelik: High] [Süre: 3 saat]
 * **Cursor Rules**: php-laravel.mdc
 * **Description**: İş deneyimi tablosu ve model
 * **Technical Steps**:

@@ -61,4 +61,14 @@ class User extends Authenticatable
     {
         return $this->hasOne(UserProfile::class);
     }
+
+    /**
+     * Get the experiences for the user.
+     */
+    // Kullanıcının tüm deneyim kayıtlarını getiren ilişkiyi tanımlar.
+    // 'hasMany' ilişkisi, bir kullanıcının birden çok deneyimi olabileceğini belirtir.
+    public function experiences()
+    {
+        return $this->hasMany(Experience::class);
+    }
 }

@@ -2,6 +2,34 @@
 
 ---
 
+## ✅ [202] İş Deneyimi (Experience) Migration ve Modeli
+
+- **Tarih:** 22 Temmuz 2025
+- **Açıklama:** Kullanıcıların iş deneyimlerini (pozisyon, şirket, çalışma süresi vb.) profillerine ekleyebilmeleri için `experiences` adında yeni bir veritabanı tablosu, bu tabloyu yönetmek için bir migration ve `Experience` adında bir Eloquent modeli oluşturuldu. `User` ve `Experience` modelleri arasında bir-e-çok (one-to-many) ilişki kuruldu.
+
+- **Uygulanan Teknik Adımlar:**
+  1.  **Migration ve Model Oluşturma:**
+      - `php artisan make:migration create_experiences_table` komutu ile migration dosyası oluşturuldu.
+      - `php artisan make:model Experience` komutu ile Eloquent modeli oluşturuldu.
+  2.  **Migration Dosyasını Düzenleme:**
+      - **Kaynak:** `database/migrations/2025_07_22_131002_create_experiences_table.php`
+      - `experiences` tablosuna `user_id` (yabancı anahtar), `title`, `company`, `location`, `employment_type`, `description`, `start_date`, ve `end_date` sütunları eklendi. `user_id` için `cascadeOnDelete()` kuralı tanımlandı.
+  3.  **Model İlişkilerini Tanımlama:**
+      - **`Experience` Modeli:**
+        - **Kaynak:** `app/Models/Experience.php`
+        - Veritabanı sütunları için `$fillable` ve tarih alanları için `$casts` özellikleri tanımlandı.
+        - `user()` adında, `User` modeline olan `belongsTo` ilişkisi eklendi.
+      - **`User` Modeli:**
+        - **Kaynak:** `app/Models/User.php`
+        - `experiences()` adında, `Experience` modeline olan `hasMany` ilişkisi eklendi.
+  4.  **Veritabanını Güncelleme:**
+      - `php artisan migrate` komutu çalıştırılarak `experiences` tablosu veritabanına eklendi.
+
+- **İlgili Kurallar:**
+  - `php-laravel.md`: Eloquent modelleri ve migration'lar, Laravel'in en iyi pratiklerine ve standartlarına uygun olarak oluşturuldu. İlişkiler doğru bir şekilde tanımlandı.
+
+---
+
 ## ✅ [201] Kullanıcı Profili Migration ve Modeli
 
 - **Tarih:** 22 Temmuz 2025
