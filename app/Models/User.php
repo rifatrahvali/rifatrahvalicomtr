@@ -51,4 +51,14 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * Get the profile associated with the user.
+     */
+    // Kullanıcının profil bilgilerini getiren ilişkiyi tanımlar.
+    // 'hasOne' ilişkisi, bir kullanıcının bir adet profili olduğunu belirtir.
+    public function profile()
+    {
+        return $this->hasOne(UserProfile::class);
+    }
 }

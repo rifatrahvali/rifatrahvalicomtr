@@ -25,7 +25,9 @@ return Application::configure(basePath: dirname(__DIR__))
                 // API rotaları için rate limiting (istek sınırlama) middleware'ini ekliyoruz.
         // Bu, 'api' middleware grubuna dahil olan tüm rotaları korur.
         // Varsayılan olarak, dakikada 60 istekle sınırlıdır.
-        $middleware->throttle('api');
+        $middleware->api(append: [
+            'throttle:api',
+        ]);
 
         $middleware->statefulApi();
     })

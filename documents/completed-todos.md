@@ -2,6 +2,38 @@
 
 ---
 
+## ✅ [201] Kullanıcı Profili Migration ve Modeli
+
+- **Tarih:** 22 Temmuz 2025
+- **Açıklama:** Kullanıcılar için ek profil bilgilerini (avatar, biyografi, konum vb.) saklamak amacıyla `user_profiles` adında yeni bir veritabanı tablosu, bu tabloyu yönetmek için bir migration ve `UserProfile` adında bir Eloquent modeli oluşturuldu. Ayrıca, `User` ve `UserProfile` modelleri arasında bire bir (one-to-one) ilişki kuruldu.
+
+- **Uygulanan Teknik Adımlar:**
+  1.  **Migration ve Model Oluşturma:**
+      - `php artisan make:migration create_user_profiles_table` komutu ile migration dosyası oluşturuldu.
+      - `php artisan make:model UserProfile` komutu ile Eloquent modeli oluşturuldu.
+  2.  **Migration Dosyasını Düzenleme:**
+      - **Kaynak:** `database/migrations/2025_07_22_125651_create_user_profiles_table.php`
+      - `user_profiles` tablosuna `user_id` (yabancı anahtar), `avatar`, `bio`, `location`, `website_url` sütunları eklendi. `user_id` için `cascadeOnDelete()` kuralı tanımlanarak, bir kullanıcı silindiğinde profilinin de silinmesi sağlandı.
+  3.  **Model İlişkilerini Tanımlama:**
+      - **`UserProfile` Modeli:**
+        - **Kaynak:** `app/Models/UserProfile.php`
+        - Veritabanı sütunları için `$fillable` özelliği tanımlandı.
+        - `user()` adında, `User` modeline olan `belongsTo` ilişkisi eklendi.
+      - **`User` Modeli:**
+        - **Kaynak:** `app/Models/User.php`
+        - `profile()` adında, `UserProfile` modeline olan `hasOne` ilişkisi eklendi.
+  4.  **Veritabanını Güncelleme:**
+      - `php artisan migrate` komutu çalıştırılarak `user_profiles` tablosu veritabanına eklendi.
+
+- **Karşılaşılan Sorun ve Çözümü:**
+  - `artisan` komutları çalıştırılırken, daha önceki bir görevde (`Rate Limiting`) `bootstrap/app.php` dosyasına eklenen kodda bir hata olduğu tespit edildi (`Call to undefined method Illuminate\Foundation\Configuration\Middleware::throttle()`).
+  - **Çözüm:** Hatalı olan `$middleware->throttle('api');` satırı, Laravel 11+ ile uyumlu olan `$middleware->api(append: ['throttle:api']);` kodu ile düzeltilerek sorun giderildi.
+
+- **İlgili Kurallar:**
+  - `php-laravel.md`: Eloquent modelleri ve migration'lar, Laravel'in en iyi pratiklerine uygun olarak oluşturuldu.
+
+---
+
 ## ✅ [105] CSRF & XSS Koruma Kurulumu ve Doğrulaması
 
 - **Tarih:** 22 Temmuz 2025
