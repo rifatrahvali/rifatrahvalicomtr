@@ -13,11 +13,21 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        // Seeder'ları mantıksal bir sırayla çağır
+        $this->call([
+            // 1. Roller ve İzinler
+            RoleSeeder::class,
+            PermissionSeeder::class,
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            // 2. Temel Kullanıcılar
+            UserSeeder::class,
+
+            // 3. İçerik ve Diğer Modeller
+            SkillSeeder::class,
+            BlogCategorySeeder::class,
+            BlogPostSeeder::class,
+            GallerySeeder::class,
+            ReferenceSeeder::class,
         ]);
     }
 }

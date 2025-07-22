@@ -8,14 +8,14 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens; // Sanctum'un token yönetimi için gerekli olan trait'i ekliyoruz.
 use Spatie\Permission\Traits\HasRoles; // Spatie'nin rol ve izin yönetimi için gerekli olan trait'i ekliyoruz.
-use PragmaRX\Google2FALaravel\Support\Traits\Google2FA; // Google 2FA için gerekli olan trait'i ekliyoruz.
+// use PragmaRX\Google2FALaravel\Support\Traits\Google2FA; // Google 2FA için gerekli olan trait'i ekliyoruz. (Geçici olarak devre dışı)
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
         // HasApiTokens, kullanıcının API token'ları oluşturmasını ve yönetmesini sağlar.
         // HasRoles, kullanıcıya rol ve izin atama yetenekleri kazandırır.
-        use HasFactory, Notifiable, HasApiTokens, HasRoles, Google2FA;
+        use HasFactory, Notifiable, HasApiTokens, HasRoles; // Google2FA geçici olarak kaldırıldı
 
     /**
      * The attributes that are mass assignable.
@@ -90,5 +90,15 @@ class User extends Authenticatable
     public function certificates()
     {
         return $this->hasMany(Certificate::class);
+    }
+
+    /**
+     * Get the about section associated with the user.
+     */
+    // Kullanıcının hakkımda bölümünü getiren ilişkiyi tanımlar.
+    // 'hasOne' ilişkisi, bir kullanıcının sadece bir hakkımda kaydı olabileceğini belirtir.
+    public function about()
+    {
+        return $this->hasOne(About::class);
     }
 }

@@ -231,7 +231,7 @@ Schema::create('user_profiles', function (Blueprint $table) {
 * **Testing**: JSON field manipulation testleri
 * **Documentation**: Certificate ve course structure
 
-### ☐ [205] **About Section Migration & Model** [Öncelik: Medium] [Süre: 1 saat]
+### ✅ [205] About Section Migration & Model [Öncelik: Medium] [Süre: 1 saat]
 * **Cursor Rules**: php-laravel.mdc
 * **Description**: Hakkımda bölümü tablosu
 * **Technical Steps**:
@@ -242,7 +242,7 @@ Schema::create('user_profiles', function (Blueprint $table) {
 * **Testing**: About section ordering testleri
 * **Documentation**: Content management structure
 
-### ☐ [206] **Learned Experience/Education Models** [Öncelik: Medium] [Süre: 3 saat]
+### ✅ [206] Learned Experience/Education Models [Öncelik: Medium] [Süre: 3 saat]
 * **Cursor Rules**: php-laravel.mdc
 * **Description**: Deneyim ve eğitimden kazanımlar tabloları
 * **Technical Steps**:
@@ -253,7 +253,7 @@ Schema::create('user_profiles', function (Blueprint $table) {
 * **Testing**: Learned data CRUD testleri
 * **Documentation**: Learning tracking system
 
-### ☐ [207] **Blog Categories Migration (Hierarchical)** [Öncelik: High] [Süre: 3 saat]
+### ✅ [207] Blog Categories Migration (Hierarchical) [Öncelik: High] [Süre: 3 saat]
 * **Cursor Rules**: php-laravel.mdc
 * **Description**: Hiyerarşik blog kategori sistemi
 * **Technical Steps**:
@@ -278,7 +278,7 @@ class Category extends Model
 }
 ```
 
-### ☐ [208] **Blog Posts Migration & Model** [Öncelik: Critical] [Süre: 4 saat]
+### ✅ [208] Blog Posts Migration & Model [Öncelik: High] [Süre: 4 saat]
 * **Cursor Rules**: php-laravel.mdc, security.mdc
 * **Description**: Blog yazıları tablosu ve advanced features
 * **Technical Steps**:
@@ -290,7 +290,7 @@ class Category extends Model
 * **Testing**: Post creation ve publishing testleri
 * **Documentation**: Blog post lifecycle
 
-### ☐ [209] **Gallery Migration & Model** [Öncelik: Medium] [Süre: 2 saat]
+### ✅ [209] Gallery Migration & Model [Öncelik: Medium] [Süre: 2 saat]
 * **Cursor Rules**: php-laravel.mdc
 * **Description**: Proje galerisi tablosu
 * **Technical Steps**:
@@ -301,7 +301,7 @@ class Category extends Model
 * **Testing**: Image upload ve gallery testleri
 * **Documentation**: Gallery management
 
-### ☐ [210] **References Migration & Model** [Öncelik: Low] [Süre: 2 saat]
+### ✅ [210] References Migration & Model [Öncelik: Medium] [Süre: 2 saat]
 * **Cursor Rules**: php-laravel.mdc
 * **Description**: Referanslar tablosu
 * **Technical Steps**:
@@ -312,7 +312,7 @@ class Category extends Model
 * **Testing**: Reference CRUD testleri
 * **Documentation**: References structure
 
-### ☐ [211] **Database Seeders Creation** [Öncelik: Medium] [Süre: 3 saat]
+### ✅ [211] Database Seeders Creation [Öncelik: Medium] [Süre: 3 saat]
 * **Cursor Rules**: php-laravel.mdc, testing.mdc
 * **Description**: Test ve demo verileri için seeder'lar
 * **Technical Steps**:

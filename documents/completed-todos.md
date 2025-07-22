@@ -2,6 +2,184 @@
 
 ---
 
+## ✅ [211] Veritabanı Seeder'larının Oluşturulması
+
+- **Tarih:** 22 Temmuz 2025
+- **Açıklama:** Uygulamanın geliştirme ve test aşamalarında kullanılmak üzere başlangıç verileri oluşturuldu. Bu, roller, izinler, kullanıcılar, blog içerikleri ve diğer modeller için sahte ama mantıklı veriler içerir.
+
+- **Uygulanan Teknik Adımlar:**
+  1.  **Seeder Dosyaları Oluşturma:**
+      - `RoleSeeder`, `PermissionSeeder`, `UserSeeder`, `SkillSeeder`, `BlogCategorySeeder`, `BlogPostSeeder`, `GallerySeeder`, ve `ReferenceSeeder` dosyaları `php artisan make:seeder` komutuyla oluşturuldu.
+  2.  **Seeder'ları Doldurma:**
+      - Her bir seeder, ilgili model için veri oluşturacak şekilde (`firstOrCreate` veya `factory` kullanarak) dolduruldu.
+  3.  **Factory Oluşturma:**
+      - `BlogPost` için `php artisan make:factory BlogPostFactory` komutuyla bir factory oluşturuldu ve sahte veri üretimi için yapılandırıldı.
+  4.  **Ana Seeder'ı Yapılandırma:**
+      - `DatabaseSeeder.php` dosyası, oluşturulan tüm seeder'ları mantıksal bir sıra ile çağıracak şekilde düzenlendi.
+  5.  **Veritabanını Doldurma:**
+      - `php artisan migrate:fresh --seed` komutu (veya ayrı ayrı `migrate:fresh` ve `db:seed`) çalıştırılarak veritabanı temizlendi ve başlangıç verileriyle dolduruldu.
+
+- **İlgili Kurallar:**
+  - `php-laravel.md`, `testing.md`: Veri tutarlılığını sağlamak ve test ortamını kolayca yeniden oluşturmak için seeder ve factory'ler kullanıldı.
+
+---
+
+## ✅ [210] Referanslar (References) Migration ve Modeli
+
+- **Tarih:** 22 Temmuz 2025
+- **Açıklama:** Sitede gösterilecek müşteri yorumları veya referansları yönetmek için bir altyapı oluşturuldu. Bu yapı, her bir referansın isim, unvan, şirket, yorum ve resim gibi bilgilerini içerir.
+
+- **Uygulanan Teknik Adımlar:**
+  1.  **Migration ve Model Oluşturma:**
+      - `php artisan make:migration create_references_table` ve `php artisan make:model Reference` komutları çalıştırıldı.
+  2.  **Migration Dosyasını Düzenleme:**
+      - **Kaynak:** `database/migrations/2025_07_22_140146_create_references_table.php`
+      - `references` tablosuna `name`, `title`, `company`, `comment`, `image` ve `order` sütunları eklendi.
+  3.  **Modeli Düzenleme:**
+      - **Kaynak:** `app/Models/Reference.php`
+      - Gerekli tüm alanlar için `$fillable` özelliği tanımlandı.
+  4.  **Veritabanını Güncelleme:**
+      - `php artisan migrate` komutu çalıştırılarak `references` tablosu veritabanına eklendi.
+
+- **İlgili Kurallar:**
+  - `php-laravel.md`: Standart model ve migration oluşturma pratikleri takip edildi.
+
+---
+
+## ✅ [209] Galeri (Gallery) Migration ve Modeli
+
+- **Tarih:** 22 Temmuz 2025
+- **Açıklama:** Sitede sergilenecek görsel ve video içeriklerini yönetmek için bir galeri altyapısı oluşturuldu. Bu yapı, her bir galeri öğesinin başlık, açıklama, dosya yolu, tür ve sıralama gibi bilgilerini içerir.
+
+- **Uygulanan Teknik Adımlar:**
+  1.  **Migration ve Model Oluşturma:**
+      - `php artisan make:migration create_galleries_table` ve `php artisan make:model Gallery` komutları çalıştırıldı.
+  2.  **Migration Dosyasını Düzenleme:**
+      - **Kaynak:** `database/migrations/2025_07_22_135848_create_galleries_table.php`
+      - `galleries` tablosuna `title`, `description` (nullable), `path`, `enum('type', ['image', 'video'])` ve `order` (sıralama için) sütunları eklendi.
+  3.  **Modeli Düzenleme:**
+      - **Kaynak:** `app/Models/Gallery.php`
+      - Gerekli tüm alanlar için `$fillable` özelliği tanımlandı.
+  4.  **Veritabanını Güncelleme:**
+      - `php artisan migrate` komutu çalıştırılarak `galleries` tablosu veritabanına eklendi.
+
+- **İlgili Kurallar:**
+  - `php-laravel.md`: Standart model ve migration oluşturma pratikleri takip edildi. `enum` ve `unsignedInteger` gibi spesifik sütun türleri, veri tutarlılığını sağlamak için kullanıldı.
+
+---
+
+## ✅ [208] Blog Yazıları (Blog Posts) Migration ve Modeli
+
+- **Tarih:** 22 Temmuz 2025
+- **Açıklama:** Blog yazılarını saklamak için temel veritabanı yapısı ve Eloquent modeli oluşturuldu. Bu yapı, bir yazının yazarını, kategorisini, başlığını, içeriğini, durumunu ve diğer temel bilgilerini içerir.
+
+- **Uygulanan Teknik Adımlar:**
+  1.  **Migration ve Model Oluşturma:**
+      - `php artisan make:migration create_blog_posts_table` ve `php artisan make:model BlogPost` komutları çalıştırıldı.
+  2.  **Migration Dosyasını Düzenleme:**
+      - **Kaynak:** `database/migrations/2025_07_22_135621_create_blog_posts_table.php`
+      - `blog_posts` tablosuna `user_id` ve `blog_category_id` için yabancı anahtarlar eklendi.
+      - `title`, `slug` (benzersiz), `longText('content')`, `image` (nullable), `enum('status', ['draft', 'published'])` ve `published_at` (nullable) sütunları tanımlandı.
+  3.  **Model İlişkilerini ve Özelliklerini Tanımlama:**
+      - **Kaynak:** `app/Models/BlogPost.php`
+      - Gerekli tüm alanlar için `$fillable` özelliği tanımlandı.
+      - `published_at` alanı için `$casts` özelliği ile `datetime` dönüşümü sağlandı.
+      - `user()`: Yazının yazarını getiren `belongsTo` ilişkisi.
+      - `category()`: Yazının kategorisini getiren `belongsTo` ilişkisi.
+  4.  **Veritabanını Güncelleme:**
+      - `php artisan migrate` komutu çalıştırılarak `blog_posts` tablosu veritabanına eklendi.
+
+- **İlgili Kurallar:**
+  - `php-laravel.md`: Eloquent ilişkileri (`belongsTo`) ve model özellikleri (`$fillable`, `$casts`) en iyi pratiklere uygun olarak kullanıldı.
+  - `security.md`: Yabancı anahtar kısıtlamaları (`constrained()`, `cascadeOnDelete()`) veri bütünlüğünü sağlamak için eklendi.
+
+---
+
+## ✅ [207] Hiyerarşik Blog Kategorileri Migration ve Modeli
+
+- **Tarih:** 22 Temmuz 2025
+- **Açıklama:** Blog yazılarını sınıflandırmak için hiyerarşik bir kategori yapısı oluşturuldu. Bu yapı, kategorilerin birbirleri altında (parent-child ilişkisi) gruplanabilmesine olanak tanır. Örneğin, "Yazılım" > "PHP" > "Laravel" gibi iç içe kategoriler oluşturulabilir.
+
+- **Uygulanan Teknik Adımlar:**
+  1.  **Migration ve Model Oluşturma:**
+      - `php artisan make:migration create_blog_categories_table` ve `php artisan make:model BlogCategory` komutları çalıştırıldı.
+  2.  **Migration Dosyasını Düzenleme:**
+      - **Kaynak:** `database/migrations/2025_07_22_135334_create_blog_categories_table.php`
+      - `blog_categories` tablosuna `name`, `slug` (benzersiz) ve hiyerarşi için `parent_id` sütunları eklendi.
+      - `parent_id`, aynı tabloya `nullable` bir `foreignId` olarak tanımlandı, bu da bir kategorinin ana kategori olabilmesini sağlar.
+  3.  **Model İlişkilerini Tanımlama:**
+      - **Kaynak:** `app/Models/BlogCategory.php`
+      - `parent()`: Bir kategorinin ebeveynini getiren `belongsTo` ilişkisi (kendine referans).
+      - `children()`: Bir kategorinin alt kategorilerini getiren `hasMany` ilişkisi (kendine referans).
+      - `posts()`: Gelecekteki `BlogPost` modeli için `hasMany` ilişkisi eklendi.
+  4.  **Veritabanını Güncelleme:**
+      - `php artisan migrate` komutu çalıştırılarak `blog_categories` tablosu veritabanına eklendi.
+
+- **İlgili Kurallar:**
+  - `php-laravel.md`: Eloquent'in kendi kendine referans veren (self-referencing) ilişkileri, veritabanında hiyerarşik veri yapıları oluşturmak için en iyi pratiklere uygun olarak kullanıldı.
+
+---
+
+## ✅ [206] Öğrenilen Beceriler (Skills) Modeli ve İlişkileri
+
+- **Tarih:** 22 Temmuz 2025
+- **Açıklama:** Kullanıcının iş deneyimleri ve eğitimleri sırasında kazandığı becerileri (PHP, Laravel, Proje Yönetimi vb.) esnek bir şekilde ilişkilendirebilmesi için polimorfik bir çoktan-çoğa (polymorphic many-to-many) veritabanı yapısı kuruldu. Bu yapı, becerilerin merkezi bir yerden yönetilmesine ve farklı modellere (Experience, Education) kolayca bağlanabilmesine olanak tanır.
+
+- **Uygulanan Teknik Adımlar:**
+  1.  **`skills` Tablosu ve Modeli Oluşturma:**
+      - `php artisan make:migration create_skills_table` ve `php artisan make:model Skill` komutları çalıştırıldı.
+      - **Kaynak:** `database/migrations/2025_07_22_133523_create_skills_table.php`
+      - `skills` tablosuna benzersiz (unique) bir `name` sütunu eklendi.
+  2.  **`skillables` Pivot Tablosu Oluşturma:**
+      - `php artisan make:migration create_skillables_table` komutu ile polimorfik pivot tablo için migration oluşturuldu.
+      - **Kaynak:** `database/migrations/2025_07_22_133807_create_skillables_table.php`
+      - Tabloya `skill_id` (yabancı anahtar) ve `morphs('skillable')` metodu ile `skillable_id` ve `skillable_type` sütunları eklendi.
+  3.  **Model İlişkilerini Tanımlama:**
+      - **`Skill` Modeli:**
+        - **Kaynak:** `app/Models/Skill.php`
+        - `experiences()` ve `educations()` adında, `morphedByMany` ilişkileri tanımlandı.
+      - **`Experience` Modeli:**
+        - **Kaynak:** `app/Models/Experience.php`
+        - `skills()` adında, `morphToMany` ilişkisi tanımlandı.
+      - **`Education` Modeli:**
+        - **Kaynak:** `app/Models/Education.php`
+        - `skills()` adında, `morphToMany` ilişkisi tanımlandı.
+  4.  **Veritabanını Güncelleme:**
+      - `php artisan migrate` komutu çalıştırılarak `skills` ve `skillables` tabloları veritabanına eklendi.
+
+- **İlgili Kurallar:**
+  - `php-laravel.md`: Laravel'in en gelişmiş ilişki türlerinden olan polimorfik çoktan-çoğa ilişkiler, standartlara ve en iyi pratiklere uygun olarak kuruldu. Bu, kod tekrarını önler ve veritabanı yapısını esnek tutar.
+
+---
+
+## ✅ [205] Hakkımda (About) Bölümü Migration ve Modeli
+
+- **Tarih:** 22 Temmuz 2025
+- **Açıklama:** Kullanıcıların kendileri hakkında detaylı bilgi (uzun biyografi, vizyon, misyon vb.) ve CV linki ekleyebilmeleri için `abouts` adında yeni bir veritabanı tablosu, bu tabloyu yönetmek için bir migration ve `About` adında bir Eloquent modeli oluşturuldu. `User` ve `About` modelleri arasında bire-bir (one-to-one) ilişki kuruldu.
+
+- **Uygulanan Teknik Adımlar:**
+  1.  **Migration ve Model Oluşturma:**
+      - `php artisan make:migration create_abouts_table` komutu ile migration dosyası oluşturuldu.
+      - `php artisan make:model About` komutu ile Eloquent modeli oluşturuldu.
+  2.  **Migration Dosyasını Düzenleme:**
+      - **Kaynak:** `database/migrations/2025_07_22_133259_create_abouts_table.php`
+      - `abouts` tablosuna `user_id` (benzersiz yabancı anahtar), `title`, `description` ve `cv_url` sütunları eklendi. `user_id` için `unique()` ve `cascadeOnDelete()` kuralları tanımlandı.
+  3.  **Model İlişkilerini Tanımlama:**
+      - **`About` Modeli:**
+        - **Kaynak:** `app/Models/About.php`
+        - Veritabanı sütunları için `$fillable` özelliği tanımlandı.
+        - `user()` adında, `User` modeline olan `belongsTo` ilişkisi eklendi.
+      - **`User` Modeli:**
+        - **Kaynak:** `app/Models/User.php`
+        - `about()` adında, `About` modeline olan `hasOne` ilişkisi eklendi.
+  4.  **Veritabanını Güncelleme:**
+      - `php artisan migrate` komutu çalıştırılarak `abouts` tablosu veritabanına eklendi.
+
+- **İlgili Kurallar:**
+  - `php-laravel.md`: Eloquent modelleri ve migration'lar, Laravel'in en iyi pratiklerine ve standartlarına uygun olarak, bire-bir ilişki mantığıyla oluşturuldu.
+
+---
+
 ## ✅ [204] Sertifika ve Kurs (Certificate) Migration ve Modeli
 
 - **Tarih:** 22 Temmuz 2025

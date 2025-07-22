@@ -49,4 +49,14 @@ class Experience extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * Get all of the skills for the experience.
+     */
+    // Bu iş deneyimi ile ilişkili tüm becerileri getiren polimorfik ilişkiyi tanımlar.
+    // 'morphToMany' metodu, bu modelin başka bir modelle polimorfik bir çoktan-çoğa ilişkisi olduğunu belirtir.
+    public function skills()
+    {
+        return $this->morphToMany(Skill::class, 'skillable');
+    }
 }
