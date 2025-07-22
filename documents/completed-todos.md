@@ -2,6 +2,34 @@
 
 ---
 
+## ✅ [204] Sertifika ve Kurs (Certificate) Migration ve Modeli
+
+- **Tarih:** 22 Temmuz 2025
+- **Açıklama:** Kullanıcıların aldıkları sertifikaları ve kursları profillerine ekleyebilmeleri için `certificates` adında yeni bir veritabanı tablosu, bu tabloyu yönetmek için bir migration ve `Certificate` adında bir Eloquent modeli oluşturuldu. `User` ve `Certificate` modelleri arasında bir-e-çok (one-to-many) ilişki kuruldu.
+
+- **Uygulanan Teknik Adımlar:**
+  1.  **Migration ve Model Oluşturma:**
+      - `php artisan make:migration create_certificates_table` komutu ile migration dosyası oluşturuldu.
+      - `php artisan make:model Certificate` komutu ile Eloquent modeli oluşturuldu.
+  2.  **Migration Dosyasını Düzenleme:**
+      - **Kaynak:** `database/migrations/2025_07_22_132501_create_certificates_table.php`
+      - `certificates` tablosuna `user_id` (yabancı anahtar), `name`, `issuing_organization`, `issue_date`, `expiration_date`, `credential_id` ve `credential_url` sütunları eklendi. `user_id` için `cascadeOnDelete()` kuralı tanımlandı.
+  3.  **Model İlişkilerini Tanımlama:**
+      - **`Certificate` Modeli:**
+        - **Kaynak:** `app/Models/Certificate.php`
+        - Veritabanı sütunları için `$fillable` ve tarih alanları için `$casts` özellikleri tanımlandı.
+        - `user()` adında, `User` modeline olan `belongsTo` ilişkisi eklendi.
+      - **`User` Modeli:**
+        - **Kaynak:** `app/Models/User.php`
+        - `certificates()` adında, `Certificate` modeline olan `hasMany` ilişkisi eklendi.
+  4.  **Veritabanını Güncelleme:**
+      - `php artisan migrate` komutu çalıştırılarak `certificates` tablosu veritabanına eklendi.
+
+- **İlgili Kurallar:**
+  - `php-laravel.md`: Eloquent modelleri ve migration'lar, Laravel'in en iyi pratiklerine ve standartlarına uygun olarak oluşturuldu. İlişkiler doğru bir şekilde tanımlandı.
+
+---
+
 ## ✅ [203] Eğitim (Education) Migration ve Modeli
 
 - **Tarih:** 22 Temmuz 2025

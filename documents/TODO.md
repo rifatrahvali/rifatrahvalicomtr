@@ -220,7 +220,7 @@ Schema::create('user_profiles', function (Blueprint $table) {
 * **Testing**: Education CRUD testleri
 * **Documentation**: Education levels enum
 
-### [204] **Certificate & Course Migrations** [Öncelik: High] [Süre: 2 saat]
+### ✅ [204] Certificate & Course Migrations [Öncelik: High] [Süre: 2 saat]
 * **Cursor Rules**: php-laravel.mdc
 * **Description**: Sertifika ve kurs tabloları
 * **Technical Steps**:

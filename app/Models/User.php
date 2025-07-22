@@ -81,4 +81,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Education::class);
     }
+
+    /**
+     * Get the certificates for the user.
+     */
+    // Kullanıcının tüm sertifika kayıtlarını getiren ilişkiyi tanımlar.
+    // 'hasMany' ilişkisi, bir kullanıcının birden çok sertifika kaydı olabileceğini belirtir.
+    public function certificates()
+    {
+        return $this->hasMany(Certificate::class);
+    }
 }
