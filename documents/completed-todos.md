@@ -2,6 +2,26 @@
 
 ---
 
+### ✅ [302] **Experience CRUD Implementation**
+
+* **Tarih**: 22 Temmuz 2025
+* **Özet**: Kullanıcıların iş deneyimlerini yönetebilmesi için tam bir CRUD (Create, Read, Update, Delete) altyapısı oluşturuldu. Bu özellik, `auth` middleware koruması altındadır ve kullanıcıların sadece kendi verilerini yönetebilmesi için `Policy` tabanlı yetkilendirme kullanır.
+* **Teknik Adımlar**:
+    1.  **Controller Oluşturma**: `php artisan make:controller ExperienceController --resource --model=Experience` komutuyla tüm CRUD metodlarını içeren `app/Http/Controllers/ExperienceController.php` oluşturuldu.
+    2.  **Rota Tanımlama**: `routes/web.php` dosyasına, `auth` middleware grubu altında `Route::resource('experiences', ExperienceController::class);` eklenerek tüm CRUD rotaları tanımlandı.
+    3.  **Form Request (Doğrulama)**: `php artisan make:request StoreExperienceRequest` komutuyla `app/Http/Requests/StoreExperienceRequest.php` oluşturuldu. `title`, `company`, `start_date` gibi alanlar için zorunluluk, tür ve tarih karşılaştırma kuralları eklendi.
+    4.  **Yetkilendirme (Policy)**: `php artisan make:policy ExperiencePolicy --model=Experience` komutuyla `app/Policies/ExperiencePolicy.php` oluşturuldu. `update` ve `delete` metodları, işlem yapılmak istenen deneyimin `user_id`'si ile giriş yapmış kullanıcının `id`'sini karşılaştıracak şekilde dolduruldu.
+    5.  **Policy Kaydı**: Projenin Laravel 11+ yapısı nedeniyle varsayılan olarak bulunmayan `app/Providers/AuthServiceProvider.php` manuel olarak oluşturuldu ve `ExperiencePolicy` bu dosyada kaydedildi. Ardından, bu yeni servis sağlayıcı `bootstrap/providers.php` dosyasına eklenerek uygulamaya tanıtıldı.
+    6.  **Controller Mantığı**: `ExperienceController` içindeki tüm metodlar (`index`, `create`, `store`, `edit`, `update`, `destroy`) dolduruldu. `update` ve `destroy` metodlarında, işlem yapmadan önce `$this->authorize()` kullanılarak `ExperiencePolicy` üzerinden yetki kontrolü sağlandı. Kodda oluşan "Cannot redeclare" hatası, dosya tamamen yeniden yazılarak düzeltildi.
+    7.  **View Dosyaları**: `resources/views/experiences/` altında `index.blade.php`, `create.blade.php` ve `edit.blade.php` dosyaları oluşturuldu. Bu dosyalarda Bootstrap 5 kullanılarak listeleme, ekleme ve düzenleme formları hazırlandı. Hata mesajları ve sayfalama gibi kullanıcı dostu özellikler eklendi.
+
+* **İlgili Kurallar**:
+    - `php-laravel.md`: Controller, Policy, Form Request ve Blade şablonları Laravel'in en iyi pratiklerine uygun olarak oluşturuldu.
+    - `security.md`: Rotalar `auth` middleware ile korundu, yetkilendirme için Policy kullanıldı ve formlarda `@csrf` direktifine yer verildi.
+    - `frontend.md`: Kullanıcı arayüzleri Bootstrap 5 ile tutarlı ve standartlara uygun bir şekilde geliştirildi.
+
+---
+
 ## ✅ [301] User Profile Controller & Views
 
 - **Tarih:** 22 Temmuz 2025

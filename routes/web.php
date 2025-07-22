@@ -11,8 +11,11 @@ Route::get('/', function () {
 
 // Kullanıcı Profili Rotaları (Giriş yapmış kullanıcılar için)
 Route::middleware(['auth'])->group(function () {
-    Route::resource('profile', UserProfileController::class)->except(['index', 'create', 'store', 'show', 'destroy']);
-    // Sadece 'edit' ve 'update' metodlarını kullanacağız, çünkü her kullanıcının tek bir profili olacak.
+    Route::resource('profile', UserProfileController::class)->only(['edit', 'update']);
+
+    // İş Deneyimi (Experience) CRUD rotaları
+    // Bu rota, ExperienceController içindeki tüm resource metodlarını (index, create, store, show, edit, update, destroy) yönetir.
+    Route::resource('experiences', ExperienceController::class);
 });
 
 // 2FA Yönetim Rotaları
