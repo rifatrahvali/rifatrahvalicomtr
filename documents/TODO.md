@@ -368,7 +368,7 @@ class UpdateProfileRequest extends FormRequest
 * **Testing**: Experience management testleri
 * **Documentation**: Experience API endpoints
 
-### ✅ [303] `[Completed]` **Education CRUD Implementation** [Öncelik: Critical] [Süre: 3 saat]
+### ✅ [303] **Education CRUD Implementation** [Öncelik: Critical] [Süre: 3 saat]
 * **Cursor Rules**: php-laravel.mdc
 * **Description**: Eğitim bilgileri yönetim sistemi
 * **Technical Steps**:
@@ -379,7 +379,7 @@ class UpdateProfileRequest extends FormRequest
 * **Testing**: Education CRUD testleri
 * **Documentation**: Education management
 
-### ☐ [304] **Certificate Management System** [Öncelik: High] [Süre: 3 saat]
+### ✅ [304] **Certificate Management System** [Öncelik: High] [Süre: 3 saat]
 * **Cursor Rules**: php-laravel.mdc, security.mdc
 * **Description**: Sertifika yönetim sistemi
 * **Technical Steps**:

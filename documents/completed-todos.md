@@ -2,6 +2,27 @@
 
 ---
 
+### ✅ [304] **Certificate Management System**
+
+*   **Tarih**: 23 Temmuz 2025
+*   **Özet**: Kullanıcıların sertifika bilgilerini (sertifika adı, veren kurum, tarih vb.) yönetebilmesi için tam bir CRUD (Create, Read, Update, Delete) altyapısı oluşturuldu. Bu özellik, `auth` middleware koruması altındadır ve kullanıcıların sadece kendi verilerini yönetebilmesi için `Policy` tabanlı yetkilendirme kullanır.
+*   **Teknik Adımlar**:
+    1.  **Controller Oluşturma**: `php artisan make:controller CertificateController --resource --model=Certificate` komutuyla tüm CRUD metodlarını içeren `app/Http/Controllers/CertificateController.php` oluşturuldu.
+    2.  **Rota Tanımlama**: `routes/web.php` dosyasına, `auth` middleware grubu altında `Route::resource('certificates', CertificateController::class);` eklenerek tüm CRUD rotaları tanımlandı.
+    3.  **Form Request (Doğrulama)**: `php artisan make:request StoreCertificateRequest` komutuyla `app/Http/Requests/StoreCertificateRequest.php` oluşturuldu. `name`, `issuing_organization`, `issue_date` gibi alanlar için zorunluluk ve tür kuralları eklendi.
+    4.  **Yetkilendirme (Policy)**: `php artisan make:policy CertificatePolicy --model=Certificate` komutuyla `app/Policies/CertificatePolicy.php` oluşturuldu. `update` ve `delete` metodları, işlem yapılmak istenen sertifika kaydının `user_id`'si ile giriş yapmış kullanıcının `id`'sini karşılaştıracak şekilde dolduruldu.
+    5.  **Policy Kaydı**: `app/Providers/AuthServiceProvider.php` dosyası düzenlenerek `Certificate` modeli, `CertificatePolicy` ile ilişkilendirildi.
+    6.  **Controller Mantığı**: `CertificateController` içindeki tüm metodlar (`index`, `create`, `store`, `edit`, `update`, `destroy`) dolduruldu. `update` ve `destroy` metodlarında, işlem yapmadan önce `$this->authorize()` kullanılarak `CertificatePolicy` üzerinden yetki kontrolü sağlandı.
+    7.  **View Dosyaları**: `resources/views/certificates/` altında `index.blade.php`, `create.blade.php` ve `edit.blade.php` dosyaları oluşturuldu. Bu dosyalarda Bootstrap 5 kullanılarak listeleme, ekleme ve düzenleme formları hazırlandı. Silme işlemi için JavaScript ile bir onay diyaloğu eklendi.
+*   **İlgili Kurallar**:
+    - `php-laravel.md`: Controller, Policy, Form Request ve Blade şablonları Laravel'in en iyi pratiklerine uygun olarak oluşturuldu.
+    - `security.md`: Rotalar `auth` middleware ile korundu, yetkilendirme için Policy kullanıldı ve formlarda `@csrf` direktifine yer verildi.
+    - `frontend.md`: Kullanıcı arayüzleri Bootstrap 5 ile tutarlı ve standartlara uygun bir şekilde geliştirildi.
+
+
+
+---
+
 ### ✅ [303] **Education CRUD Implementation**
 
 * **Tarih**: 22 Temmuz 2025

@@ -19,7 +19,8 @@ Route::middleware(['auth'])->group(function () {
 
     // Education (Eğitim) CRUD Rotaları
     // Bu rota grubu, kullanıcıların eğitim bilgilerini yönetmesi için gerekli tüm rotaları içerir.
-    Route::resource('educations', App\Http\Controllers\EducationController::class);
+    Route::resource('educations', EducationController::class);
+    Route::resource('certificates', CertificateController::class);
 });
 
 // 2FA Yönetim Rotaları
