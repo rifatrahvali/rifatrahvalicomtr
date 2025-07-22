@@ -3,8 +3,16 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Google2FAController; // 2FA Controller'ını import ediyoruz.
 
+use App\Http\Controllers\UserProfileController;
+
 Route::get('/', function () {
     return view('welcome');
+});
+
+// Kullanıcı Profili Rotaları (Giriş yapmış kullanıcılar için)
+Route::middleware(['auth'])->group(function () {
+    Route::resource('profile', UserProfileController::class)->except(['index', 'create', 'store', 'show', 'destroy']);
+    // Sadece 'edit' ve 'update' metodlarını kullanacağız, çünkü her kullanıcının tek bir profili olacak.
 });
 
 // 2FA Yönetim Rotaları
@@ -27,3 +35,7 @@ Route::middleware(['auth'])->group(function () {
     // Kullanıcının girdiği 2FA kodunu doğrulayan rota.
     Route::post('/user/2fa/verify', [Google2FAController::class, 'verify2FA'])->name('2fa.verify.submit');
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

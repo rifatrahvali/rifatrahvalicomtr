@@ -2,6 +2,33 @@
 
 ---
 
+## ✅ [301] User Profile Controller & Views
+
+- **Tarih:** 22 Temmuz 2025
+- **Açıklama:** Kullanıcıların profil bilgilerini (isim, avatar, CV dosyası vb.) yönetebilmeleri için gerekli olan backend ve frontend altyapısı oluşturuldu. Bu görev, controller, route, form request, Blade view dosyalarının oluşturulmasını ve kimlik doğrulama arayüzünün entegrasyonunu içeriyordu. Geliştirme sırasında karşılaşılan Redis ve Vite derleme sorunları da kalıcı olarak çözüldü.
+
+- **Uygulanan Teknik Adımlar:**
+  1.  **Controller ve Rota Oluşturma:**
+      - `UserProfileController` oluşturuldu ve `edit`, `update` metodları implemente edildi.
+      - `routes/web.php` dosyasına `auth` middleware korumalı `/profile` rotası eklendi.
+  2.  **Doğrulama (Validation):**
+      - `UpdateUserProfileRequest` sınıfı oluşturularak profil güncelleme formu için sunucu taraflı doğrulama kuralları (isim, email, resim, dosya tipi vb.) tanımlandı.
+  3.  **Arayüz (Views):**
+      - `resources/views/profile/edit.blade.php` view'ı, profil düzenleme formu için oluşturuldu.
+      - `resources/views/layouts/app.blade.php` ana şablonu, Bootstrap 5 kullanacak şekilde düzenlendi.
+  4.  **Kimlik Doğrulama (Authentication):**
+      - `laravel/ui` paketi ile standart Bootstrap tabanlı kimlik doğrulama arayüzü (login, register) kuruldu.
+  5.  **Hata Ayıklama ve Çözümler:**
+      - **Redis Hatası:** `.env` dosyasında `CACHE_DRIVER`, `SESSION_DRIVER` ve `QUEUE_CONNECTION` ayarları `redis` yerine `file` ve `sync` olarak değiştirilerek `Class 'Redis' not found` hatası giderildi.
+      - **CSS/Vite Hatası:** `laravel/ui`'nin neden olduğu stil ve derleme hataları, `layouts/app.blade.php` dosyasında Vite direktifi kaldırılarak ve Bootstrap CSS/JS dosyaları doğrudan CDN üzerinden çağrılarak kalıcı olarak çözüldü.
+
+- **İlgili Kurallar:**
+  - `php-laravel.md`: Controller, Form Request, Blade ve Eloquent ilişkileri en iyi pratiklere uygun olarak kullanıldı.
+  - `security.md`: Formlarda `@csrf` kullanıldı, dosya yüklemeleri doğrulandı.
+  - `frontend.md`: Arayüz, Bootstrap 5 ile standartlara uygun olarak oluşturuldu.
+
+---
+
 ## ✅ [211] Veritabanı Seeder'larının Oluşturulması
 
 - **Tarih:** 22 Temmuz 2025
@@ -372,7 +399,7 @@
     2.  **Varlıkların Yayınlanması**: `php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider"` komutu ile paketin yapılandırma (`config/permission.php`) ve veritabanı göç dosyaları yayınlandı.
     3.  **Veritabanı Sıfırlama ve Göç**: `php artisan migrate:fresh` komutu ile veritabanı sıfırlandı ve tüm göçler (Spatie dahil) yeniden çalıştırılarak `roles`, `permissions` ve ilişkili pivot tabloları oluşturuldu.
         *   **Kaynak**: `database/migrations` klasöründeki göç dosyaları.
-    4.  **User Modeli Güncellemesi**: `app/Models/User.php` modeline `Spatie\Permission\Traits\HasRoles` trait'i eklendi. Bu, `User` modeline rol ve izin yönetimi metodları (`assignRole`, `hasPermissionTo` vb.) kazandırdı.
+    4.  **User Modeli Güncellemesi**: `app/Models/User.php` modeline `Spatie\Permission\Traits\HasRoles` trait'i eklendi. Bu, `User` modelinin rol ve izin yönetimi metodları (`assignRole`, `hasPermissionTo` vb.) kazanmasını sağladı.
         *   **Kaynak**: `app/Models/User.php`
     5.  `documents/TODO.md` dosyasındaki ilgili görev tamamlandı olarak (✅) işaretlendi.
     6.  Bu detaylar `documents/completed-todos.md` dosyasına eklendi.
