@@ -390,7 +390,7 @@ class UpdateProfileRequest extends FormRequest
 * **Testing**: Certificate upload testleri
 * **Documentation**: Certificate validation
 
-### ☐ [305] **Course Management System** [Öncelik: Medium] [Süre: 2 saat]
+### ☐ ✅ [305] **Course Management System** [Öncelik: Medium] [Süre: 2 saat]
 * **Cursor Rules**: php-laravel.mdc
 * **Description**: Kurs bilgileri yönetimi
 * **Technical Steps**:

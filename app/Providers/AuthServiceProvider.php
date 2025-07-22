@@ -8,6 +8,8 @@ use App\Policies\ExperiencePolicy;
 use App\Policies\EducationPolicy;
 use App\Models\Certificate;
 use App\Policies\CertificatePolicy;
+use App\Models\Course;
+use App\Policies\CoursePolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -20,7 +22,8 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         Experience::class => ExperiencePolicy::class,
         Education::class => EducationPolicy::class,
-        Certificate::class => CertificatePolicy::class,
+                Certificate::class => CertificatePolicy::class,
+        Course::class => CoursePolicy::class,
     ];
 
     /**

@@ -1,8 +1,56 @@
-# Completed Tasks
+# Tamamlanmış Görevler
 
 ---
 
-### ✅ [304] **Certificate Management System**
+### ✅ [303] Education CRUD Implementation
+
+**Tamamlanma Tarihi:** 22.07.2025
+
+**Özet:** Kullanıcıların eğitim geçmişlerini (okul, bölüm, başlangıç-bitiş tarihi vb.) yönetebilmeleri için tam bir CRUD (Create, Read, Update, Delete) altyapısı oluşturuldu. Bu özellik, `auth` middleware koruması altındadır ve kullanıcıların sadece kendi verilerini yönetebilmesi için `Policy` tabanlı yetkilendirme kullanır.
+
+---
+
+### ✅ [304] Certificate Management System
+
+**Tamamlanma Tarihi:** 22.07.2025
+
+**Özet:** Kullanıcıların sertifika bilgilerini (sertifika adı, veren kurum, tarih vb.) yönetebilmesi için tam bir CRUD (Create, Read, Update, Delete) altyapısı oluşturuldu. Bu özellik, `auth` middleware koruması altındadır ve kullanıcıların sadece kendi verilerini yönetebilmesi için `Policy` tabanlı yetkilendirme kullanır.
+
+---
+
+### ✅ [305] Course Management System
+
+**Tamamlanma Tarihi:** 22.07.2025
+
+**Özet:** Bu görevle birlikte, kullanıcıların tamamladıkları kursları yönetebilecekleri tam kapsamlı bir CRUD (Create, Read, Update, Delete) modülü geliştirildi. Modül, Laravel'in en iyi pratikleri ve projenin güvenlik standartları göz önünde bulundurularak oluşturuldu. Kullanıcılar, sadece kendi kurs bilgilerini yönetebilir.
+
+**Uygulanan Teknik Adımlar:**
+
+1.  **Model ve Migration Oluşturma:**
+    *   `Course` adında bir Eloquent modeli (`app/Models/Course.php`) ve `courses` tablosunu oluşturmak için bir migration dosyası (`database/migrations/*_create_courses_table.php`) yaratıldı.
+    *   `php artisan migrate` komutu ile veritabanı şeması güncellendi.
+
+2.  **Model Yapılandırması:**
+    *   `app/Models/Course.php` modelinde, güvenlik için `$fillable` ve veri tipi tutarlılığı için `$casts` özellikleri tanımlandı.
+
+3.  **Controller ve Rotalar:**
+    *   `CourseController` (`app/Http/Controllers/CourseController.php`), `--resource` bayrağı ile oluşturuldu.
+    *   `routes/web.php` dosyasına, `auth` middleware koruması altında `Route::resource('courses', CourseController::class);` rotası eklendi.
+
+4.  **Doğrulama (Validation):**
+    *   `StoreCourseRequest` (`app/Http/Requests/StoreCourseRequest.php`) sınıfı oluşturularak doğrulama kuralları merkezi bir hale getirildi.
+
+5.  **Yetkilendirme (Authorization):**
+    *   `CoursePolicy` (`app/Policies/CoursePolicy.php`) oluşturularak kullanıcıların yalnızca kendi verilerini yönetmesi sağlandı.
+    *   Policy, `AuthServiceProvider` içinde sisteme kaydedildi.
+
+6.  **Kullanıcı Arayüzü (Views):**
+    *   `resources/views/courses` dizini altında `index`, `create`, `edit` ve `_form` Blade dosyaları oluşturuldu.
+    *   Arayüzler, Bootstrap 5 kullanılarak projenin genel yapısına uygun olarak tasarlandı.
+
+---
+
+### [304] **Certificate Management System**
 
 *   **Tarih**: 23 Temmuz 2025
 *   **Özet**: Kullanıcıların sertifika bilgilerini (sertifika adı, veren kurum, tarih vb.) yönetebilmesi için tam bir CRUD (Create, Read, Update, Delete) altyapısı oluşturuldu. Bu özellik, `auth` middleware koruması altındadır ve kullanıcıların sadece kendi verilerini yönetebilmesi için `Policy` tabanlı yetkilendirme kullanır.
