@@ -2,6 +2,27 @@
 
 ---
 
+## ✅ [105] CSRF & XSS Koruma Kurulumu ve Doğrulaması
+
+- **Tarih:** 22 Temmuz 2025
+- **Açıklama:** Projenin, en yaygın web zafiyetlerinden olan Siteler Arası İstek Sahteciliği (CSRF) ve Siteler Arası Betik Çalıştırma (XSS) saldırılarına karşı korunduğu doğrulandı. Bu görev, ek bir kod yazımından ziyade, Laravel'in yerleşik güvenlik mekanizmalarının doğru bir şekilde uygulandığının teyit edilmesini içeriyordu.
+
+- **Uygulanan Teknik Adımlar ve Doğrulama:**
+  1.  **CSRF (Cross-Site Request Forgery) Koruması:**
+      - **Doğrulama:** Laravel'in `web` middleware grubu, `VerifyCsrfToken` middleware'ini varsayılan olarak içerir. Bu, `POST`, `PUT`, `PATCH`, `DELETE` gibi durum değiştiren tüm isteklerin geçerli bir CSRF token'ı ile gönderilmesini zorunlu kılar. Bu standart yapılandırmanın projede aktif olduğu teyit edildi.
+      - **Kaynak Kontrolü:** Projedeki tüm formların (`resources/views/2fa/enable.blade.php` ve `resources/views/2fa/verify.blade.php`) `@csrf` Blade direktifini içerdiği doğrulandı. Bu direktif, formlara otomatik olarak gizli bir CSRF token alanı ekler.
+
+  2.  **XSS (Cross-Site Scripting) Koruması:**
+      - **Doğrulama:** Laravel'in Blade şablon motoru, `{{ $variable }}` sözdizimi ile yazdırılan tüm verileri varsayılan olarak `htmlspecialchars` fonksiyonundan geçirir. Bu, HTML etiketlerini ve potansiyel olarak zararlı scriptleri etkisiz hale getirir.
+      - **Kaynak Kontrolü:** Projedeki tüm view dosyalarında, kullanıcıdan gelen veya veritabanından alınan dinamik verilerin bu güvenli sözdizimi ile ekrana basıldığı doğrulandı. `{!! $variable !!}` gibi güvenli olmayan ve ham HTML basan bir kullanım tespit edilmedi.
+
+- **Sonuç:** Proje, Laravel'in standart ve en iyi pratiklerine uygun olarak hem CSRF hem de XSS saldırılarına karşı güvenli bir şekilde yapılandırılmıştır. Bu görev için ek bir müdahaleye gerek duyulmamıştır.
+
+- **İlgili Kurallar:**
+  - `security.md`: Formlarda `@csrf` kullanılması ve XSS için Blade kaçış mekanizmasının kullanılması kurallarına uyulduğu teyit edildi.
+
+---
+
 ## ✅ [104] İstek Sınırlama (Rate Limiting) ve Kaba Kuvvet Koruması
 
 - **Tarih:** 22 Temmuz 2025
