@@ -71,4 +71,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Experience::class);
     }
+
+    /**
+     * Get the education records for the user.
+     */
+    // Kullanıcının tüm eğitim kayıtlarını getiren ilişkiyi tanımlar.
+    // 'hasMany' ilişkisi, bir kullanıcının birden çok eğitim kaydı olabileceğini belirtir.
+    public function educations()
+    {
+        return $this->hasMany(Education::class);
+    }
 }

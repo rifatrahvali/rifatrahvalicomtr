@@ -2,6 +2,34 @@
 
 ---
 
+## ✅ [203] Eğitim (Education) Migration ve Modeli
+
+- **Tarih:** 22 Temmuz 2025
+- **Açıklama:** Kullanıcıların eğitim geçmişlerini (okul, bölüm, derece vb.) profillerine ekleyebilmeleri için `educations` adında yeni bir veritabanı tablosu, bu tabloyu yönetmek için bir migration ve `Education` adında bir Eloquent modeli oluşturuldu. `User` ve `Education` modelleri arasında bir-e-çok (one-to-many) ilişki kuruldu.
+
+- **Uygulanan Teknik Adımlar:**
+  1.  **Migration ve Model Oluşturma:**
+      - `php artisan make:migration create_educations_table` komutu ile migration dosyası oluşturuldu.
+      - `php artisan make:model Education` komutu ile Eloquent modeli oluşturuldu.
+  2.  **Migration Dosyasını Düzenleme:**
+      - **Kaynak:** `database/migrations/2025_07_22_131929_create_educations_table.php`
+      - `educations` tablosuna `user_id` (yabancı anahtar), `school`, `degree`, `field_of_study`, `description`, `start_date`, ve `end_date` sütunları eklendi. `user_id` için `cascadeOnDelete()` kuralı tanımlandı.
+  3.  **Model İlişkilerini Tanımlama:**
+      - **`Education` Modeli:**
+        - **Kaynak:** `app/Models/Education.php`
+        - Veritabanı sütunları için `$fillable` ve tarih alanları için `$casts` özellikleri tanımlandı.
+        - `user()` adında, `User` modeline olan `belongsTo` ilişkisi eklendi.
+      - **`User` Modeli:**
+        - **Kaynak:** `app/Models/User.php`
+        - `educations()` adında, `Education` modeline olan `hasMany` ilişkisi eklendi.
+  4.  **Veritabanını Güncelleme:**
+      - `php artisan migrate` komutu çalıştırılarak `educations` tablosu veritabanına eklendi.
+
+- **İlgili Kurallar:**
+  - `php-laravel.md`: Eloquent modelleri ve migration'lar, Laravel'in en iyi pratiklerine ve standartlarına uygun olarak oluşturuldu. İlişkiler doğru bir şekilde tanımlandı.
+
+---
+
 ## ✅ [202] İş Deneyimi (Experience) Migration ve Modeli
 
 - **Tarih:** 22 Temmuz 2025
