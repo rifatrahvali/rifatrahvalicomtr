@@ -16,6 +16,10 @@ Route::middleware(['auth'])->group(function () {
     // İş Deneyimi (Experience) CRUD rotaları
     // Bu rota, ExperienceController içindeki tüm resource metodlarını (index, create, store, show, edit, update, destroy) yönetir.
     Route::resource('experiences', ExperienceController::class);
+
+    // Education (Eğitim) CRUD Rotaları
+    // Bu rota grubu, kullanıcıların eğitim bilgilerini yönetmesi için gerekli tüm rotaları içerir.
+    Route::resource('educations', App\Http\Controllers\EducationController::class);
 });
 
 // 2FA Yönetim Rotaları
