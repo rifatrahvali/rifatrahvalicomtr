@@ -2,6 +2,24 @@
 
 ---
 
+## ✅ [102] Role-Based Access Control (Spatie Permission)
+
+*   **Görev**: `spatie/laravel-permission` paketini kullanarak rol tabanlı bir erişim kontrol sistemi (RBAC) kurmak.
+*   **Açıklama**: Bu paket, uygulamanızda kullanıcı rollerini ve bu rollere atanan izinleri esnek bir şekilde yönetmenizi sağlar. Kurulum, projenin yetkilendirme altyapısını tamamlamıştır.
+*   **Yapılan İşlemler**:
+    1.  **Hata Tespiti ve Çözümü**: `php artisan migrate` komutu çalıştırıldığında `Class "Redis" not found` hatası alındı. Bu, `php-redis` eklentisinin eksikliğinden kaynaklanıyordu. Sorunu aşmak için `.env` dosyasındaki `CACHE_STORE` geçici olarak `file` olarak değiştirildi.
+    2.  **Varlıkların Yayınlanması**: `php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider"` komutu ile paketin yapılandırma (`config/permission.php`) ve veritabanı göç dosyaları yayınlandı.
+    3.  **Veritabanı Sıfırlama ve Göç**: `php artisan migrate:fresh` komutu ile veritabanı sıfırlandı ve tüm göçler (Spatie dahil) yeniden çalıştırılarak `roles`, `permissions` ve ilişkili pivot tabloları oluşturuldu.
+        *   **Kaynak**: `database/migrations` klasöründeki göç dosyaları.
+    4.  **User Modeli Güncellemesi**: `app/Models/User.php` modeline `Spatie\Permission\Traits\HasRoles` trait'i eklendi. Bu, `User` modeline rol ve izin yönetimi metodları (`assignRole`, `hasPermissionTo` vb.) kazandırdı.
+        *   **Kaynak**: `app/Models/User.php`
+    5.  `documents/TODO.md` dosyasındaki ilgili görev tamamlandı olarak (✅) işaretlendi.
+    6.  Bu detaylar `documents/completed-todos.md` dosyasına eklendi.
+*   **İlgili Kurallar**:
+    *   `admin-panel-security.md`: Rol tabanlı yetkilendirme, yönetici paneli güvenlik gereksinimlerinin temel bir parçasıdır ve bu kurulumla karşılanmıştır.
+
+---
+
 ## ✅ [101] Laravel Sanctum Authentication
 
 *   **Görev**: Proje için API token tabanlı güvenli bir kimlik doğrulama sistemi kurmak.
