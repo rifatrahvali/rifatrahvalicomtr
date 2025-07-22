@@ -12,6 +12,15 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        // 2FA middleware'ini '2fa' adıyla kaydediyoruz.
+        // Bu, rotalarda ->middleware('2fa') şeklinde kolayca kullanmamızı sağlar.
+                $middleware->web(append: [
+            \App\Http\Middleware\Google2FAMiddleware::class,
+        ]);
+
+        $middleware->alias([
+            '2fa' => \App\Http\Middleware\Google2FAMiddleware::class,
+        ]);
         // Sanctum'un SPA kimlik doğrulama middleware'ini ekliyoruz.
         $middleware->statefulApi();
     })

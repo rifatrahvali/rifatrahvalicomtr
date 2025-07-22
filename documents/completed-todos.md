@@ -2,6 +2,33 @@
 
 ---
 
+## ✅ [103] İki Faktörlü Kimlik Doğrulama (2FA) Entegrasyonu
+
+*   **Görev**: Projeye, `pragmarx/google2fa-laravel` paketi kullanılarak Google Authenticator tabanlı İki Faktörlü Kimlik Doğrulama (2FA) özelliği eklendi. Bu özellik, kullanıcıların hesap güvenliğini önemli ölçüde artırmaktadır. Kullanıcılar artık kendi profilleri üzerinden 2FA'yı etkinleştirebilir ve devre dışı bırakabilirler.
+
+*   **Açıklama**: Projeye, `pragmarx/google2fa-laravel` paketi kullanılarak Google Authenticator tabanlı İki Faktörlü Kimlik Doğrulama (2FA) özelliği eklendi. Bu özellik, kullanıcıların hesap güvenliğini önemli ölçüde artırmaktadır. Kullanıcılar artık kendi profilleri üzerinden 2FA'yı etkinleştirebilir ve devre dışı bırakabilirler.
+
+*   **Yapılan İşlemler**:
+    1.  **Paket Kurulumu:** `composer require pragmarx/google2fa-laravel` komutu ile 2FA paketi projeye dahil edildi.
+    2.  **Veritabanı Güncellemesi:** `users` tablosuna, kullanıcıların 2FA gizli anahtarlarını saklamak için `google2fa_secret` adında şifrelenmiş bir sütun ekleyen yeni bir migration oluşturuldu ve çalıştırıldı.
+    3.  **Model Yapılandırması:** `User` modeline, 2FA işlevselliğini kazandırmak için `Google2FA` trait'i eklendi. Güvenlik amacıyla `google2fa_secret` alanı, modelin JSON ve dizi çıktılarından gizlendi.
+    4.  **Controller Oluşturma:** `Google2FAController` adında yeni bir controller oluşturuldu. Bu controller, 2FA'yı etkinleştirme, devre dışı bırakma ve doğrulama işlemlerini yöneten metotları içerir (`showEnableForm`, `enable2FA`, `disable2FA`, `showVerifyForm`, `verify2FA`).
+    5.  **Arayüz (View) Dosyaları:**
+        - `2fa/enable.blade.php`: Kullanıcıların 2FA'yı etkinleştirebilmesi için QR kodu ve gizli anahtarı gösteren, ayrıca OTP doğrulama formu içeren bir arayüz oluşturuldu.
+        - `2fa/verify.blade.php`: Giriş yaptıktan sonra 2FA'sı aktif olan kullanıcıların OTP'lerini girecekleri doğrulama sayfası oluşturuldu.
+    6.  **Rotaların Tanımlanması:** `routes/web.php` dosyasına, 2FA yönetimi (etkinleştirme, devre dışı bırakma, doğrulama) için gerekli olan tüm rotalar eklendi ve bu rotalar `auth` middleware'i ile koruma altına alındı.
+    7.  **Middleware Geliştirme:** `Google2FAMiddleware` adında özel bir middleware oluşturuldu. Bu middleware:
+        - Oturum açmış ve 2FA'sı aktif olan bir kullanıcının, o anki oturumda kimliğini doğrulayıp doğrulamadığını kontrol eder.
+        - Henüz doğrulanmamış kullanıcıları otomatik olarak `2fa.verify` rotasına yönlendirir.
+        - Yönlendirme döngülerini önlemek için kendi 2FA yönetim rotalarını kontrol dışı bırakır.
+    8.  **Middleware Kaydı ve Uygulanması:** Oluşturulan `Google2FAMiddleware`, `bootstrap/app.php` dosyasında kaydedildi ve `web` middleware grubuna eklenerek kimliği doğrulanmış tüm rotalarda otomatik olarak çalışması sağlandı.
+
+*   **İlgili Kurallar**:
+    *   `security.md`: 2FA entegrasyonu, hesap güvenliği standartlarına uygundur.
+    *   `core-principles.md`: Projenin temel prensiplerine uyuldu.
+
+---
+
 ## ✅ [102] Role-Based Access Control (Spatie Permission)
 
 *   **Görev**: `spatie/laravel-permission` paketini kullanarak rol tabanlı bir erişim kontrol sistemi (RBAC) kurmak.
