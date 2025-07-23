@@ -70,3 +70,8 @@ Route::get('/cv', [\App\Http\Controllers\CvController::class, 'show'])->name('cv
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('categories', \App\Http\Controllers\CategoryController::class);
 });
+
+// Admin panelde blog post yönetimi için resource rotaları
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::resource('posts', \App\Http\Controllers\PostController::class);
+});

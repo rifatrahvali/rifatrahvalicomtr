@@ -464,11 +464,11 @@ class UpdateProfileRequest extends FormRequest
 * **Testing**: Hierarchical category testleri
 * **Documentation**: Category management guide
 
-### ☐ [402] **Blog Post WYSIWYG Editor Integration** [Öncelik: Critical] [Süre: 5 saat]
+### ✅ [402] **Blog Post WYSIWYG Editor Integration** [Öncelik: Critical] [Süre: 5 saat]
 * **Cursor Rules**: frontend.mdc, security.mdc
 * **Description**: Rich text editor ile blog yazı editörü
 * **Technical Steps**:
-  * TinyMCE veya CKEditor entegrasyonu
+  * TinyMCE entegrasyonu
   * Image upload ve media library
   * Content sanitization (XSS prevention)
   * Auto-save functionality
