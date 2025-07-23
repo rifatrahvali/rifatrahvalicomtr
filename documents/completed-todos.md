@@ -846,6 +846,36 @@
 - Model: `app/Models/BlogPost.php`
 - Migration: `database/migrations/2025_07_22_135621_create_blog_posts_table.php`
 
+---
+
+### ✅ [404] Blog Post Scheduling System
+
+**Tamamlanma Tarihi:** 23.07.2025
+
+**Özet:** Blog yazılarının zamanlanmış şekilde otomatik olarak yayınlanabilmesi için Laravel scheduler ve queue altyapısı ile PublishScheduledPosts job'u geliştirildi. publish_at zamanı gelmiş ve status'u draft olan yazılar otomatik olarak published durumuna geçirilir. Kodun her adımında Türkçe açıklama ve güvenlik kurallarına uyuldu.
+
+**Yapılan Teknik Adımlar:**
+1. **Job:** `app/Jobs/PublishScheduledPosts.php` dosyası oluşturuldu. publish_at zamanı gelmiş ve status'u draft olan postları published yapacak şekilde handle metodu yazıldı.
+2. **Scheduler:** `app/Console/Kernel.php` dosyasında schedule fonksiyonuna PublishScheduledPosts job'u her dakika çalışacak şekilde eklendi.
+3. **Model & Migration:** `app/Models/BlogPost.php` ve `database/migrations/2025_07_22_135621_create_blog_posts_table.php` dosyalarında published_at alanı ve status yönetimi kullanıldı.
+4. **Testing:** Tüm testler (`php artisan test`) başarıyla geçti. Manuel olarak da zamanlanmış yazıların otomatik yayınlandığı doğrulandı.
+5. **Kurallar:** Tüm kodlarda Türkçe açıklamalar, güvenlik, input doğrulama ve kod kalitesi kurallarına uyuldu.
+
+**İlgili Kurallar:**
+- `.cursor/rules/php-laravel.mdc`: Model, migration, job ve scheduler yapısı Laravel standartlarına uygun olarak oluşturuldu.
+- `.cursor/rules/performance.mdc`: Queue ve scheduler kullanımı ile performans ve otomasyon sağlandı.
+- `.cursor/rules/code-quality.mdc`: Kodun her adımında Türkçe açıklama ve yorumlar eklendi.
+
+**Test:**
+- `php artisan test` komutu ile tüm testler başarıyla geçti.
+- Blog post scheduling canlıda manuel olarak da test edildi.
+
+**Kaynaklar:**
+- Job: `app/Jobs/PublishScheduledPosts.php`
+- Scheduler: `app/Console/Kernel.php`
+- Model: `app/Models/BlogPost.php`
+- Migration: `database/migrations/2025_07_22_135621_create_blog_posts_table.php`
+
 
 
 
