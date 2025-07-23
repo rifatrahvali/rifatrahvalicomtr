@@ -8,6 +8,16 @@
     <meta name="description" content="@yield('meta_description', 'Kişisel blog ve portföy - rifatrahvali.com.tr')">
     @stack('meta') <!-- Türkçe: SEO ve sosyal medya meta alanları için -->
     <link rel="icon" type="image/png" href="/favicon.ico">
+    <link rel="manifest" href="/manifest.json">
+    <script>
+      // Türkçe: Service worker kaydı ile PWA offline desteği
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('/service-worker.js');
+        });
+      }
+    </script>
+    <!-- Türkçe: PWA manifest ve service worker eklenmiştir. -->
     <!-- Vite/Tailwind/Bootstrap -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <!-- Türkçe: Modern CSS/JS dosyaları dahil edildi -->

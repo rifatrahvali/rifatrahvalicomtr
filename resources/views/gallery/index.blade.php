@@ -16,7 +16,16 @@
                 <div class="card h-100 gallery-item" data-type="{{ $item->type }}">
                     @if($item->type == 'image')
                         <a href="{{ asset('storage/' . $item->path) }}" class="gallery-lightbox" data-title="{{ $item->title }}">
-                            <img src="{{ asset('storage/' . $item->path) }}" class="card-img-top" alt="{{ $item->alt_text ?? $item->title }}" loading="lazy">
+                            <picture>
+                                <source srcset="{{ asset('storage/uploads/webp/' . pathinfo($item->path, PATHINFO_FILENAME) . '.webp') }}" type="image/webp">
+                                <img src="{{ asset('storage/' . $item->path) }}"
+                                     srcset="{{ asset('storage/' . $item->path) }} 800w, {{ asset('storage/uploads/thumbnails/' . basename($item->path)) }} 150w, {{ asset('storage/uploads/medium/' . basename($item->path)) }} 400w"
+                                     sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                                     class="card-img-top"
+                                     alt="{{ $item->alt_text ?? $item->title }}"
+                                     loading="lazy">
+                            </picture>
+                            <!-- Türkçe yorum: WebP desteği, responsive srcset ve picture etiketi ile optimize görsel sunumu -->
                         </a>
                         <!-- Türkçe yorum: Görsel için lightbox linki ve lazy loading -->
                     @else

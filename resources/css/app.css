@@ -455,3 +455,59 @@ input[type="checkbox"], input[type="radio"] {
     background-size: 1.2em 1.2em;
     /* Türkçe: Hatalı input için kırmızı border ve hata ikonu */
 }
+
+/* =====================
+   Responsive Grid & Breakpoints
+   ===================== */
+.container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    max-width: 100vw;
+    /* Türkçe: Tüm cihazlarda kenar boşluklu ana container */
+}
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -0.75rem;
+    margin-right: -0.75rem;
+    /* Türkçe: Grid satırı, flex tabanlı */
+}
+.col {
+    flex: 1 0 0%;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    min-width: 0;
+    /* Türkçe: Grid sütunu, esnek genişlik */
+}
+
+/* Mobil-first breakpoints */
+@media (min-width: 576px) {
+    .container { max-width: 540px; }
+    .col-sm-6 { flex: 0 0 50%; max-width: 50%; }
+    .col-sm-12 { flex: 0 0 100%; max-width: 100%; }
+    /* Türkçe: Küçük ekranlar için grid ayarları */
+}
+@media (min-width: 768px) {
+    .container { max-width: 720px; }
+    .col-md-4 { flex: 0 0 33.3333%; max-width: 33.3333%; }
+    .col-md-6 { flex: 0 0 50%; max-width: 50%; }
+    .col-md-12 { flex: 0 0 100%; max-width: 100%; }
+    /* Türkçe: Orta ekranlar için grid ayarları */
+}
+@media (min-width: 992px) {
+    .container { max-width: 960px; }
+    .col-lg-3 { flex: 0 0 25%; max-width: 25%; }
+    .col-lg-4 { flex: 0 0 33.3333%; max-width: 33.3333%; }
+    .col-lg-6 { flex: 0 0 50%; max-width: 50%; }
+    .col-lg-12 { flex: 0 0 100%; max-width: 100%; }
+    /* Türkçe: Büyük ekranlar için grid ayarları */
+}
+@media (min-width: 1200px) {
+    .container { max-width: 1140px; }
+    /* Türkçe: Ekstra büyük ekranlar için container genişliği */
+}
+
+/* Mobil menü ve touch-friendly alanlar için temel stiller eklenecek */

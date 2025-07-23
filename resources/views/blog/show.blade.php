@@ -57,7 +57,16 @@
             @endforeach
         </div>
         @if($post->image)
-            <img src="{{ asset('storage/' . $post->image) }}" class="img-fluid rounded mb-3" alt="{{ $post->title }}">
+            <picture>
+                <source srcset="{{ asset('storage/uploads/webp/' . pathinfo($post->image, PATHINFO_FILENAME) . '.webp') }}" type="image/webp">
+                <img src="{{ asset('storage/' . $post->image) }}"
+                     srcset="{{ asset('storage/' . $post->image) }} 800w, {{ asset('storage/uploads/thumbnails/' . basename($post->image)) }} 150w, {{ asset('storage/uploads/medium/' . basename($post->image)) }} 400w"
+                     sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                     class="img-fluid rounded mb-3"
+                     alt="{{ $post->title }}"
+                     loading="lazy">
+            </picture>
+            <!-- Türkçe yorum: WebP desteği, responsive srcset ve picture etiketi ile optimize görsel sunumu -->
         @endif
         <div class="mb-4 blog-content">
             {!! $post->content !!}

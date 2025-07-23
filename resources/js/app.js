@@ -52,3 +52,37 @@ function setupRealtimeValidation() {
 }
 document.addEventListener('DOMContentLoaded', setupRealtimeValidation);
 // Türkçe: Formlarda input değiştikçe anlık validasyon ve hata mesajı gösterimi yapılır.
+
+// Türkçe: Mobil hamburger menüde dokunmatik ve erişilebilirlik desteği
+function setupMobileMenu() {
+    const btn = document.getElementById('mobile-menu-toggle');
+    const menu = document.getElementById('mobile-menu-list');
+    if (!btn || !menu) return;
+    // Menü açma/kapama
+    btn.addEventListener('click', function () {
+        const isOpen = menu.classList.toggle('hidden') === false;
+        btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        if (isOpen) {
+            menu.querySelectorAll('a').forEach(a => a.setAttribute('tabindex', '0'));
+            // Türkçe: Menü açıldığında linkler erişilebilir olur
+        } else {
+            menu.querySelectorAll('a').forEach(a => a.setAttribute('tabindex', '-1'));
+            // Türkçe: Menü kapandığında linkler erişilemez olur
+        }
+    });
+    // Dışarı tıklayınca menüyü kapat
+    document.addEventListener('click', function (e) {
+        if (menu.classList.contains('hidden')) return;
+        if (!menu.contains(e.target) && !btn.contains(e.target)) {
+            menu.classList.add('hidden');
+            btn.setAttribute('aria-expanded', 'false');
+        }
+    });
+    // Touch desteği: Menüde kaydırma ve dokunma
+    menu.addEventListener('touchstart', function (e) {
+        // Türkçe: Mobilde menüye dokunma desteği
+        e.stopPropagation();
+    });
+}
+document.addEventListener('DOMContentLoaded', setupMobileMenu);
+// Türkçe: Mobil hamburger menüde dokunmatik, erişilebilirlik ve dışarı tıklama ile kapama desteği sağlanır.
