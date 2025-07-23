@@ -126,6 +126,8 @@ return [
     /*
      * Package Service Providers...
      */
+    Spatie\Permission\PermissionServiceProvider::class,
+    // Türkçe yorum: Spatie Permission ServiceProvider eklendi.
     Intervention\Image\ImageServiceProvider::class,
 
     /*
@@ -133,6 +135,8 @@ return [
      */
     'aliases' => [
         // ... existing code ...
+        'Role' => Spatie\Permission\Models\Role::class,
+        // Türkçe yorum: Spatie Permission Role alias'ı eklendi.
         'Image' => Intervention\Image\Facades\Image::class,
         // Türkçe yorum: Intervention Image Facade'ı eklendi.
     ],

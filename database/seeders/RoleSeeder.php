@@ -17,5 +17,6 @@ class RoleSeeder extends Seeder
         // firstOrCreate metodu, belirtilen rolu bulur veya yoksa oluşturur.
         Role::firstOrCreate(['name' => 'Admin']);
         Role::firstOrCreate(['name' => 'User']);
+        // Türkçe yorum: Rollerin isimleri büyük harfle başlatıldı.
     }
 }

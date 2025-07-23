@@ -12,6 +12,8 @@ use App\Models\Course;
 use App\Policies\CoursePolicy;
 use App\Models\About;
 use App\Policies\AboutPolicy;
+use App\Models\Gallery;
+use App\Policies\GalleryPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -27,6 +29,8 @@ class AuthServiceProvider extends ServiceProvider
         Education::class => EducationPolicy::class,
                 Certificate::class => CertificatePolicy::class,
         Course::class => CoursePolicy::class,
+        Gallery::class => GalleryPolicy::class,
+        // Türkçe yorum: Gallery için policy kaydı yapıldı.
     ];
 
     /**

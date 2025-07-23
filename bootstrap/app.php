@@ -20,6 +20,10 @@ return Application::configure(basePath: dirname(__DIR__))
 
         $middleware->alias([
             '2fa' => \App\Http\Middleware\Google2FAMiddleware::class,
+            'role' => \Spatie\Permission\Middleware\RoleMiddleware::class,
+            'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class,
+            'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,
+            // Türkçe yorum: Spatie Permission middleware alias'ları eklendi.
         ]);
         // Sanctum'un SPA kimlik doğrulama middleware'ini ekliyoruz.
                 // API rotaları için rate limiting (istek sınırlama) middleware'ini ekliyoruz.

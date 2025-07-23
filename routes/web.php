@@ -16,27 +16,27 @@ Route::middleware(['auth'])->group(function () {
 
     // İş Deneyimi (Experience) CRUD rotaları
     // Bu rota, ExperienceController içindeki tüm resource metodlarını (index, create, store, show, edit, update, destroy) yönetir.
-    Route::resource('experiences', ExperienceController::class);
+    // Route::resource('experiences', App\Http\Controllers\ExperienceController::class); // Geçici olarak devre dışı
 
     // Education (Eğitim) CRUD Rotaları
     // Bu rota grubu, kullanıcıların eğitim bilgilerini yönetmesi için gerekli tüm rotaları içerir.
-    Route::resource('educations', EducationController::class);
-        Route::resource('certificates', CertificateController::class); // Sertifika yönetimi için resource rotası
-    Route::resource('courses', CourseController::class); // Kurs yönetimi için resource rotası
+    // Route::resource('educations', EducationController::class); // Geçici olarak devre dışı (eksik controller)
+        // Route::resource('certificates', CertificateController::class); // Geçici olarak devre dışı (eksik controller)
+    // Route::resource('courses', CourseController::class); // Geçici olarak devre dışı (eksik controller)
 
     // Hakkımda bölümü yönetimi için resource rotaları
-    Route::resource('abouts', \App\Http\Controllers\AboutSectionController::class);
+    // Route::resource('abouts', \App\Http\Controllers\AboutSectionController::class); // Geçici olarak devre dışı (eksik controller)
     // Sıralama (drag&drop) için özel rota
-    Route::post('abouts/reorder', [\App\Http\Controllers\AboutSectionController::class, 'reorder'])->name('abouts.reorder');
+    // Route::post('abouts/reorder', [\App\Http\Controllers\AboutSectionController::class, 'reorder'])->name('abouts.reorder'); // Geçici olarak devre dışı (eksik controller)
 
     // Kazanımlar (Learned) arayüzü rotaları
-    Route::get('learned/experiences', [\App\Http\Controllers\LearnedController::class, 'experiencesIndex'])->name('learned.experiences.index');
-    Route::get('learned/experiences/create', [\App\Http\Controllers\LearnedController::class, 'createExperience'])->name('learned.experiences.create');
-    Route::post('learned/experiences', [\App\Http\Controllers\LearnedController::class, 'storeExperience'])->name('learned.experiences.store');
+    // Route::get('learned/experiences', [\App\Http\Controllers\LearnedController::class, 'experiencesIndex'])->name('learned.experiences.index'); // Geçici olarak devre dışı (eksik controller)
+    // Route::get('learned/experiences/create', [\App\Http\Controllers\LearnedController::class, 'createExperience'])->name('learned.experiences.create'); // Geçici olarak devre dışı (eksik controller)
+    // Route::post('learned/experiences', [\App\Http\Controllers\LearnedController::class, 'storeExperience'])->name('learned.experiences.store'); // Geçici olarak devre dışı (eksik controller)
 
-    Route::get('learned/educations', [\App\Http\Controllers\LearnedController::class, 'educationsIndex'])->name('learned.educations.index');
-    Route::get('learned/educations/create', [\App\Http\Controllers\LearnedController::class, 'createEducation'])->name('learned.educations.create');
-    Route::post('learned/educations', [\App\Http\Controllers\LearnedController::class, 'storeEducation'])->name('learned.educations.store');
+    // Route::get('learned/educations', [\App\Http\Controllers\LearnedController::class, 'educationsIndex'])->name('learned.educations.index'); // Geçici olarak devre dışı (eksik controller)
+    // Route::get('learned/educations/create', [\App\Http\Controllers\LearnedController::class, 'createEducation'])->name('learned.educations.create'); // Geçici olarak devre dışı (eksik controller)
+    // Route::post('learned/educations', [\App\Http\Controllers\LearnedController::class, 'storeEducation'])->name('learned.educations.store'); // Geçici olarak devre dışı (eksik controller)
 });
 
 // 2FA Yönetim Rotaları
@@ -78,11 +78,18 @@ Route::get('/blog/{slug}', [\App\Http\Controllers\BlogController::class, 'show']
 Route::get('/sitemap.xml', [\App\Http\Controllers\SitemapController::class, 'index'])->name('sitemap.xml');
 
 // Admin panelde kategori yönetimi için resource rotaları
-Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::resource('categories', \App\Http\Controllers\CategoryController::class);
-});
+// Route::middleware(['auth', 'role:Admin'])->group(function () { // Geçici olarak devre dışı (eksik controller)
+//     Route::resource('categories', \App\Http\Controllers\CategoryController::class);
+// });
 
 // Admin panelde blog post yönetimi için resource rotaları
-Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::resource('posts', \App\Http\Controllers\PostController::class);
+// Route::middleware(['auth', 'role:Admin'])->group(function () { // Geçici olarak devre dışı (eksik controller)
+//     Route::resource('posts', \App\Http\Controllers\PostController::class);
+// });
+
+Route::middleware(['auth', 'role:Admin'])->prefix('secure-admin')->name('admin.')->group(function () {
+    Route::resource('gallery', App\Http\Controllers\Admin\GalleryController::class);
+    Route::get('gallery-bulk-upload', [App\Http\Controllers\Admin\GalleryController::class, 'bulkUploadForm'])->name('gallery.bulk-upload-form');
+    Route::post('gallery-bulk-upload', [App\Http\Controllers\Admin\GalleryController::class, 'bulkUpload'])->name('gallery.bulk-upload');
+    Route::post('gallery-update-order', [App\Http\Controllers\Admin\GalleryController::class, 'updateOrder'])->name('gallery.update-order');
 });
