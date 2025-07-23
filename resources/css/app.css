@@ -203,3 +203,48 @@
     from { transform: translateY(30px); opacity: 0; }
     to { transform: translateY(0); opacity: 1; }
 }
+
+/* =====================
+   Navigation & Breadcrumb
+   ===================== */
+.nav-link {
+    color: var(--gray-700);
+    font-weight: 500;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.375rem;
+    transition: background var(--transition-fast), color var(--transition-fast);
+    text-decoration: none;
+    /* Türkçe: Ana menü linkleri için kullanılır */
+}
+.nav-link:hover {
+    background: var(--gray-100);
+    color: var(--color-primary);
+}
+.nav-active {
+    color: var(--color-primary) !important;
+    background: var(--gray-200);
+    font-weight: 700;
+    /* Türkçe: Aktif menü linki vurgusu */
+}
+.breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    font-size: 0.95em;
+    margin-bottom: 1rem;
+    /* Türkçe: Breadcrumb container */
+}
+.breadcrumb-item {
+    color: var(--gray-500);
+    text-decoration: none;
+    margin-right: 0.5em;
+    /* Türkçe: Breadcrumb linki */
+}
+.breadcrumb-item:last-child {
+    color: var(--color-primary);
+    font-weight: 600;
+}
+.breadcrumb-separator {
+    margin-right: 0.5em;
+    color: var(--gray-400);
+}

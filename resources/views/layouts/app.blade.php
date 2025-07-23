@@ -17,6 +17,8 @@
     @include('components.partials.header')
     <!-- Türkçe: Navigation bileşeni -->
     @include('components.partials.navigation')
+    <!-- Türkçe: Breadcrumb bileşeni ana menünün hemen altında gösterilir. -->
+    @include('components.partials.breadcrumb')
     <main class="flex-1 container mx-auto px-4 py-6">
         @yield('content')
     </main>
