@@ -47,4 +47,33 @@ class AdminLayoutTest extends TestCase
         $response->assertRedirect('/login');
         // Türkçe yorum: Giriş yapılmadıysa login sayfasına yönlendirme kontrolü
     }
+
+    /** @test */
+    public function dashboard_istatistikler_grafik_ve_son_icerikler_gorunur()
+    {
+        // Türkçe yorum: Admin rolü yoksa oluşturuluyor
+        if (!\Spatie\Permission\Models\Role::where('name', 'Admin')->exists()) {
+            \Spatie\Permission\Models\Role::create(['name' => 'Admin']);
+        }
+        $admin = \App\Models\User::factory()->create();
+        $admin->assignRole('Admin');
+        // Türkçe yorum: Test verisi olarak blog, galeri, referans, kategori ekleniyor
+        $kategori = \App\Models\BlogCategory::factory()->create();
+        \App\Models\BlogPost::factory()->count(2)->create(['blog_category_id' => $kategori->id]);
+        \App\Models\Gallery::factory()->count(1)->create();
+        \App\Models\Reference::factory()->count(1)->create();
+        \App\Models\BlogCategory::factory()->count(1)->create();
+        $response = $this->actingAs($admin)->get('/secure-admin/dashboard');
+        $response->assertStatus(200);
+        $response->assertSee('Kullanıcılar');
+        $response->assertSee('Blog Yazıları');
+        $response->assertSee('Galeri');
+        $response->assertSee('Referanslar');
+        $response->assertSee('Kategoriler');
+        $response->assertSee('Son 6 Ayda Eklenen Blog Yazısı');
+        $response->assertSee('Son Bloglar');
+        $response->assertSee('Son Kullanıcılar');
+        $response->assertSee('Yeni Blog Yazısı Ekle');
+        // Türkçe yorum: Dashboard istatistik, grafik ve son içerik bölümleri kontrol ediliyor
+    }
 } 
