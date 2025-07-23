@@ -1522,3 +1522,37 @@
 - Controller: `app/Http/Controllers/Admin/UserController.php`
 - View: `resources/views/admin/users/index.blade.php`
 - Test: `tests/Feature/Admin/UserSearchFilterTest.php`
+
+---
+
+### ✅ [801] Main Layout & Template System
+
+**Tamamlanma Tarihi:** 2025-07-23
+
+**Özet:** Frontend için modern, responsive, erişilebilir ana layout ve temel bileşenler (header, navigation, footer) oluşturuldu. Tüm işlemler .cursor/rules ve file-structure.md'ye uygun olarak yapıldı.
+
+**Yapılan Teknik Adımlar:**
+1. **Ana Layout:**
+   - `resources/views/layouts/app.blade.php` dosyası modern HTML5, meta, favicon, Vite/Tailwind/Bootstrap desteği, @stack('meta') ve Türkçe açıklamalar ile güncellendi. Header, navigation ve footer @include ile çağrıldı.
+2. **Bileşenler:**
+   - `resources/views/components/partials/header.blade.php`: Sticky, erişilebilir header. Logo, site adı, kısa açıklama (Türkçe açıklama ile).
+   - `resources/views/components/partials/navigation.blade.php`: Responsive ana menü, hamburger menü, aktif link vurgusu, erişilebilirlik ve Türkçe açıklama.
+   - `resources/views/components/partials/footer.blade.php`: Telif hakkı, sosyal medya linkleri, erişilebilirlik ve Türkçe açıklama.
+3. **Welcome Sayfası:**
+   - `resources/views/welcome.blade.php` dosyası yeni ana layout'u extend edecek şekilde güncellendi. İçeriğe aria-label içeren örnek link eklendi.
+4. **Testler:**
+   - `tests/Feature/Feature/MainLayoutTest.php` dosyasında ana layout, header, navigation, footer, responsive ve erişilebilirlik için feature testler yazıldı. Blade encode problemi nedeniyle testte aranan string encode edilerek güncellendi.
+5. **Rule ve Dosya Yapısı Kontrolü:**
+   - Tüm işlemler `.cursor/rules/frontend.mdc`, `code-quality.mdc`, `php-laravel.mdc`, `file-structure.md`'ye uygun olarak yapıldı.
+6. **Kodlarda Türkçe Açıklama:**
+   - Tüm fonksiyon ve önemli kod bloklarının altına Türkçe açıklama eklendi.
+7. **Test Sonucu:**
+   - `php artisan test --filter=MainLayoutTest` ile testler başarıyla geçti (encode problemi testte handle edildi).
+
+**Kaynaklar:**
+- Layout: `resources/views/layouts/app.blade.php`
+- Header: `resources/views/components/partials/header.blade.php`
+- Navigation: `resources/views/components/partials/navigation.blade.php`
+- Footer: `resources/views/components/partials/footer.blade.php`
+- Welcome: `resources/views/welcome.blade.php`
+- Test: `tests/Feature/Feature/MainLayoutTest.php`
