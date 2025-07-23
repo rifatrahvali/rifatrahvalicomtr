@@ -5,10 +5,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Google2FAController; // 2FA Controller'ını import ediyoruz.
 
 use App\Http\Controllers\UserProfileController;
+use App\Http\Controllers\HomeController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'index']); // Türkçe: Ana sayfa HomeController@index'e yönlendirildi
 
 // Kullanıcı Profili Rotaları (Giriş yapmış kullanıcılar için)
 Route::middleware(['auth'])->group(function () {

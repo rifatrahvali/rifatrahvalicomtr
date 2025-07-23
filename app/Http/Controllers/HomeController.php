@@ -13,7 +13,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        // Türkçe: Ana sayfa herkese açık olmalı, auth middleware kaldırıldı
     }
 
     /**
@@ -23,6 +23,18 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        // Türkçe: Son 3 blog yazısı çekiliyor
+        $bloglar = \App\Models\BlogPost::with('category')
+            ->orderByDesc('created_at')
+            ->limit(3)
+            ->get();
+        // Türkçe: Son 3 galeri görseli çekiliyor
+        $galeriler = \App\Models\Gallery::orderByDesc('created_at')
+            ->limit(3)
+            ->get();
+        // Türkçe: Kullanıcı profil özeti çekiliyor (ilk kullanıcı)
+        $profil = \App\Models\UserProfile::with('user')
+            ->first();
+        return view('home', compact('bloglar', 'galeriler', 'profil'));
     }
 }
