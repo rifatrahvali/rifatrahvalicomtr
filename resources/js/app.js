@@ -29,3 +29,26 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 // Türkçe: Sayfa içi anchor linklere tıklandığında yumuşak kaydırma yapılır.
+
+// Türkçe: Anlık (real-time) validasyon ve hata mesajı gösterimi
+function setupRealtimeValidation() {
+    document.querySelectorAll('form[data-realtime-validation] input, form[data-realtime-validation] textarea, form[data-realtime-validation] select').forEach(function(input) {
+        input.addEventListener('input', function() {
+            if (input.validity.valid) {
+                input.classList.remove('is-invalid');
+                input.classList.add('is-valid');
+                if(input.nextElementSibling && input.nextElementSibling.classList.contains('form-error')) {
+                    input.nextElementSibling.style.display = 'none';
+                }
+            } else {
+                input.classList.remove('is-valid');
+                input.classList.add('is-invalid');
+                if(input.nextElementSibling && input.nextElementSibling.classList.contains('form-error')) {
+                    input.nextElementSibling.style.display = 'block';
+                }
+            }
+        });
+    });
+}
+document.addEventListener('DOMContentLoaded', setupRealtimeValidation);
+// Türkçe: Formlarda input değiştikçe anlık validasyon ve hata mesajı gösterimi yapılır.
