@@ -732,7 +732,7 @@ class ImageService
 * **Testing**: File operations testleri
 * **Documentation**: File manager guide
 
-### ☐ [705] **Admin Settings Management** [Öncelik: Medium] [Süre: 3 saat]
+### ✅ [705] **Admin Settings Management** [Öncelik: Medium] [Süre: 3 saat]
 * **Cursor Rules**: admin-panel-security.mdc, php-laravel.mdc
 * **Description**: Site geneli ayarlar yönetim sistemi
 * **Technical Steps**:

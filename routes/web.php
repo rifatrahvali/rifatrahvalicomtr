@@ -110,3 +110,12 @@ Route::get('/gallery', [App\Http\Controllers\GalleryController::class, 'publicIn
 
 Route::get('/references', [App\Http\Controllers\ReferenceController::class, 'publicIndex'])->name('references.public.index');
 // Türkçe yorum: Kamuya açık referans görüntüleme rotası eklendi.
+
+// Admin ayar yönetimi rotaları
+Route::middleware(['auth', 'role:admin'])->prefix('secure-admin')->group(function () {
+    // Ayarları görüntüleme
+    Route::get('/settings', [\App\Http\Controllers\Admin\SettingsController::class, 'index'])->name('admin.settings.index');
+    // Ayarları güncelleme
+    Route::post('/settings', [\App\Http\Controllers\Admin\SettingsController::class, 'update'])->name('admin.settings.update');
+    // Türkçe: Bu rotalar sadece admin kullanıcılar tarafından erişilebilir.
+});
