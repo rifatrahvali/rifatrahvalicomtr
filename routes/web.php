@@ -93,3 +93,6 @@ Route::middleware(['auth', 'role:Admin'])->prefix('secure-admin')->name('admin.'
     Route::post('gallery-bulk-upload', [App\Http\Controllers\Admin\GalleryController::class, 'bulkUpload'])->name('gallery.bulk-upload');
     Route::post('gallery-update-order', [App\Http\Controllers\Admin\GalleryController::class, 'updateOrder'])->name('gallery.update-order');
 });
+
+Route::get('/gallery', [App\Http\Controllers\GalleryController::class, 'publicIndex'])->name('gallery.public.index');
+// Türkçe yorum: Kamuya açık galeri görüntüleme rotası eklendi.
