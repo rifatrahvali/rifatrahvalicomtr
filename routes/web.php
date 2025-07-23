@@ -84,6 +84,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('secure-admin')->name('admin.'
     Route::resource('gallery', App\Http\Controllers\Admin\GalleryController::class);
     Route::resource('reference', App\Http\Controllers\Admin\ReferenceController::class);
     Route::resource('users', App\Http\Controllers\Admin\UserController::class);
+    Route::post('users/bulk', [App\Http\Controllers\Admin\UserController::class, 'bulkAction'])->name('users.bulk'); // Türkçe: Kullanıcılar için toplu işlem endpointi
     Route::get('filemanager', [App\Http\Controllers\Admin\FileManagerController::class, 'index'])->name('filemanager.index');
     Route::post('filemanager/upload', [App\Http\Controllers\Admin\FileManagerController::class, 'upload'])->name('filemanager.upload');
     Route::post('filemanager/delete', [App\Http\Controllers\Admin\FileManagerController::class, 'delete'])->name('filemanager.delete');

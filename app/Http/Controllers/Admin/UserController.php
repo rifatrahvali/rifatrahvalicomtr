@@ -100,6 +100,34 @@ class UserController extends Controller
     }
 
     /**
+     * Toplu işlem (silme, rol atama, yayından kaldırma) fonksiyonu
+     */
+    public function bulkAction(Request $request)
+    {
+        // Türkçe: Seçili kullanıcı id'leri alınır
+        $ids = $request->input('ids', []);
+        $action = $request->input('action');
+        if (!is_array($ids) || empty($ids)) {
+            return response()->json(['message' => 'Hiçbir kullanıcı seçilmedi.'], 422);
+        }
+        if ($action === 'delete') {
+            // Türkçe: Seçili kullanıcılar silinir
+            $deleted = User::whereIn('id', $ids)->delete();
+            return response()->json(['message' => "$deleted kullanıcı silindi."]);
+        } elseif ($action === 'set_role' && $request->has('role')) {
+            // Türkçe: Seçili kullanıcılara rol atanır
+            $role = $request->input('role');
+            $users = User::whereIn('id', $ids)->get();
+            foreach ($users as $user) {
+                $user->syncRoles([$role]);
+            }
+            return response()->json(['message' => 'Seçili kullanıcılara rol atandı.']);
+        }
+        // Türkçe: Geçersiz işlem
+        return response()->json(['message' => 'Geçersiz işlem.'], 422);
+    }
+
+    /**
      * Kullanıcıları listeler.
      *
      * @return \Illuminate\View\View
