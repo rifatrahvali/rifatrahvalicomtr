@@ -65,3 +65,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 // Kamuya açık CV görüntüleme rotası
 Route::get('/cv', [\App\Http\Controllers\CvController::class, 'show'])->name('cv.show');
+
+// Admin panelde kategori yönetimi için resource rotaları
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::resource('categories', \App\Http\Controllers\CategoryController::class);
+});
