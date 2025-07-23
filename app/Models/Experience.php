@@ -59,4 +59,10 @@ class Experience extends Model
     {
         return $this->morphToMany(Skill::class, 'skillable');
     }
+
+    // Türkçe yorum: Bu iş deneyimi ile ilişkili tüm kazanımları getirir
+    public function learnedExperiences()
+    {
+        return $this->hasMany(LearnedExperience::class);
+    }
 }

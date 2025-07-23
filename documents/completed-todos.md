@@ -655,6 +655,43 @@
 - Test: `tests/Feature/AboutSectionTest.php`
 - Rotalar: `routes/web.php`
 
+---
+
+### ✅ [307] Learned Experience/Education Interface
+
+**Tamamlanma Tarihi:** 23.07.2025
+
+**Özet:** Kullanıcıların iş deneyimleri ve eğitimlerinden elde ettikleri kazanımları yönetebileceği, etiketleyebileceği ve listeleyebileceği arayüz ve backend altyapısı oluşturuldu. Tüm işlemler sadece giriş yapmış kullanıcıya ait verilerle sınırlandırıldı. Tag tabanlı kategorilendirme ve JSON alanlar ile esnek veri yapısı sağlandı.
+
+**Yapılan Teknik Adımlar:**
+1. **Model:** `app/Models/LearnedExperience.php` ve `app/Models/LearnedEducation.php` dosyaları oluşturuldu. İlişkiler ve JSON cast'ler eklendi.
+2. **Migration:** `database/migrations/2025_07_23_100000_create_learned_experiences_table.php` ve `2025_07_23_100001_create_learned_educations_table.php` migration dosyaları ile veritabanı tabloları oluşturuldu.
+3. **Controller:** `app/Http/Controllers/LearnedController.php` ile hem iş deneyimi hem eğitim kazanımları için CRUD işlemleri ve formlar yazıldı.
+4. **View Dosyaları:** `resources/views/learned/experiences/` ve `resources/views/learned/educations/` altında index ve create blade dosyaları oluşturuldu. Bootstrap ile sade arayüz, tag inputları ve Türkçe açıklamalar eklendi.
+5. **Model İlişkileri:** `Experience` ve `Education` modellerine `learnedExperiences` ve `learnedEducations` ilişkileri eklendi.
+6. **Test:** `tests/Feature/LearnedExperienceTest.php` ile temel ekleme/listeleme testi yazıldı ve başarıyla geçti.
+7. **Factory:** `database/factories/ExperienceFactory.php` ile test için sahte deneyim verisi üretildi.
+8. **Migration ve Test:** Tüm migrationlar başarıyla çalıştırıldı, testler geçti.
+
+**İlgili Kurallar:**
+- `.cursor/rules/php-laravel.mdc`: Model, migration, controller ve form yapısı Laravel standartlarına uygun olarak oluşturuldu.
+- `.cursor/rules/frontend.mdc`: View dosyalarında Bootstrap ve kullanıcı dostu formlar kullanıldı.
+- `.cursor/rules/code-quality.mdc`: Kodun her adımında Türkçe açıklama ve yorumlar eklendi.
+- `.cursor/rules/security.mdc`: Yetkilendirme, CSRF ve input doğrulama kurallarına uyuldu.
+
+**Test:**
+- `php artisan test --filter=LearnedExperienceTest` komutu ile test başarıyla geçti.
+- Migration ve CRUD işlemleri canlı olarak test edildi.
+
+**Kaynaklar:**
+- Model: `app/Models/LearnedExperience.php`, `app/Models/LearnedEducation.php`
+- Migration: `database/migrations/2025_07_23_100000_create_learned_experiences_table.php`, `2025_07_23_100001_create_learned_educations_table.php`
+- Controller: `app/Http/Controllers/LearnedController.php`
+- Views: `resources/views/learned/experiences/`, `resources/views/learned/educations/`
+- Test: `tests/Feature/LearnedExperienceTest.php`
+- Factory: `database/factories/ExperienceFactory.php`
+- Rotalar: `routes/web.php`
+
 
 
 

@@ -27,6 +27,15 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('abouts', \App\Http\Controllers\AboutSectionController::class);
     // Sıralama (drag&drop) için özel rota
     Route::post('abouts/reorder', [\App\Http\Controllers\AboutSectionController::class, 'reorder'])->name('abouts.reorder');
+
+    // Kazanımlar (Learned) arayüzü rotaları
+    Route::get('learned/experiences', [\App\Http\Controllers\LearnedController::class, 'experiencesIndex'])->name('learned.experiences.index');
+    Route::get('learned/experiences/create', [\App\Http\Controllers\LearnedController::class, 'createExperience'])->name('learned.experiences.create');
+    Route::post('learned/experiences', [\App\Http\Controllers\LearnedController::class, 'storeExperience'])->name('learned.experiences.store');
+
+    Route::get('learned/educations', [\App\Http\Controllers\LearnedController::class, 'educationsIndex'])->name('learned.educations.index');
+    Route::get('learned/educations/create', [\App\Http\Controllers\LearnedController::class, 'createEducation'])->name('learned.educations.create');
+    Route::post('learned/educations', [\App\Http\Controllers\LearnedController::class, 'storeEducation'])->name('learned.educations.store');
 });
 
 // 2FA Yönetim Rotaları

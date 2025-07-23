@@ -58,4 +58,10 @@ class Education extends Model
     {
         return $this->morphToMany(Skill::class, 'skillable');
     }
+
+    // Türkçe yorum: Bu eğitim ile ilişkili tüm kazanımları getirir
+    public function learnedEducations()
+    {
+        return $this->hasMany(LearnedEducation::class);
+    }
 }
