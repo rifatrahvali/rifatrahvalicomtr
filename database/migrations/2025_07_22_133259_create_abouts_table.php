@@ -29,6 +29,12 @@ return new class extends Migration
             // Kullanıcının CV dosyasının URL'si. Boş olabilir.
             $table->string('cv_url')->nullable();
 
+            // Sıralama için order alanı (varsayılan: 0)
+            $table->integer('order')->default(0);
+
+            // Aktiflik durumu için is_active alanı (varsayılan: true)
+            $table->boolean('is_active')->default(true);
+
             // created_at ve updated_at sütunlarını ekler
             $table->timestamps();
         });

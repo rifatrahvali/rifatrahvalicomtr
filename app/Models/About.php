@@ -22,6 +22,8 @@ class About extends Model
         'title',
         'description',
         'cv_url',
+        'order', // Türkçe yorum: Sıralama için order alanı eklendi
+        'is_active', // Türkçe yorum: Aktiflik durumu için is_active alanı eklendi
     ];
 
     /**

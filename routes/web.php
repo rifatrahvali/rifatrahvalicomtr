@@ -22,6 +22,11 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('educations', EducationController::class);
         Route::resource('certificates', CertificateController::class); // Sertifika yönetimi için resource rotası
     Route::resource('courses', CourseController::class); // Kurs yönetimi için resource rotası
+
+    // Hakkımda bölümü yönetimi için resource rotaları
+    Route::resource('abouts', \App\Http\Controllers\AboutSectionController::class);
+    // Sıralama (drag&drop) için özel rota
+    Route::post('abouts/reorder', [\App\Http\Controllers\AboutSectionController::class, 'reorder'])->name('abouts.reorder');
 });
 
 // 2FA Yönetim Rotaları
