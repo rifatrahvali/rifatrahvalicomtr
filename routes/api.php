@@ -44,3 +44,7 @@ Route::prefix('v1/blog')->group(function () {
     Route::get('/search', [\App\Http\Controllers\Api\BlogApiController::class, 'search']);
 });
 // Türkçe yorum: Blog için public API endpointleri eklendi.
+
+// Media upload endpointi
+Route::post('v1/media/upload', [\App\Http\Controllers\Api\V1\MediaController::class, 'upload']);
+// Türkçe yorum: Media dosyası yükleme API endpointi.

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Google2FAController; // 2FA Controller'ını import ediyoruz.
 
 use App\Http\Controllers\UserProfileController;

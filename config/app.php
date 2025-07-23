@@ -123,4 +123,18 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    /*
+     * Package Service Providers...
+     */
+    Intervention\Image\ImageServiceProvider::class,
+
+    /*
+     * Application Aliases
+     */
+    'aliases' => [
+        // ... existing code ...
+        'Image' => Intervention\Image\Facades\Image::class,
+        // Türkçe yorum: Intervention Image Facade'ı eklendi.
+    ],
+
 ];
