@@ -11,17 +11,30 @@ Route::get('/', [HomeController::class, 'index']); // Türkçe: Ana sayfa HomeCo
 
 // Kullanıcı Profili Rotaları (Giriş yapmış kullanıcılar için)
 Route::middleware(['auth'])->group(function () {
-    Route::resource('profile', UserProfileController::class)->only(['edit', 'update']);
+    Route::get('/profile', [UserProfileController::class, 'index']);
+    // Türkçe: Kullanıcı kendi profilini görüntüleyebilsin diye GET /profile route'u eklendi.
+    Route::put('/profile', [UserProfileController::class, 'update']);
+    // Türkçe: Kullanıcı profilini güncelleyebilsin diye PUT /profile route'u eklendi.
 
     // İş Deneyimi (Experience) CRUD rotaları
-    // Bu rota, ExperienceController içindeki tüm resource metodlarını (index, create, store, show, edit, update, destroy) yönetir.
-    // Route::resource('experiences', App\Http\Controllers\ExperienceController::class); // Geçici olarak devre dışı
+    Route::resource('experiences', App\Http\Controllers\ExperienceController::class);
+    // Türkçe: Kullanıcı iş deneyimlerini ekleyebilir, düzenleyebilir, silebilir.
 
-    // Education (Eğitim) CRUD Rotaları
-    // Bu rota grubu, kullanıcıların eğitim bilgilerini yönetmesi için gerekli tüm rotaları içerir.
-    // Route::resource('educations', EducationController::class); // Geçici olarak devre dışı (eksik controller)
-        // Route::resource('certificates', CertificateController::class); // Geçici olarak devre dışı (eksik controller)
-    // Route::resource('courses', CourseController::class); // Geçici olarak devre dışı (eksik controller)
+    // Eğitim (Education) CRUD rotaları
+    Route::resource('educations', App\Http\Controllers\EducationController::class);
+    // Türkçe: Kullanıcı eğitim bilgilerini ekleyebilir, düzenleyebilir, silebilir.
+
+    // Sertifika (Certificate) CRUD rotaları
+    Route::resource('certificates', App\Http\Controllers\CertificateController::class);
+    // Türkçe: Kullanıcı sertifika bilgilerini ekleyebilir, düzenleyebilir, silebilir.
+
+    // Kurs (Course) CRUD rotaları
+    Route::resource('courses', App\Http\Controllers\CourseController::class);
+    // Türkçe: Kullanıcı kurs bilgilerini ekleyebilir, düzenleyebilir, silebilir.
+
+    // Beceri (Skill) CRUD rotaları
+    Route::resource('skills', App\Http\Controllers\SkillController::class);
+    // Türkçe: Kullanıcı beceri ekleyebilir, düzenleyebilir, silebilir.
 
     // Hakkımda bölümü yönetimi için resource rotaları
     // Route::resource('abouts', \App\Http\Controllers\AboutSectionController::class); // Geçici olarak devre dışı (eksik controller)

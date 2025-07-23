@@ -224,6 +224,5 @@ if(document.querySelector('.blog-content')){
 }
 </style>
 @endpush
-@endsection
-
-{{-- Türkçe yorum: Tekil blog yazısı detay sayfası, başlık, kategori, etiket, içerik ve sosyal paylaşım içerir. --}} 
+{{-- Türkçe yorum: Tekil blog yazısı detay sayfası, başlık, kategori, etiket, içerik ve sosyal paylaşım içerir. --}}
+@endsection 

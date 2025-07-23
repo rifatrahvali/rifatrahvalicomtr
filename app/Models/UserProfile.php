@@ -23,6 +23,13 @@ class UserProfile extends Model
         'bio',
         'location',
         'website_url',
+        'first_name', // Türkçe: Kullanıcının adı
+        'last_name', // Türkçe: Kullanıcının soyadı
+        'title', // Türkçe: Kullanıcının unvanı
+        'phone', // Türkçe: Kullanıcının telefon numarası
+        'website', // Türkçe: Kullanıcının web sitesi
+        'address', // Türkçe: Kullanıcının adresi
+        'profile_image', // Türkçe: Kullanıcının profil fotoğrafı
     ];
 
     /**

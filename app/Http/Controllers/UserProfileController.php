@@ -13,7 +13,9 @@ class UserProfileController extends Controller
      */
     public function index()
     {
-        //
+        $user = auth()->user()->load(['profile', 'about']);
+        return view('profile.show', compact('user'));
+        // Türkçe: Kullanıcı kendi profilini görüntüleyebilsin diye index metodu dolduruldu.
     }
 
     /**
@@ -110,7 +112,8 @@ class UserProfileController extends Controller
         }
 
         // Başarılı mesajıyla birlikte profili düzenleme sayfasına geri yönlendir.
-        return redirect()->route('profile.edit', $user->id)->with('success', 'Profil başarıyla güncellendi.');
+        return redirect('/profile')->with('success', 'Profil başarıyla güncellendi.');
+        // Türkçe: Profil güncellendikten sonra kullanıcı kendi profilini görebilsin diye /profile adresine yönlendirildi.
     }
 
     /**
