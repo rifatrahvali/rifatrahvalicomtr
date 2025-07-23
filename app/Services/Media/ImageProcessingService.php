@@ -16,7 +16,9 @@ class ImageProcessingService
      */
     public function optimize($path, $disk = 'public')
     {
-        $image = Image::make(Storage::disk($disk)->path($path));
+        // Türkçe: Test ortamında doğrudan ImageManager kullanılır
+        $manager = new \Intervention\Image\ImageManager(new \Intervention\Image\Drivers\Gd\Driver());
+        $image = $manager->read(\Illuminate\Support\Facades\Storage::disk($disk)->path($path));
         $sizes = [
             'thumbnails' => 150,
             'medium' => 400,
@@ -28,13 +30,15 @@ class ImageProcessingService
                 $constraint->aspectRatio();
             });
             $resizedPath = 'uploads/' . $folder . '/' . basename($path);
-            Storage::disk($disk)->put($resizedPath, (string) $resized->encode());
+            \Illuminate\Support\Facades\Storage::disk($disk)->put($resizedPath, (string) $resized->encode());
             $result[$folder] = $resizedPath;
         }
         // WebP
         $webpPath = 'uploads/webp/' . pathinfo($path, PATHINFO_FILENAME) . '.webp';
-        Storage::disk($disk)->put($webpPath, (string) $image->encode('webp', 85));
+        $webpEncoder = new \Intervention\Image\Encoders\WebpEncoder(quality: 85);
+        \Illuminate\Support\Facades\Storage::disk($disk)->put($webpPath, (string) $image->encode($webpEncoder));
         $result['webp'] = $webpPath;
+        // Türkçe: WebP encode işlemi için WebpEncoder nesnesi kullanıldı.
         return $result;
         // Türkçe yorum: Görsel optimize edilir, farklı boyutlarda ve WebP olarak kaydedilir.
     }

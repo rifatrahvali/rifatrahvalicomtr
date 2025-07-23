@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Tag;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -10,13 +11,15 @@ use Illuminate\Support\Str;
  */
 class TagFactory extends Factory
 {
-    public function definition(): array
+    protected $model = Tag::class;
+
+    public function definition()
     {
-        $name = $this->faker->unique()->word();
+        $name = $this->faker->unique()->word;
         return [
-            'name' => ucfirst($name),
+            'name' => $name,
             'slug' => Str::slug($name),
         ];
-        // Türkçe yorum: Her tag için benzersiz bir isim ve slug üretir.
+        // Türkçe: Tag modeli için name ve slug alanı üreten basit bir factory.
     }
 } 

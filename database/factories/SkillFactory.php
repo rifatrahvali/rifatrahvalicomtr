@@ -11,8 +11,8 @@ class SkillFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->unique()->word,
-            // Türkçe: Skill modeli için sahte veri üretir. Migrationda type alanı yoksa eklenmez.
+            'name' => $this->faker->word,
         ];
+        // Türkçe: Skill modeli için name alanı üreten basit bir factory.
     }
 } 
