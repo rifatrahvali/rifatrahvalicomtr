@@ -34,6 +34,7 @@
       }
     }
     </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css">
 @endpush
 
 @section('content')
@@ -58,7 +59,7 @@
         @if($post->image)
             <img src="{{ asset('storage/' . $post->image) }}" class="img-fluid rounded mb-3" alt="{{ $post->title }}">
         @endif
-        <div class="mb-4">
+        <div class="mb-4 blog-content">
             {!! $post->content !!}
         </div>
         <div class="mb-4">
@@ -87,6 +88,9 @@
     </article>
 </div>
 @push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-php.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-javascript.min.js"></script>
 <script>
 // Okuma ilerleme çubuğu
 window.addEventListener('scroll', function() {
@@ -104,7 +108,37 @@ window.addEventListener('scroll', function() {
     }
     bar.style.width = percent + '%';
 });
-// Türkçe yorum: Kullanıcı yazıyı okudukça ilerleme çubuğu güncellenir.
+// Türkçe: Kullanıcı yazıyı okudukça ilerleme çubuğu güncellenir.
+
+// Lightbox: Blog içeriğindeki img'lere tıklanınca büyük göster
+// Türkçe: Basit lightbox fonksiyonu
+if(document.querySelector('.blog-content')){
+    document.querySelectorAll('.blog-content img').forEach(function(img) {
+        img.style.cursor = 'zoom-in';
+        img.addEventListener('click', function() {
+            var overlay = document.createElement('div');
+            overlay.style.position = 'fixed';
+            overlay.style.top = 0;
+            overlay.style.left = 0;
+            overlay.style.width = '100vw';
+            overlay.style.height = '100vh';
+            overlay.style.background = 'rgba(0,0,0,0.85)';
+            overlay.style.display = 'flex';
+            overlay.style.alignItems = 'center';
+            overlay.style.justifyContent = 'center';
+            overlay.style.zIndex = 9999;
+            var bigImg = document.createElement('img');
+            bigImg.src = img.src;
+            bigImg.style.maxWidth = '90vw';
+            bigImg.style.maxHeight = '90vh';
+            bigImg.style.borderRadius = '1rem';
+            bigImg.style.boxShadow = '0 8px 32px rgba(0,0,0,0.3)';
+            overlay.appendChild(bigImg);
+            overlay.addEventListener('click', function() { document.body.removeChild(overlay); });
+            document.body.appendChild(overlay);
+        });
+    });
+}
 </script>
 <style>
 /* Print-friendly stil */
@@ -113,6 +147,71 @@ window.addEventListener('scroll', function() {
     #blog-article, #blog-article * { visibility: visible !important; }
     #blog-article { position: absolute; left: 0; top: 0; width: 100%; background: #fff; }
     .btn, .progress, .badge, .d-print-none { display: none !important; }
+}
+/* Türkçe: Blog tipografi ve kod blokları için özel stil */
+.blog-content {
+    font-family: var(--font-sans);
+    font-size: 1.08rem;
+    line-height: 1.8;
+    color: var(--gray-800);
+    max-width: 700px;
+    margin: 0 auto;
+}
+.blog-content h2, .blog-content h3, .blog-content h4 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: var(--color-primary);
+}
+.blog-content blockquote {
+    border-left: 4px solid var(--color-accent);
+    background: var(--gray-50);
+    padding: 1rem 1.5rem;
+    margin: 1.5rem 0;
+    color: var(--gray-600);
+    font-style: italic;
+}
+.blog-content pre {
+    background: #23272e;
+    color: #fff;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    font-size: 0.98em;
+}
+.blog-content code {
+    background: var(--gray-100);
+    color: var(--color-danger);
+    border-radius: 0.3em;
+    padding: 0.15em 0.4em;
+    font-size: 0.98em;
+}
+.blog-content pre code {
+    background: none;
+    color: inherit;
+    padding: 0;
+}
+.blog-content ul, .blog-content ol {
+    margin-left: 2rem;
+    margin-bottom: 1.2rem;
+}
+.blog-content img {
+    max-width: 100%;
+    border-radius: 0.5rem;
+    margin: 1.5rem 0;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    transition: box-shadow 0.2s;
+}
+.blog-content img:hover {
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+}
+.blog-content .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+    margin: 2rem 0;
 }
 </style>
 @endpush
