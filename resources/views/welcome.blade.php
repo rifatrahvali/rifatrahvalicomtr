@@ -27,8 +27,8 @@
     <div class="alert alert-info u-mb-4">Bilgilendirme mesajı.</div>
     <!-- Türkçe: Utility ve animasyon örnekleri -->
     <div class="u-flex u-gap-4">
-        <div class="card u-shadow u-radius u-fade-in u-bg-primary u-text-center" style="width:200px;">Fade In</div>
-        <div class="card u-shadow u-radius u-slide-up u-bg-accent u-text-center" style="width:200px;">Slide Up</div>
+        <div class="card animate-fade-in u-shadow u-radius u-bg-primary u-text-center" style="width:200px;">Fade In (Animasyon)</div>
+        <div class="card animate-slide-up u-shadow u-radius u-bg-accent u-text-center" style="width:200px;">Slide Up (Animasyon)</div>
         <div class="card u-shadow u-radius u-hover-scale u-bg-primary u-text-center u-transition" style="width:200px;">Hover Scale</div>
     </div>
 </div>

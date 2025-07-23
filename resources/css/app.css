@@ -248,3 +248,125 @@
     margin-right: 0.5em;
     color: var(--gray-400);
 }
+
+/* =====================
+   Interaktif Hover & Animasyonlar
+   ===================== */
+.btn, .card, .nav-link, .certificate-card {
+    transition: box-shadow 0.2s, background 0.2s, color 0.2s, transform 0.2s;
+    /* Türkçe: Tüm buton, kart ve menü elemanlarında yumuşak geçiş efekti */
+}
+.btn:hover, .card:hover, .certificate-card:hover {
+    box-shadow: 0 8px 32px rgba(37,99,235,0.13);
+    transform: translateY(-2px) scale(1.03);
+    /* Türkçe: Hover'da kart ve butonlar hafifçe yükselir ve büyür */
+}
+.animate-fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s cubic-bezier(.4,0,.2,1), transform 0.7s cubic-bezier(.4,0,.2,1);
+    /* Türkçe: Scroll ile görünürken yumuşak fade-in animasyonu */
+}
+.animate-fade-in.visible {
+    opacity: 1;
+    transform: none;
+}
+.animate-slide-up {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.7s cubic-bezier(.4,0,.2,1), transform 0.7s cubic-bezier(.4,0,.2,1);
+    /* Türkçe: Scroll ile yukarıdan kayarak görünme animasyonu */
+}
+.animate-slide-up.visible {
+    opacity: 1;
+    transform: none;
+}
+.loading-spinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 60px;
+}
+.spinner {
+    width: 2rem;
+    height: 2rem;
+    border: 4px solid var(--gray-200, #e5e7eb);
+    border-top: 4px solid var(--color-primary, #2563eb);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-right: 0.7rem;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    border: 0;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.modal-content {
+    background: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    padding: 2rem 1.5rem 1.5rem 1.5rem;
+    min-width: 320px;
+    max-width: 90vw;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+}
+.modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: var(--gray-500, #64748b);
+    cursor: pointer;
+}
+
+.tooltip-container {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+.tooltip-text {
+    visibility: hidden;
+    opacity: 0;
+    width: max-content;
+    background: var(--gray-800, #1e293b);
+    color: #fff;
+    text-align: center;
+    border-radius: 0.4rem;
+    padding: 0.4em 0.8em;
+    position: absolute;
+    z-index: 100;
+    bottom: 120%;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: opacity 0.2s;
+    font-size: 0.95em;
+    pointer-events: none;
+}
+.tooltip-container:hover .tooltip-text,
+.tooltip-container:focus .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
