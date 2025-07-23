@@ -65,4 +65,37 @@ class BlogPost extends Model
         return $this->belongsToMany(Tag::class, 'blog_post_tag');
         // Türkçe yorum: Blog yazısı ile etiketler arasında çoktan-çoğa ilişki.
     }
+
+    /**
+     * Yazının tahmini okuma süresini (dakika) döndürür.
+     * Türkçe yorum: Ortalama 200 kelime/dakika üzerinden hesaplanır.
+     */
+    public function readingTime()
+    {
+        $text = strip_tags($this->content);
+        $wordCount = str_word_count($text);
+        $minutes = ceil($wordCount / 200);
+        return max(1, $minutes);
+        // Türkçe yorum: Okuma süresi en az 1 dakika olacak şekilde hesaplanır.
+    }
+
+    /**
+     * Benzer (ilgili) yazıları döndürür.
+     * Türkçe yorum: Aynı kategori ve ortak etikete sahip yayınlanmış yazılar.
+     */
+    public function relatedPosts($limit = 3)
+    {
+        $query = BlogPost::where('id', '!=', $this->id)
+            ->where('status', 'published')
+            ->where(function($q) {
+                $q->where('blog_category_id', $this->blog_category_id)
+                  ->orWhereHas('tags', function($tagQ) {
+                      $tagQ->whereIn('tags.id', $this->tags->pluck('id'));
+                  });
+            })
+            ->orderByDesc('published_at')
+            ->limit($limit);
+        return $query->get();
+        // Türkçe yorum: Aynı kategori veya ortak etikete sahip en yeni 3 yazı döndürülür.
+    }
 }

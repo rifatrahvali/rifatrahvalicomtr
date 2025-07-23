@@ -27,8 +27,9 @@ class BlogController extends Controller
             ->where('slug', $slug)
             ->where('status', 'published')
             ->firstOrFail();
-        return view('blog.show', compact('post'));
-        // Türkçe yorum: Seçilen blog yazısını detaylı gösterir.
+        $relatedPosts = $post->relatedPosts();
+        return view('blog.show', compact('post', 'relatedPosts'));
+        // Türkçe yorum: Seçilen blog yazısını ve ilgili yazıları detaylı gösterir.
     }
 
     // Kategori arşivi
