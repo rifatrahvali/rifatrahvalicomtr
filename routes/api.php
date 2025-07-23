@@ -32,3 +32,15 @@ Route::prefix('v1')->group(function () {
     Route::get('/learned-experiences', [\App\Http\Controllers\Api\CvApiController::class, 'learnedExperiences']);
     Route::get('/learned-educations', [\App\Http\Controllers\Api\CvApiController::class, 'learnedEducations']);
 });
+
+// Blog Modülü Public API Endpointleri
+Route::prefix('v1/blog')->group(function () {
+    Route::get('/posts', [\App\Http\Controllers\Api\BlogApiController::class, 'posts']);
+    Route::get('/posts/{slug}', [\App\Http\Controllers\Api\BlogApiController::class, 'show']);
+    Route::get('/categories', [\App\Http\Controllers\Api\BlogApiController::class, 'categories']);
+    Route::get('/categories/{slug}', [\App\Http\Controllers\Api\BlogApiController::class, 'categoryPosts']);
+    Route::get('/tags', [\App\Http\Controllers\Api\BlogApiController::class, 'tags']);
+    Route::get('/tags/{slug}', [\App\Http\Controllers\Api\BlogApiController::class, 'tagPosts']);
+    Route::get('/search', [\App\Http\Controllers\Api\BlogApiController::class, 'search']);
+});
+// Türkçe yorum: Blog için public API endpointleri eklendi.
