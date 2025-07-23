@@ -39,6 +39,8 @@ class Education extends Model
         'end_date' => 'date',
     ];
 
+    protected $table = 'educations'; // Türkçe: Doğru tablo adı
+
     /**
      * Get the user that owns the education.
      */

@@ -102,4 +102,10 @@ class User extends Authenticatable
     {
         return $this->hasOne(About::class);
     }
+
+    public function skills()
+    {
+        return $this->morphToMany(Skill::class, 'skillable');
+        // Türkçe: Kullanıcının yetenekleri (skills) ile morphToMany ilişki.
+    }
 }
