@@ -88,10 +88,13 @@ Route::get('/sitemap.xml', [\App\Http\Controllers\SitemapController::class, 'ind
 // });
 
 Route::middleware(['auth', 'role:Admin'])->prefix('secure-admin')->name('admin.')->group(function () {
+    Route::get('dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
+    Route::resource('gallery', App\Http\Controllers\Admin\GalleryController::class);
     Route::resource('reference', App\Http\Controllers\Admin\ReferenceController::class);
     Route::post('reference-update-order', [App\Http\Controllers\Admin\ReferenceController::class, 'updateOrder'])->name('reference.update-order');
 });
-// Türkçe yorum: Admin paneli için referans CRUD ve sıralama rotaları eklendi.
+// Türkçe yorum: Admin paneli için galeri resource rotası eklendi.
+// Türkçe yorum: Tüm admin rotaları secure-admin prefix ve yetki ile korundu.
 
 Route::get('/gallery', [App\Http\Controllers\GalleryController::class, 'publicIndex'])->name('gallery.public.index');
 // Türkçe yorum: Kamuya açık galeri görüntüleme rotası eklendi.

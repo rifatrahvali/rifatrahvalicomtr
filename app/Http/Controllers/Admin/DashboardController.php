@@ -1,20 +1,19 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class GalleryController extends Controller
+class DashboardController extends Controller
 {
     /**
-     * Galeri ana sayfasını gösterir.
+     * Admin paneli ana sayfasını gösterir.
      *
      * @return \Illuminate\View\View
      */
     public function index()
     {
-        // Türkçe yorum: Admin galeri ana sayfa görünümünü döndürür
-        return view('admin.gallery.index');
+        // Türkçe yorum: Admin paneli ana sayfa görünümünü döndürür
+        return view('admin.dashboard');
     }
 } 
