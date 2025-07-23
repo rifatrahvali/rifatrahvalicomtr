@@ -66,6 +66,13 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 // Kamuya açık CV görüntüleme rotası
 Route::get('/cv', [\App\Http\Controllers\CvController::class, 'show'])->name('cv.show');
 
+// Kamuya açık blog frontend rotaları
+Route::get('/blog', [\App\Http\Controllers\BlogController::class, 'index'])->name('blog.index');
+Route::get('/blog/search', [\App\Http\Controllers\BlogController::class, 'search'])->name('blog.search');
+Route::get('/blog/category/{slug}', [\App\Http\Controllers\BlogController::class, 'categoryArchive'])->name('blog.category');
+Route::get('/blog/tag/{slug}', [\App\Http\Controllers\BlogController::class, 'tagArchive'])->name('blog.tag');
+Route::get('/blog/{slug}', [\App\Http\Controllers\BlogController::class, 'show'])->name('blog.show');
+
 // Admin panelde kategori yönetimi için resource rotaları
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('categories', \App\Http\Controllers\CategoryController::class);
