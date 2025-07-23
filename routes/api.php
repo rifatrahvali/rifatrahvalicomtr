@@ -20,3 +20,15 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     // Kimliği doğrulanmış kullanıcıyı döndürür.
     return $request->user();
 });
+
+// CV Modülü Public API Endpointleri
+Route::prefix('v1')->group(function () {
+    Route::get('/profile', [\App\Http\Controllers\Api\CvApiController::class, 'profile']);
+    Route::get('/experiences', [\App\Http\Controllers\Api\CvApiController::class, 'experiences']);
+    Route::get('/educations', [\App\Http\Controllers\Api\CvApiController::class, 'educations']);
+    Route::get('/certificates', [\App\Http\Controllers\Api\CvApiController::class, 'certificates']);
+    Route::get('/courses', [\App\Http\Controllers\Api\CvApiController::class, 'courses']);
+    Route::get('/about', [\App\Http\Controllers\Api\CvApiController::class, 'about']);
+    Route::get('/learned-experiences', [\App\Http\Controllers\Api\CvApiController::class, 'learnedExperiences']);
+    Route::get('/learned-educations', [\App\Http\Controllers\Api\CvApiController::class, 'learnedEducations']);
+});

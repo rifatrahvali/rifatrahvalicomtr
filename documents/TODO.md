@@ -435,7 +435,7 @@ class UpdateProfileRequest extends FormRequest
 * **Testing**: Frontend display testleri
 * **Documentation**: Frontend component guide
 
-### ☐ [309] **CV Module API Endpoints** [Öncelik: Medium] [Süre: 3 saat]
+### ✅ [309] **CV Module API Endpoints** [Öncelik: Medium] [Süre: 3 saat]
 * **Cursor Rules**: api.mdc, security.mdc
 * **Description**: CV verileri için RESTful API
 * **Technical Steps**:

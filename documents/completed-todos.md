@@ -722,6 +722,34 @@
 - Controller: `app/Http/Controllers/CvController.php`
 - View: `resources/views/cv/show.blade.php`
 
+---
+
+### ✅ [309] CV Module API Endpoints
+
+**Tamamlanma Tarihi:** 23.07.2025
+
+**Özet:** CV modülündeki tüm verileri (profil, hakkımda, deneyimler, eğitimler, sertifikalar, kurslar, kazanımlar) JSON formatında, RESTful ve public olarak sunan API endpointleri oluşturuldu. Tüm kodlarda Türkçe açıklama ve güvenlik kurallarına uyuldu.
+
+**Yapılan Teknik Adımlar:**
+1. **Route:** `routes/api.php` dosyasına `/api/v1/profile`, `/api/v1/experiences`, `/api/v1/educations`, `/api/v1/certificates`, `/api/v1/courses`, `/api/v1/about`, `/api/v1/learned-experiences`, `/api/v1/learned-educations` endpointleri eklendi.
+2. **Controller:** `app/Http/Controllers/Api/CvApiController.php` dosyası oluşturuldu. Her endpoint için public veri döndüren metotlar yazıldı.
+3. **Veri:** Kullanıcıya ait tüm ilişkili veriler eager loading ile çekildi ve JSON olarak döndürüldü.
+4. **Testing:** Tüm testler (`php artisan test`) başarıyla geçti.
+5. **Kurallar:** Tüm kodlarda Türkçe açıklamalar, güvenlik, input doğrulama ve kod kalitesi kurallarına uyuldu.
+
+**İlgili Kurallar:**
+- `.cursor/rules/api.mdc`: RESTful, JSON formatında, public ve tutarlı API endpointleri oluşturuldu.
+- `.cursor/rules/security.mdc`: Veri güvenliği, rate limiting ve standartlara uyum sağlandı.
+- `.cursor/rules/code-quality.mdc`: Kodun her adımında Türkçe açıklama ve yorumlar eklendi.
+
+**Test:**
+- `php artisan test` komutu ile tüm testler başarıyla geçti.
+- API endpointleri Postman ile manuel olarak da test edildi.
+
+**Kaynaklar:**
+- Route: `routes/api.php`
+- Controller: `app/Http/Controllers/Api/CvApiController.php`
+
 
 
 
