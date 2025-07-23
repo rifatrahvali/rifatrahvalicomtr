@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@section('title', 'Blog | rifatrahvali.com.tr')
+@section('meta_description', 'Kişisel blog yazıları, güncel içerikler ve teknik makaleler.')
+
 @section('content')
 <div class="container py-4">
     <h1 class="mb-4">Blog</h1>

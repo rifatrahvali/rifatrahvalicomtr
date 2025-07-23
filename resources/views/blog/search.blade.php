@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@section('title', 'Arama: ' . $q . ' | rifatrahvali.com.tr')
+@section('meta_description', 'Arama sonuçları: ' . $q)
+
 @section('content')
 <div class="container py-4">
     <h1 class="mb-4">Arama Sonuçları</h1>

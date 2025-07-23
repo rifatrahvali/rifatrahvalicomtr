@@ -73,6 +73,9 @@ Route::get('/blog/category/{slug}', [\App\Http\Controllers\BlogController::class
 Route::get('/blog/tag/{slug}', [\App\Http\Controllers\BlogController::class, 'tagArchive'])->name('blog.tag');
 Route::get('/blog/{slug}', [\App\Http\Controllers\BlogController::class, 'show'])->name('blog.show');
 
+// Sitemap XML rotası
+Route::get('/sitemap.xml', [\App\Http\Controllers\SitemapController::class, 'index'])->name('sitemap.xml');
+
 // Admin panelde kategori yönetimi için resource rotaları
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('categories', \App\Http\Controllers\CategoryController::class);

@@ -1,5 +1,41 @@
 @extends('layouts.app')
 
+@section('title', $post->title . ' | rifatrahvali.com.tr')
+@section('meta_description', Str::limit(strip_tags($post->content), 150))
+@push('head')
+    <meta name="description" content="{{ Str::limit(strip_tags($post->content), 150) }}">
+    <!-- Open Graph Meta -->
+    <meta property="og:title" content="{{ $post->title }}" />
+    <meta property="og:description" content="{{ Str::limit(strip_tags($post->content), 150) }}" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="{{ request()->fullUrl() }}" />
+    @if($post->image)
+        <meta property="og:image" content="{{ asset('storage/' . $post->image) }}" />
+    @endif
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="{{ $post->title }}" />
+    <meta name="twitter:description" content="{{ Str::limit(strip_tags($post->content), 150) }}" />
+    @if($post->image)
+        <meta name="twitter:image" content="{{ asset('storage/' . $post->image) }}" />
+    @endif
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "{{ $post->title }}",
+      "description": "{{ Str::limit(strip_tags($post->content), 150) }}",
+      "image": "{{ $post->image ? asset('storage/' . $post->image) : '' }}",
+      "datePublished": "{{ $post->published_at ? $post->published_at->toAtomString() : $post->created_at->toAtomString() }}",
+      "author": {
+        "@type": "Person",
+        "name": "Rifat Rahvali"
+      }
+    }
+    </script>
+@endpush
+
 @section('content')
 <div class="container py-4">
     <div class="mb-3">

@@ -537,8 +537,8 @@ tinymce.init({
 * **Testing**: Blog frontend navigation testleri
 * **Documentation**: Blog frontend guide
 
-### ☐ [407] **Blog SEO Optimization** [Öncelik: High] [Süre: 4 saat]
-* **Cursor Rules**: frontend.mdc, performance.mdc
+### ✅ [407] **Blog SEO Optimization** [Öncelik: High] [Süre: 4 saat]
+* **Cursor Rules**: frontend.mdc, performance.mdc, code-quality.mdc
 * **Description**: Blog SEO features implementation
 * **Technical Steps**:
   * Meta title/description generation
@@ -546,6 +546,7 @@ tinymce.init({
   * Twitter Cards implementation
   * JSON-LD structured data
   * XML sitemap generation
+  * robots.txt
 * **Dependencies**: [406]
 * **Testing**: SEO validation testleri
 * **Documentation**: SEO best practices

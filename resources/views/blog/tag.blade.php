@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@section('title', '#' . $tag->name . ' Etiketi | rifatrahvali.com.tr')
+@section('meta_description', $tag->name . ' etiketiyle işaretlenmiş blog yazıları ve içerikler.')
+
 @section('content')
 <div class="container py-4">
     <h1 class="mb-4">Etiket: #{{ $tag->name }}</h1>

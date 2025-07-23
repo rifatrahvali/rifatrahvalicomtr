@@ -1,2 +1,4 @@
 User-agent: *
 Disallow:
+Sitemap: {{ url('/sitemap.xml') }}
+# Türkçe yorum: Tüm arama motorlarına açık, sitemap yolu belirtilmiş robots.txt dosyası.

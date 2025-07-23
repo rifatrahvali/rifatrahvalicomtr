@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@section('title', $category->name . ' Kategorisi | rifatrahvali.com.tr')
+@section('meta_description', $category->name . ' kategorisindeki blog yazıları ve içerikler.')
+
 @section('content')
 <div class="container py-4">
     <h1 class="mb-4">Kategori: {{ $category->name }}</h1>

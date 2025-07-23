@@ -7,7 +7,9 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>@yield('title', 'Blog | rifatrahvali.com.tr')</title>
+    <meta name="description" content="@yield('meta_description', 'Kişisel blog ve portföy - rifatrahvali.com.tr')">
+    @stack('head')
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
