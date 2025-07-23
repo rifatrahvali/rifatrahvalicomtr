@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens; // Sanctum'un token yönetimi için gerekli olan trait'i ekliyoruz.
 use Spatie\Permission\Traits\HasRoles; // Spatie'nin rol ve izin yönetimi için gerekli olan trait'i ekliyoruz.
+use Illuminate\Database\Eloquent\SoftDeletes; // SoftDeletes ile silinen kayıtlar geri alınabilir
 // use PragmaRX\Google2FALaravel\Support\Traits\Google2FA; // Google 2FA için gerekli olan trait'i ekliyoruz. (Geçici olarak devre dışı)
 
 class User extends Authenticatable
@@ -15,7 +16,7 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
         // HasApiTokens, kullanıcının API token'ları oluşturmasını ve yönetmesini sağlar.
         // HasRoles, kullanıcıya rol ve izin atama yetenekleri kazandırır.
-        use HasFactory, Notifiable, HasApiTokens, HasRoles; // Google2FA geçici olarak kaldırıldı
+        use HasFactory, Notifiable, HasApiTokens, HasRoles, SoftDeletes; // Google2FA geçici olarak kaldırıldı
 
     /**
      * The attributes that are mass assignable.

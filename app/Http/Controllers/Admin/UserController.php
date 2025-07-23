@@ -132,10 +132,38 @@ class UserController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
-        // Türkçe yorum: Kullanıcılar sayfalı olarak çekiliyor
-        $kullanicilar = User::with('roles')->paginate(15);
-        return view('admin.users.index', compact('kullanicilar'));
+        // Türkçe: Kullanıcılar sorgusu başlatılır
+        $query = User::query()->with('roles');
+        // Türkçe: İsim araması
+        if ($request->filled('name')) {
+            $query->where('name', 'like', '%' . $request->name . '%');
+        }
+        // Türkçe: E-posta araması
+        if ($request->filled('email')) {
+            $query->where('email', 'like', '%' . $request->email . '%');
+        }
+        // Türkçe: Rol filtresi (çoklu seçim)
+        if ($request->filled('role')) {
+            $roles = (array) $request->role;
+            $query->whereHas('roles', function ($q) use ($roles) {
+                $q->whereIn('name', $roles);
+            });
+        }
+        // Türkçe: Durum filtresi (aktif/pasif)
+        if ($request->filled('status')) {
+            if ($request->status === 'active') {
+                // Türkçe: Sadece aktif kullanıcılar (varsayılan davranış)
+                // Soft delete ile silinmemiş olanlar
+            } elseif ($request->status === 'passive') {
+                // Türkçe: Sadece silinmiş (pasif) kullanıcılar
+                $query->onlyTrashed();
+            }
+        }
+        // Türkçe: Sonuçları sayfalı olarak döndür
+        $kullanicilar = $query->paginate(15)->appends($request->except('page'));
+        $roller = \Spatie\Permission\Models\Role::all();
+        return view('admin.users.index', compact('kullanicilar', 'roller'));
     }
 } 

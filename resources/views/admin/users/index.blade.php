@@ -3,6 +3,34 @@
 @section('content')
 <div class="container">
     <h2>Kullanıcı Yönetimi</h2>
+    <!-- Türkçe: Arama ve filtre formu başlangıcı -->
+    <form method="GET" action="{{ route('admin.users.index') }}" class="row g-3 mb-3">
+        <div class="col-md-3">
+            <input type="text" name="name" value="{{ request('name') }}" class="form-control" placeholder="İsim ile ara">
+        </div>
+        <div class="col-md-3">
+            <input type="text" name="email" value="{{ request('email') }}" class="form-control" placeholder="E-posta ile ara">
+        </div>
+        <div class="col-md-3">
+            <select name="role[]" class="form-select" multiple>
+                <option value="">Rol Seç</option>
+                @foreach($roller as $rol)
+                    <option value="{{ $rol->name }}" @if(request('role') && in_array($rol->name, (array)request('role'))) selected @endif>{{ $rol->name }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="col-md-2">
+            <select name="status" class="form-select">
+                <option value="">Durum Seç</option>
+                <option value="active" @if(request('status')=='active') selected @endif>Aktif</option>
+                <option value="passive" @if(request('status')=='passive') selected @endif>Pasif</option>
+            </select>
+        </div>
+        <div class="col-md-1">
+            <button type="submit" class="btn btn-primary w-100">Filtrele</button>
+        </div>
+    </form>
+    <!-- Türkçe: Arama ve filtre formu bitişi -->
     <a href="{{ route('admin.users.create') }}" class="btn btn-primary mb-3">Yeni Kullanıcı Ekle</a>
     <table class="table table-bordered table-hover">
         <thead>

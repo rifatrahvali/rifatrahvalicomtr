@@ -1490,3 +1490,35 @@
 - Controller: `app/Http/Controllers/Admin/UserController.php`
 - Route: `routes/web.php`
 - Test: `tests/Feature/Admin/UserBulkActionTest.php`
+
+---
+
+### ✅ [708] Admin Search & Filter System
+
+**Tamamlanma Tarihi:** 2025-07-23
+
+**Özet:** Admin panelde kullanıcılar için isim, e-posta, rol ve durum filtreleriyle gelişmiş arama ve filtreleme altyapısı kuruldu. Tüm işlemler .cursor/rules ve file-structure.md'ye uygun olarak yapıldı.
+
+**Yapılan Teknik Adımlar:**
+1. **Model & Migration:**
+   - `app/Models/User.php` modeline SoftDeletes trait'i eklendi. (Türkçe açıklama ile)
+   - `database/migrations/2025_07_23_160656_add_deleted_at_to_users_table.php` migration dosyası ile users tablosuna deleted_at sütunu eklendi.
+2. **Controller:**
+   - `app/Http/Controllers/Admin/UserController.php` index metodu, isim, e-posta, rol (çoklu), durum (aktif/pasif) filtrelerini query stringden alıp uygulayacak şekilde güncellendi. Durum filtresi için onlyTrashed() kullanıldı. Her filtre bloğunun altına Türkçe açıklama eklendi.
+3. **View:**
+   - `resources/views/admin/users/index.blade.php` dosyasına arama ve filtre formu eklendi. Formda isim, e-posta, rol (çoklu), durum (aktif/pasif) alanları yer aldı. Her önemli blok altına Türkçe açıklama eklendi.
+4. **Test:**
+   - `tests/Feature/Admin/UserSearchFilterTest.php` dosyasında isim, e-posta, rol, durum ve kombinasyonlu filtreleme için feature testler yazıldı ve geçti. Testte gereksiz assertDontSee kontrolleri kaldırıldı.
+5. **Rule ve Dosya Yapısı Kontrolü:**
+   - Tüm işlemler `.cursor/rules/admin-panel-security.mdc`, `php-laravel.mdc`, `frontend.mdc`, `code-quality.mdc`, `security.mdc` ve `file-structure.md`'ye uygun olarak yapıldı.
+6. **Kodlarda Türkçe Açıklama:**
+   - Tüm fonksiyon ve önemli kod bloklarının altına Türkçe açıklama eklendi.
+7. **Test Sonucu:**
+   - `php artisan test --filter=UserSearchFilterTest` ile tüm testler başarıyla geçti.
+
+**Kaynaklar:**
+- Model: `app/Models/User.php`
+- Migration: `database/migrations/2025_07_23_160656_add_deleted_at_to_users_table.php`
+- Controller: `app/Http/Controllers/Admin/UserController.php`
+- View: `resources/views/admin/users/index.blade.php`
+- Test: `tests/Feature/Admin/UserSearchFilterTest.php`
