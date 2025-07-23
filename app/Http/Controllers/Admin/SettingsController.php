@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Setting;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Admin\UpdateSettingsRequest;
+use App\Models\ActivityLog;
 
 class SettingsController extends Controller
 {
@@ -42,6 +43,14 @@ class SettingsController extends Controller
                 ]);
             }
         }
+        // Türkçe: Ayar güncelleme işlemi ActivityLog ile kaydedildi
+        ActivityLog::log(
+            'settings_update',
+            'Admin ayarları güncelledi',
+            Auth::id(),
+            $request->ip(),
+            $request->userAgent()
+        );
         // Türkçe: Başarılı güncelleme sonrası geri dön
         return redirect()->back()->with('success', 'Ayarlar başarıyla güncellendi.');
     }

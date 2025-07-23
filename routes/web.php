@@ -77,17 +77,8 @@ Route::get('/blog/{slug}', [\App\Http\Controllers\BlogController::class, 'show']
 // Sitemap XML rotası
 Route::get('/sitemap.xml', [\App\Http\Controllers\SitemapController::class, 'index'])->name('sitemap.xml');
 
-// Admin panelde kategori yönetimi için resource rotaları
-// Route::middleware(['auth', 'role:Admin'])->group(function () { // Geçici olarak devre dışı (eksik controller)
-//     Route::resource('categories', \App\Http\Controllers\CategoryController::class);
-// });
-
-// Admin panelde blog post yönetimi için resource rotaları
-// Route::middleware(['auth', 'role:Admin'])->group(function () { // Geçici olarak devre dışı (eksik controller)
-//     Route::resource('posts', \App\Http\Controllers\PostController::class);
-// });
-
-Route::middleware(['auth', 'role:Admin'])->prefix('secure-admin')->name('admin.')->group(function () {
+// Admin paneli için tüm rotalar tek bir grupta
+Route::middleware(['auth', 'role:admin'])->prefix('secure-admin')->name('admin.')->group(function () {
     Route::get('dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
     Route::resource('blog', App\Http\Controllers\Admin\BlogPostController::class);
     Route::resource('gallery', App\Http\Controllers\Admin\GalleryController::class);
@@ -99,23 +90,16 @@ Route::middleware(['auth', 'role:Admin'])->prefix('secure-admin')->name('admin.'
     Route::post('filemanager/rename', [App\Http\Controllers\Admin\FileManagerController::class, 'rename'])->name('filemanager.rename');
     Route::post('filemanager/create-folder', [App\Http\Controllers\Admin\FileManagerController::class, 'createFolder'])->name('filemanager.createFolder');
     Route::post('reference-update-order', [App\Http\Controllers\Admin\ReferenceController::class, 'updateOrder'])->name('reference.update-order');
+    // Admin işlem logları
+    Route::get('/activity-logs', [\App\Http\Controllers\Admin\ActivityLogController::class, 'index'])->name('activity.index'); // Türkçe: Admin işlem loglarını listeler
+    // Admin ayar yönetimi
+    Route::get('/settings', [\App\Http\Controllers\Admin\SettingsController::class, 'index'])->name('settings.index');
+    Route::post('/settings', [\App\Http\Controllers\Admin\SettingsController::class, 'update'])->name('settings.update');
+    // Türkçe: Tüm admin işlemleri bu grupta ve sadece admin rolüne sahip kullanıcılar erişebilir.
 });
-// Türkçe yorum: Admin paneli için users resource rotası eklendi.
-// Türkçe yorum: Tüm admin rotaları secure-admin prefix ve yetki ile korundu.
-// Türkçe yorum: Admin paneli için filemanager ana sayfa rotası eklendi.
-// Türkçe yorum: FileManager için dosya yükleme, silme, yeniden adlandırma ve klasör oluşturma rotaları eklendi.
 
 Route::get('/gallery', [App\Http\Controllers\GalleryController::class, 'publicIndex'])->name('gallery.public.index');
 // Türkçe yorum: Kamuya açık galeri görüntüleme rotası eklendi.
 
 Route::get('/references', [App\Http\Controllers\ReferenceController::class, 'publicIndex'])->name('references.public.index');
 // Türkçe yorum: Kamuya açık referans görüntüleme rotası eklendi.
-
-// Admin ayar yönetimi rotaları
-Route::middleware(['auth', 'role:admin'])->prefix('secure-admin')->group(function () {
-    // Ayarları görüntüleme
-    Route::get('/settings', [\App\Http\Controllers\Admin\SettingsController::class, 'index'])->name('admin.settings.index');
-    // Ayarları güncelleme
-    Route::post('/settings', [\App\Http\Controllers\Admin\SettingsController::class, 'update'])->name('admin.settings.update');
-    // Türkçe: Bu rotalar sadece admin kullanıcılar tarafından erişilebilir.
-});

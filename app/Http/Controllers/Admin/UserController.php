@@ -9,6 +9,7 @@ use App\Http\Requests\Admin\StoreUserRequest;
 use App\Http\Requests\Admin\UpdateUserRequest;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use App\Models\ActivityLog;
 
 class UserController extends Controller
 {
@@ -33,8 +34,14 @@ class UserController extends Controller
         $user = User::create($data);
         $user->syncRoles($request->input('roles', []));
         // Türkçe yorum: Kullanıcı oluşturulduktan sonra rol atanır
-        Log::info('Admin kullanıcı oluşturdu', ['admin_id' => auth()->id(), 'user_id' => $user->id]);
-        // Türkçe yorum: Kullanıcı oluşturma işlemi loglandı
+        ActivityLog::log(
+            'user_create',
+            'Admin yeni kullanıcı oluşturdu: ' . $user->email,
+            auth()->id(),
+            $request->ip(),
+            $request->userAgent()
+        );
+        // Türkçe: Kullanıcı oluşturma işlemi ActivityLog ile kaydedildi
         return redirect()->route('admin.users.index')->with('success', 'Kullanıcı başarıyla eklendi.');
     }
 
@@ -62,8 +69,14 @@ class UserController extends Controller
         $user->update($data);
         $user->syncRoles($request->input('roles', []));
         // Türkçe yorum: Kullanıcı güncellendi ve rol ataması yapıldı
-        Log::info('Admin kullanıcı güncelledi', ['admin_id' => auth()->id(), 'user_id' => $user->id]);
-        // Türkçe yorum: Kullanıcı güncelleme işlemi loglandı
+        ActivityLog::log(
+            'user_update',
+            'Admin kullanıcıyı güncelledi: ' . $user->email,
+            auth()->id(),
+            $request->ip(),
+            $request->userAgent()
+        );
+        // Türkçe: Kullanıcı güncelleme işlemi ActivityLog ile kaydedildi
         return redirect()->route('admin.users.index')->with('success', 'Kullanıcı güncellendi.');
     }
 
@@ -73,9 +86,16 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $userId = $user->id;
+        $userEmail = $user->email;
         $user->delete();
-        Log::info('Admin kullanıcı sildi', ['admin_id' => auth()->id(), 'user_id' => $userId]);
-        // Türkçe yorum: Kullanıcı silme işlemi loglandı
+        ActivityLog::log(
+            'user_delete',
+            'Admin kullanıcı sildi: ' . $userEmail,
+            auth()->id(),
+            request()->ip(),
+            request()->userAgent()
+        );
+        // Türkçe: Kullanıcı silme işlemi ActivityLog ile kaydedildi
         return redirect()->route('admin.users.index')->with('success', 'Kullanıcı silindi.');
     }
 
