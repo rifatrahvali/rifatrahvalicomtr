@@ -12,28 +12,16 @@ return new class extends Migration
     public function up(): void
     {
                 Schema::create('references', function (Blueprint $table) {
-            // Otomatik artan primary key (id)
             $table->id();
-
-            // Referans veren kişinin adı
-            $table->string('name');
-
-            // Referans veren kişinin unvanı, null olabilir
-            $table->string('title')->nullable();
-
-            // Referans veren kişinin şirketi, null olabilir
-            $table->string('company')->nullable();
-
-            // Referans yorumu
-            $table->text('comment');
-
-            // Referans veren kişinin resmi (URL'i tutulacak), null olabilir
-            $table->string('image')->nullable();
-
-            // Referansların sıralaması için kullanılacak sütun. Varsayılan 0.
-            $table->unsignedInteger('order')->default(0);
-
-            // created_at ve updated_at sütunlarını ekler
+            $table->string('name', 200);
+            $table->json('images');
+            $table->string('website_url', 255)->nullable();
+            $table->text('description')->nullable();
+            $table->string('company_name', 200)->nullable();
+            $table->string('position', 150)->nullable();
+            $table->unsignedInteger('order_index')->default(0);
+            $table->boolean('is_active')->default(true);
+            // Türkçe yorum: Referans için gerekli tüm alanlar eklendi.
             $table->timestamps();
         });
     }

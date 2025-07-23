@@ -14,6 +14,8 @@ use App\Models\About;
 use App\Policies\AboutPolicy;
 use App\Models\Gallery;
 use App\Policies\GalleryPolicy;
+use App\Models\Reference;
+use App\Policies\ReferencePolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -31,6 +33,8 @@ class AuthServiceProvider extends ServiceProvider
         Course::class => CoursePolicy::class,
         Gallery::class => GalleryPolicy::class,
         // Türkçe yorum: Gallery için policy kaydı yapıldı.
+        Reference::class => ReferencePolicy::class,
+        // Türkçe yorum: Reference için policy kaydı yapıldı.
     ];
 
     /**

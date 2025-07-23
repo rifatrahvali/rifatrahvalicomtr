@@ -9,18 +9,14 @@ class Reference extends Model
 {
     use HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    // Toplu atama ile doldurulabilir alanları belirtir.
     protected $fillable = [
-        'name',
-        'title',
-        'company',
-        'comment',
-        'image',
-        'order',
+        'name', 'images', 'website_url', 'description', 'company_name', 'position', 'order_index', 'is_active'
     ];
+    // Türkçe yorum: Referans için çoklu görsel, açıklama, şirket, pozisyon, sıralama ve aktiflik alanları tanımlandı.
+
+    protected $casts = [
+        'images' => 'array',
+        'is_active' => 'boolean',
+    ];
+    // Türkçe yorum: images alanı JSON, is_active boolean olarak cast edildi.
 }

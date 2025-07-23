@@ -88,11 +88,10 @@ Route::get('/sitemap.xml', [\App\Http\Controllers\SitemapController::class, 'ind
 // });
 
 Route::middleware(['auth', 'role:Admin'])->prefix('secure-admin')->name('admin.')->group(function () {
-    Route::resource('gallery', App\Http\Controllers\Admin\GalleryController::class);
-    Route::get('gallery-bulk-upload', [App\Http\Controllers\Admin\GalleryController::class, 'bulkUploadForm'])->name('gallery.bulk-upload-form');
-    Route::post('gallery-bulk-upload', [App\Http\Controllers\Admin\GalleryController::class, 'bulkUpload'])->name('gallery.bulk-upload');
-    Route::post('gallery-update-order', [App\Http\Controllers\Admin\GalleryController::class, 'updateOrder'])->name('gallery.update-order');
+    Route::resource('reference', App\Http\Controllers\Admin\ReferenceController::class);
+    Route::post('reference-update-order', [App\Http\Controllers\Admin\ReferenceController::class, 'updateOrder'])->name('reference.update-order');
 });
+// Türkçe yorum: Admin paneli için referans CRUD ve sıralama rotaları eklendi.
 
 Route::get('/gallery', [App\Http\Controllers\GalleryController::class, 'publicIndex'])->name('gallery.public.index');
 // Türkçe yorum: Kamuya açık galeri görüntüleme rotası eklendi.
