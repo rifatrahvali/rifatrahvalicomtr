@@ -93,10 +93,17 @@ Route::middleware(['auth', 'role:Admin'])->prefix('secure-admin')->name('admin.'
     Route::resource('gallery', App\Http\Controllers\Admin\GalleryController::class);
     Route::resource('reference', App\Http\Controllers\Admin\ReferenceController::class);
     Route::resource('users', App\Http\Controllers\Admin\UserController::class);
+    Route::get('filemanager', [App\Http\Controllers\Admin\FileManagerController::class, 'index'])->name('filemanager.index');
+    Route::post('filemanager/upload', [App\Http\Controllers\Admin\FileManagerController::class, 'upload'])->name('filemanager.upload');
+    Route::post('filemanager/delete', [App\Http\Controllers\Admin\FileManagerController::class, 'delete'])->name('filemanager.delete');
+    Route::post('filemanager/rename', [App\Http\Controllers\Admin\FileManagerController::class, 'rename'])->name('filemanager.rename');
+    Route::post('filemanager/create-folder', [App\Http\Controllers\Admin\FileManagerController::class, 'createFolder'])->name('filemanager.createFolder');
     Route::post('reference-update-order', [App\Http\Controllers\Admin\ReferenceController::class, 'updateOrder'])->name('reference.update-order');
 });
 // Türkçe yorum: Admin paneli için users resource rotası eklendi.
 // Türkçe yorum: Tüm admin rotaları secure-admin prefix ve yetki ile korundu.
+// Türkçe yorum: Admin paneli için filemanager ana sayfa rotası eklendi.
+// Türkçe yorum: FileManager için dosya yükleme, silme, yeniden adlandırma ve klasör oluşturma rotaları eklendi.
 
 Route::get('/gallery', [App\Http\Controllers\GalleryController::class, 'publicIndex'])->name('gallery.public.index');
 // Türkçe yorum: Kamuya açık galeri görüntüleme rotası eklendi.
