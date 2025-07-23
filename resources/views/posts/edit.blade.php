@@ -32,6 +32,14 @@
             <input type="file" class="form-control" id="image" name="image" accept="image/*">
         </div>
         <div class="mb-3">
+            <label for="tags" class="form-label">Etiketler (virgülle ayırın veya seçin)</label>
+            <select class="form-select" id="tags" name="tags[]" multiple>
+                @foreach($allTags as $tag)
+                    <option value="{{ $tag->name }}" @if(in_array($tag->name, $selectedTags)) selected @endif>{{ $tag->name }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="mb-3">
             <label for="content" class="form-label">İçerik</label>
             <textarea class="form-control" id="content" name="content" rows="10" required>{{ old('content', $post->content) }}</textarea>
         </div>
@@ -43,6 +51,8 @@
 
 @push('scripts')
 <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <script>
     // Türkçe yorum: İçerik alanı için TinyMCE editörü ekleniyor.
     tinymce.init({
@@ -53,6 +63,16 @@
         language: 'tr',
         paste_data_images: false,
         relative_urls: false
+    });
+
+    // Türkçe yorum: Etiket alanı için Select2 çoklu seçim eklendi.
+    $(document).ready(function() {
+        $('#tags').select2({
+            tags: true,
+            tokenSeparators: [','],
+            placeholder: 'Etiket ekle',
+            width: '100%'
+        });
     });
 </script>
 @endpush

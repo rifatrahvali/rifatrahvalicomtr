@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\User;
 use App\Models\BlogCategory;
+use App\Models\Tag;
 
 class BlogPost extends Model
 {
@@ -54,5 +55,14 @@ class BlogPost extends Model
     public function category()
     {
         return $this->belongsTo(BlogCategory::class, 'blog_category_id');
+    }
+
+    /**
+     * Bu yazının ait olduğu etiketleri getirir.
+     */
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'blog_post_tag');
+        // Türkçe yorum: Blog yazısı ile etiketler arasında çoktan-çoğa ilişki.
     }
 }

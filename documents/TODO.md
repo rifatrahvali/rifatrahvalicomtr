@@ -390,7 +390,7 @@ class UpdateProfileRequest extends FormRequest
 * **Testing**: Certificate upload testleri
 * **Documentation**: Certificate validation
 
-### ☐ ✅ [305] **Course Management System** [Öncelik: Medium] [Süre: 2 saat]
+### ✅ [305] **Course Management System** [Öncelik: Medium] [Süre: 2 saat]
 * **Cursor Rules**: php-laravel.mdc
 * **Description**: Kurs bilgileri yönetimi
 * **Technical Steps**:
@@ -512,7 +512,7 @@ tinymce.init({
 * **Testing**: Scheduled publishing testleri
 * **Documentation**: Content scheduling guide
 
-### ☐ [405] **Tag System Implementation** [Öncelik: High] [Süre: 3 saat]
+### ✅ [405] **Tag System Implementation** [Öncelik: High] [Süre: 3 saat]
 * **Cursor Rules**: php-laravel.mdc
 * **Description**: Blog yazıları için etiket sistemi
 * **Technical Steps**:

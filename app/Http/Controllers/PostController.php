@@ -7,6 +7,7 @@ use App\Models\BlogCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Tag;
 
 class PostController extends Controller
 {
@@ -22,7 +23,8 @@ class PostController extends Controller
     public function create()
     {
         $categories = BlogCategory::all();
-        return view('posts.create', compact('categories'));
+        $allTags = Tag::all();
+        return view('posts.create', compact('categories', 'allTags'));
         // Türkçe yorum: Yeni blog yazısı ekleme formunu gösterir.
     }
 
@@ -34,6 +36,8 @@ class PostController extends Controller
             'blog_category_id' => 'required|exists:blog_categories,id',
             'content' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
+            'tags' => 'nullable|array',
+            'tags.*' => 'string|max:100',
         ]);
         $validated['slug'] = Str::slug($validated['title']);
         $validated['user_id'] = Auth::id();
@@ -41,7 +45,20 @@ class PostController extends Controller
         if ($request->hasFile('image')) {
             $validated['image'] = $request->file('image')->store('post-images', 'public');
         }
-        BlogPost::create($validated);
+        $post = BlogPost::create($validated);
+        // Türkçe yorum: Etiketleri işle
+        $tagIds = [];
+        if ($request->filled('tags')) {
+            foreach ($request->input('tags') as $tagName) {
+                $tag = Tag::firstOrCreate([
+                    'slug' => Str::slug($tagName)
+                ], [
+                    'name' => $tagName
+                ]);
+                $tagIds[] = $tag->id;
+            }
+        }
+        $post->tags()->sync($tagIds);
         return redirect()->route('posts.index')->with('success', 'Blog yazısı eklendi.');
         // Türkçe yorum: Yeni blog yazısı kaydedilir.
     }
@@ -50,7 +67,9 @@ class PostController extends Controller
     public function edit(BlogPost $post)
     {
         $categories = BlogCategory::all();
-        return view('posts.edit', compact('post', 'categories'));
+        $allTags = Tag::all();
+        $selectedTags = $post->tags->pluck('name')->toArray();
+        return view('posts.edit', compact('post', 'categories', 'allTags', 'selectedTags'));
         // Türkçe yorum: Blog yazısı düzenleme formunu gösterir.
     }
 
@@ -62,12 +81,27 @@ class PostController extends Controller
             'blog_category_id' => 'required|exists:blog_categories,id',
             'content' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
+            'tags' => 'nullable|array',
+            'tags.*' => 'string|max:100',
         ]);
         $validated['slug'] = Str::slug($validated['title']);
         if ($request->hasFile('image')) {
             $validated['image'] = $request->file('image')->store('post-images', 'public');
         }
         $post->update($validated);
+        // Türkçe yorum: Etiketleri işle
+        $tagIds = [];
+        if ($request->filled('tags')) {
+            foreach ($request->input('tags') as $tagName) {
+                $tag = Tag::firstOrCreate([
+                    'slug' => Str::slug($tagName)
+                ], [
+                    'name' => $tagName
+                ]);
+                $tagIds[] = $tag->id;
+            }
+        }
+        $post->tags()->sync($tagIds);
         return redirect()->route('posts.index')->with('success', 'Blog yazısı güncellendi.');
         // Türkçe yorum: Blog yazısı güncellenir.
     }
