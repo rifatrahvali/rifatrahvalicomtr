@@ -28,6 +28,11 @@
             <!-- Türkçe yorum: Mevcut dosya önizlemesi -->
         </div>
         <div class="mb-3">
+            <label for="alt_text" class="form-label">Alt Text (SEO)</label>
+            <input type="text" name="alt_text" id="alt_text" class="form-control" value="{{ $gallery->alt_text }}">
+            <!-- Türkçe yorum: Görsel için SEO ve erişilebilirlik alt metni alanı -->
+        </div>
+        <div class="mb-3">
             <label for="type" class="form-label">Tür</label>
             <select name="type" id="type" class="form-control" required>
                 <option value="image" @if($gallery->type==='image') selected @endif>Görsel</option>

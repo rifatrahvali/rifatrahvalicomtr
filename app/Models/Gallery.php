@@ -16,10 +16,7 @@ class Gallery extends Model
      */
     // Toplu atama ile doldurulabilir alanları belirtir.
     protected $fillable = [
-        'title',
-        'description',
-        'path',
-        'type',
-        'order',
+        'title', 'description', 'path', 'type', 'order', 'alt_text'
     ];
+    // Türkçe yorum: SEO ve erişilebilirlik için alt_text alanı eklendi.
 }

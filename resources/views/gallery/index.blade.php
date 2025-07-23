@@ -16,7 +16,7 @@
                 <div class="card h-100 gallery-item" data-type="{{ $item->type }}">
                     @if($item->type == 'image')
                         <a href="{{ asset('storage/' . $item->path) }}" class="gallery-lightbox" data-title="{{ $item->title }}">
-                            <img src="{{ asset('storage/' . $item->path) }}" class="card-img-top" alt="{{ $item->title }}" loading="lazy">
+                            <img src="{{ asset('storage/' . $item->path) }}" class="card-img-top" alt="{{ $item->alt_text ?? $item->title }}" loading="lazy">
                         </a>
                         <!-- Türkçe yorum: Görsel için lightbox linki ve lazy loading -->
                     @else

@@ -35,7 +35,9 @@ class GalleryController extends Controller
         if ($request->hasFile('file')) {
             $data['path'] = $request->file('file')->store('gallery', 'public');
         }
+        $data['alt_text'] = $request->input('alt_text');
         Gallery::create($data);
+        // Türkçe yorum: Alt text alanı da kaydedildi.
         return redirect()->route('admin.gallery.index')->with('success', 'Galeri öğesi eklendi.');
         // Türkçe yorum: Yeni galeri öğesi kaydedilir.
     }
@@ -52,13 +54,14 @@ class GalleryController extends Controller
     {
         $data = $request->validated();
         if ($request->hasFile('file')) {
-            // Eski dosyayı sil
             if ($gallery->path) {
                 Storage::disk('public')->delete($gallery->path);
             }
             $data['path'] = $request->file('file')->store('gallery', 'public');
         }
+        $data['alt_text'] = $request->input('alt_text');
         $gallery->update($data);
+        // Türkçe yorum: Alt text alanı da güncellendi.
         return redirect()->route('admin.gallery.index')->with('success', 'Galeri öğesi güncellendi.');
         // Türkçe yorum: Galeri öğesi güncellenir.
     }

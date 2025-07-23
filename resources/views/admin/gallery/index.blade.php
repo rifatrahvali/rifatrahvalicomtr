@@ -12,6 +12,7 @@
                 <th>Tür</th>
                 <th>Önizleme</th>
                 <th>Açıklama</th>
+                <th>Alt Text</th>
                 <th>İşlemler</th>
             </tr>
         </thead>
@@ -32,6 +33,7 @@
                     <!-- Türkçe yorum: Görsel veya video önizlemesi -->
                 </td>
                 <td>{{ $gallery->description }}</td>
+                <td>{{ $gallery->alt_text }}</td>
                 <td>
                     <a href="{{ route('admin.gallery.edit', $gallery) }}" class="btn btn-sm btn-warning">Düzenle</a>
                     <form action="{{ route('admin.gallery.destroy', $gallery) }}" method="POST" style="display:inline-block;">

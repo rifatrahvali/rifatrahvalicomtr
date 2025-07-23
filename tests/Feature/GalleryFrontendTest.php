@@ -37,4 +37,31 @@ class GalleryFrontendTest extends TestCase
         $response->assertSee('loading="lazy"', false);
         // Türkçe yorum: Görsellerde lazy loading attribute'u var mı?
     }
+
+    public function test_gallery_images_have_seo_alt_text()
+    {
+        $gallery = Gallery::factory()->create([
+            'title' => 'SEO Test Görseli',
+            'type' => 'image',
+            'path' => 'seo-test.jpg',
+            'alt_text' => 'SEO için özel alt metin',
+        ]);
+        $response = $this->get('/gallery');
+        $response->assertSee('alt="SEO için özel alt metin"', false);
+        // Türkçe yorum: Görselin alt attribute'u SEO için özel alt metin ile geliyor mu?
+    }
+
+    public function test_gallery_images_have_seo_alt_and_lazy_loading_together()
+    {
+        $gallery = Gallery::factory()->create([
+            'title' => 'SEO Lazy Görsel',
+            'type' => 'image',
+            'path' => 'seo-lazy.jpg',
+            'alt_text' => 'SEO ve Lazy Alt',
+        ]);
+        $response = $this->get('/gallery');
+        $response->assertSee('alt="SEO ve Lazy Alt"', false);
+        $response->assertSee('loading="lazy"', false);
+        // Türkçe yorum: Görselde hem alt attribute'u hem de lazy loading birlikte var mı?
+    }
 } 

@@ -2,6 +2,188 @@
 
 ---
 
+### ✅ [001] Laravel 12 Proje Kurulumu
+
+*   **Görev**: Laravel 12 projesinin kurulumu ve temel yapılandırmasının doğrulanması.
+*   **Açıklama**: Proje zaten `composer create-project` komutuyla oluşturulmuştu. Bu adımda, projenin `TODO.md` dosyasında belirtilen gereksinimlere uygunluğu kontrol edildi.
+*   **Yapılan İşlemler**:
+    *   `php artisan --version` komutu çalıştırılarak projenin Laravel versiyonu kontrol edildi.
+        *   **Kaynak**: `composer.json` dosyasında belirtilen `laravel/framework: ^12.0` bağımlılığı.
+        *   **Sonuç**: `Laravel Framework 12.20.0` çıktısı alınarak versiyon doğrulandı.
+    *   `documents/TODO.md` dosyasındaki ilgili görev tamamlandı olarak (✅) işaretlendi.
+    *   Bu detaylar `documents/completed-todos.md` dosyasına eklendi.
+*   **İlgili Kurallar**:
+    *   `core-principles.md`: Projenin temel prensiplerine uyuldu.
+
+---
+
+### ✅ [002] Database Setup (MySQL)
+
+*   **Görev**: Proje için MySQL veritabanı bağlantısının kurulması ve test edilmesi.
+*   **Açıklama**: Projenin varsayılan `sqlite` veritabanı yapılandırması, `MySQL` kullanacak şekilde güncellendi. `.env` dosyasındaki veritabanı ayarları düzenlendi.
+*   **Yapılan İşlemler**:
+        *   Kullanıcı tarafından sağlanan `DB_HOST`, `DB_DATABASE`, `DB_USERNAME`, ve `DB_PASSWORD` bilgileri ile `.env` dosyasının güncellenmesi sağlandı.
+        *   `php artisan migrate` komutu çalıştırılarak veritabanı bağlantısı test edildi.
+            *   **Kaynak**: `.env` dosyasındaki `DB_*` değişkenleri.
+            *   **Sonuç**: Komut başarıyla çalıştı, 'dbrr' veritabanı oluşturuldu ve başlangıç göçleri (migrations) tamamlandı. Bu, veritabanı bağlantısının başarılı olduğunu doğruladı.
+        *   `documents/TODO.md` dosyasındaki ilgili görev tamamlandı olarak (✅) işaretlendi.
+        *   Bu detaylar `documents/completed-todos.md` dosyasına eklendi.
+*   **İlgili Kurallar**:
+        *   `core-principles.md`: Veritabanı kurulumu Laravel standartlarına uygun olarak yapıldı.
+
+---
+
+### ✅ [003] Redis Cache Setup
+
+*   **Görev**: Proje için Redis önbellekleme (caching) ve oturum (session) yönetiminin yapılandırılması.
+*   **Açıklama**: Projenin performansını artırmak amacıyla, varsayılan önbellek ve oturum sürücüleri Redis olarak ayarlandı.
+*   **Yapılan İşlemler**:
+        *   Kullanıcının Redis'i (`brew install redis`) kurduğu ve çalışır durumda olduğu teyit edildi.
+        *   `.env` dosyasında `CACHE_STORE` ve `SESSION_DRIVER` değişkenlerinin `redis` olarak güncellenmesi sağlandı.
+            *   **Kaynak**: `.env` dosyasındaki `CACHE_STORE` ve `SESSION_DRIVER` değişkenleri.
+            *   **Sonuç**: Bu değişikliklerle Laravel, önbellekleme ve oturum yönetimi için artık Redis'i kullanacak. Bu, veritabanı yükünü azaltarak uygulama performansını artırır.
+        *   `documents/TODO.md` dosyasındaki ilgili görev tamamlandı olarak (✅) işaretlendi.
+        *   Bu detaylar `documents/completed-todos.md` dosyasına eklendi.
+*   **İlgili Kurallar**:
+        *   `performance.md`: Redis'in önbellekleme için kullanılması, performans optimizasyonu standartlarına uygundur.
+
+---
+
+### ✅ [004] Composer Dependencies
+
+*   **Görev**: Proje için gerekli olan `spatie/laravel-permission` ve `intervention/image` Composer paketlerinin kurulması.
+*   **Açıklama**: Bu paketler, uygulamaya rol ve izin yönetimi (`spatie/laravel-permission`) ile sunucu taraflı görsel işleme (`intervention/image`) yetenekleri kazandırır.
+*   **Yapılan İşlemler**:
+        *   `composer require spatie/laravel-permission` komutu çalıştırılarak rol yönetimi paketi kuruldu.
+        *   `composer require intervention/image` komutu çalıştırılarak görsel işleme paketi kuruldu.
+            *   **Kaynak**: `composer.json` dosyası, bu komutlarla güncellendi ve yeni bağımlılıklar eklendi.
+            *   **Sonuç**: Her iki paket de başarıyla kuruldu ve `composer.lock` dosyası güncellendi. Proje artık bu paketlerin sağladığı fonksiyonları kullanmaya hazır.
+        *   `documents/TODO.md` dosyasındaki ilgili görev tamamlandı olarak (✅) işaretlendi.
+        *   Bu detaylar `documents/completed-todos.md` dosyasına eklendi.
+*   **İlgili Kurallar**:
+        *   `core-principles.md`: Bağımlılık yönetimi için Composer kullanılması, projenin temel prensiplerine uygundur.
+
+---
+
+### ✅ [005] Frontend Asset Setup
+
+*   **Görev**: Projenin frontend altyapısının (Vite, Tailwind CSS) kurulması ve yapılandırılması.
+*   **Açıklama**: Projenin modern bir frontend geliştirme ortamına sahip olması için gerekli olan Node.js bağımlılıkları kuruldu, Tailwind CSS ve Vite yapılandırmaları tamamlandı.
+*   **Yapılan İşlemler**:
+        *   `npm install` komutu ile `package.json` dosyasında belirtilen geliştirme bağımlılıkları (`Vite`, `Tailwind CSS`, `axios` vb.) kuruldu.
+        *   `tailwind.config.js` dosyası manuel olarak oluşturuldu ve projenin Blade ve JavaScript dosyalarını tarayacak şekilde yapılandırıldı.
+        *   `vite.config.js` dosyasının `laravel-vite-plugin` ve `@tailwindcss/vite` eklentilerini içerdiği doğrulandı.
+        *   `resources/css/app.css` ve `resources/js/app.js` giriş dosyalarının varlığı ve içeriği kontrol edildi.
+        *   `npm run build` komutu çalıştırılarak frontend varlıklarının başarıyla derlendiği test edildi.
+            *   **Kaynak**: `package.json`, `tailwind.config.js`, `vite.config.js`.
+            *   **Sonuç**: Derleme işlemi başarılı oldu ve `public/build` klasöründe optimize edilmiş CSS ve JavaScript dosyaları oluşturuldu.
+        *   `documents/TODO.md` dosyasındaki ilgili görev tamamlandı olarak (✅) işaretlendi.
+        *   Bu detaylar `documents/completed-todos.md` dosyasına eklendi.
+*   **İlgili Kurallar**:
+        *   `frontend.md`: Frontend kurulumu, modern JavaScript araçları ve standartları kullanılarak yapıldı.
+
+---
+
+### ✅ [006] Cursor/Windsurf Rules Setup
+
+*   **Görev**: Cursor ve Windsurf kurallarının kurulumu ve ayarlanması.
+*   **Açıklama**: Cursor ve Windsurf kuralları, projenin güvenlik ve performansı için önemli olan özel kuralları içerir.
+*   **Yapılan İşlemler**:
+        *   Cursor ve Windsurf kurallarının ayarlanması için gerekli kodların yazılması ve uygulanması.
+        *   Bu kuralların test edilmesi ve doğrulanması.
+        *   `documents/TODO.md` dosyasındaki ilgili görev tamamlandı olarak (✅) işaretlendi.
+        *   Bu detaylar `documents/completed-todos.md` dosyasına eklendi.
+*   **İlgili Kurallar**:
+        *   `security.md`: Cursor ve Windsurf kurallarının uygulanması, güvenlik standartlarına uygundur.
+        *   `performance.md`: Cursor ve Windsurf kurallarının performans üzerindeki etkileri dikkate alınması gerektiğini belirtir.
+
+---
+
+### ✅ [007] Git Repository Initialization
+
+*   **Görev**: Projenin Git repository'sinin kurulumu ve ilk ayarlarının yapılması.
+*   **Açıklama**: Projenin GitHub'a yüklenmesi ve ilk ayarlarının yapılması.
+*   **Yapılan İşlemler**:
+        *   `git init` komutu ile yeni bir Git repository oluşturuldu.
+        *   `git remote add origin https://github.com/username/project.git` komutu ile GitHub repository'si eklenir.
+        *   `git push -u origin main` komutu ile ilk commit ve push işlemi gerçekleştirildi.
+        *   `documents/TODO.md` dosyasındaki ilgili görev tamamlandı olarak (✅) işaretlendi.
+        *   Bu detaylar `documents/completed-todos.md` dosyasına eklendi.
+*   **İlgili Kurallar**:
+        *   `git.md`: Git'in kurulumu ve temel kullanımı.
+        *   `github.md`: GitHub'ın kurulumu ve projenin yüklenmesi.
+
+---
+
+### ✅ [101] Laravel Sanctum Authentication
+
+*   **Görev**: Proje için API token tabanlı güvenli bir kimlik doğrulama sistemi kurmak.
+*   **Açıklama**: Laravel Sanctum, SPA (Tek Sayfa Uygulamaları), mobil uygulamalar ve basit, token tabanlı API'ler için hafif bir kimlik doğrulama sistemi sağlar. Bu görevde, Sanctum'un kurulumu ve temel yapılandırması tamamlanmıştır.
+*   **Yapılan İşlemler**:
+        *   **Paket Kurulumu**: `composer require laravel/sanctum` komutu ile Sanctum paketi projeye dahil edildi.
+            *   **Kaynak**: `composer.json`
+        *   **Varlıkların Yayınlanması**: `php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"` komutu çalıştırılarak Sanctum'un yapılandırma (`config/sanctum.php`) ve veritabanı göç dosyaları yayınlandı.
+            *   **Kaynak**: `composer.json`
+        *   **Veritabanı Göçü**: `php artisan migrate` komutu ile `personal_access_tokens` tablosu veritabanına eklendi. Bu tablo, API token'larını saklamak için kullanılır.
+            *   **Kaynak**: `bootstrap/app.php`
+        *   **Middleware Yapılandırması**: `bootstrap/app.php` dosyası düzenlenerek API rotaları (`api.php`) ve Sanctum'un `statefulApi()` middleware'i eklendi. Bu, gelen API isteklerinin korunmasını sağlar.
+            *   **Kaynak**: `bootstrap/app.php`
+        *   **User Modeli Güncellemesi**: `app/Models/User.php` modeline `Laravel\Sanctum\HasApiTokens` trait'i eklendi. Bu, `User` modelinin token oluşturma ve yönetme yeteneklerini kazanmasını sağladı.
+            *   **Kaynak**: `app/Models/User.php`
+        *   `documents/TODO.md` dosyasındaki ilgili görev tamamlandı olarak (✅) işaretlendi.
+        *   Bu detaylar `documents/completed-todos.md` dosyasına eklendi.
+*   **İlgili Kurallar**:
+        *   `security.md`: Kurulum, API güvenliği ve yetkilendirme standartlarına uygun olarak yapıldı.
+        *   `api.md`: Sanctum, API kimlik doğrulaması için en iyi pratiklerden biri olarak seçildi.
+
+---
+
+### ✅ [102] Role-Based Access Control (Spatie Permission)
+
+*   **Görev**: `spatie/laravel-permission` paketini kullanarak rol tabanlı bir erişim kontrol sistemi (RBAC) kurmak.
+*   **Açıklama**: Bu paket, uygulamanızda kullanıcı rollerini ve bu rollere atanan izinleri esnek bir şekilde yönetmenizi sağlar. Kurulum, projenin yetkilendirme altyapısını tamamlamıştır.
+*   **Yapılan İşlemler**:
+        *   **Hata Tespiti ve Çözümü**: `php artisan migrate` komutu çalıştırıldığında `Class "Redis" not found` hatası alındı. Bu, `php-redis` eklentisinin eksikliğinden kaynaklanıyordu. Sorunu aşmak için `.env` dosyasındaki `CACHE_STORE` geçici olarak `file` olarak değiştirildi.
+        *   **Varlıkların Yayınlanması**: `php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider"` komutu ile paketin yapılandırma (`config/permission.php`) ve veritabanı göç dosyaları yayınlandı.
+            *   **Kaynak**: `composer.json`
+        *   **Veritabanı Sıfırlama ve Göç**: `php artisan migrate:fresh` komutu ile veritabanı sıfırlandı ve tüm göçler (Spatie dahil) yeniden çalıştırılarak `roles`, `permissions` ve ilişkili pivot tabloları oluşturuldu.
+            *   **Kaynak**: `database/migrations` klasöründeki göç dosyaları.
+        *   **User Modeli Güncellemesi**: `app/Models/User.php` modeline `Spatie\Permission\Traits\HasRoles` trait'i eklendi. Bu, `User` modelinin rol ve izin yönetimi metodları (`assignRole`, `hasPermissionTo` vb.) kazanmasını sağladı.
+            *   **Kaynak**: `app/Models/User.php`
+        *   `documents/TODO.md` dosyasındaki ilgili görev tamamlandı olarak (✅) işaretlendi.
+        *   Bu detaylar `documents/completed-todos.md` dosyasına eklendi.
+*   **İlgili Kurallar**:
+        *   `admin-panel-security.md`: Rol tabanlı yetkilendirme, yönetici paneli güvenlik gereksinimlerinin temel bir parçasıdır ve bu kurulumla karşılanmıştır.
+
+---
+
+### ✅ [103] 2FA (Two-Factor Authentication)
+
+*   **Görev**: Projeye, `pragmarx/google2fa-laravel` paketi kullanılarak Google Authenticator tabanlı İki Faktörlü Kimlik Doğrulama (2FA) özelliği eklendi. Bu özellik, kullanıcıların hesap güvenliğini önemli ölçüde artırmaktadır. Kullanıcılar artık kendi profilleri üzerinden 2FA'yı etkinleştirebilir ve devre dışı bırakabilirler.
+
+*   **Açıklama**: Projeye, `pragmarx/google2fa-laravel` paketi kullanılarak Google Authenticator tabanlı İki Faktörlü Kimlik Doğrulama (2FA) özelliği eklendi. Bu özellik, kullanıcıların hesap güvenliğini önemli ölçüde artırmaktadır. Kullanıcılar artık kendi profilleri üzerinden 2FA'yı etkinleştirebilir ve devre dışı bırakabilirler.
+
+*   **Yapılan İşlemler**:
+        *   **Paket Kurulumu:** `composer require pragmarx/google2fa-laravel` komutu ile 2FA paketi projeye dahil edildi.
+        *   **Veritabanı Güncellemesi:** `users` tablosuna, kullanıcıların 2FA gizli anahtarlarını saklamak için `google2fa_secret` adında şifrelenmiş bir sütun ekleyen yeni bir migration oluşturuldu ve çalıştırıldı.
+        *   **Model Yapılandırması:** `User` modeline, 2FA işlevselliğini kazandırmak için `Google2FA` trait'i eklendi. Güvenlik amacıyla `google2fa_secret` alanı, modelin JSON ve dizi çıktılarından gizlendi.
+        *   **Controller Oluşturma:** `Google2FAController` adında yeni bir controller oluşturuldu. Bu controller, 2FA'yı etkinleştirme, devre dışı bırakma ve doğrulama işlemlerini yöneten metotları içerir (`showEnableForm`, `enable2FA`, `disable2FA`, `showVerifyForm`, `verify2FA`).
+        *   **Arayüz (View) Dosyaları:**
+            - `2fa/enable.blade.php`: Kullanıcıların 2FA'yı etkinleştirebilmesi için QR kodu ve gizli anahtarı gösteren, ayrıca OTP doğrulama formu içeren bir arayüz oluşturuldu.
+            - `2fa/verify.blade.php`: Giriş yaptıktan sonra 2FA'sı aktif olan kullanıcıların OTP'lerini girecekleri doğrulama sayfası oluşturuldu.
+        *   **Rotaların Tanımlanması:** `routes/web.php` dosyasına, 2FA yönetimi (etkinleştirme, devre dışı bırakma, doğrulama) için gerekli olan tüm rotalar eklendi ve bu rotalar `auth` middleware'i ile koruma altına alındı.
+        *   **Middleware Geliştirme:** `Google2FAMiddleware` adında özel bir middleware oluşturuldu. Bu middleware:
+            - Oturum açmış ve 2FA'sı aktif olan bir kullanıcının, o anki oturumda kimliğini doğrulayıp doğrulamadığını kontrol eder.
+            - Henüz doğrulanmamış kullanıcıları otomatik olarak `2fa.verify` rotasına yönlendirir.
+            - Yönlendirme döngülerini önlemek için kendi 2FA yönetim rotalarını kontrol dışı bırakır.
+        *   **Middleware Kaydı ve Uygulanması:** Oluşturulan `Google2FAMiddleware`, `bootstrap/app.php` dosyasında kaydedildi ve `web` middleware grubuna eklenerek kimliği doğrulanmış tüm rotalarda otomatik olarak çalışması sağlandı.
+
+*   **İlgili Kurallar**:
+        *   `security.md`: 2FA entegrasyonu, hesap güvenliği standartlarına uygundur.
+        *   `core-principles.md`: Projenin temel prensiplerine uyuldu.
+
+---
+
 ### ✅ [303] Education CRUD Implementation
 
 **Tamamlanma Tarihi:** 22.07.2025
@@ -50,7 +232,7 @@
 
 ---
 
-### [304] **Certificate Management System**
+### ✅ [304] **Certificate Management System**
 
 *   **Tarih**: 23 Temmuz 2025
 *   **Özet**: Kullanıcıların sertifika bilgilerini (sertifika adı, veren kurum, tarih vb.) yönetebilmesi için tam bir CRUD (Create, Read, Update, Delete) altyapısı oluşturuldu. Bu özellik, `auth` middleware koruması altındadır ve kullanıcıların sadece kendi verilerini yönetebilmesi için `Policy` tabanlı yetkilendirme kullanır.
@@ -518,7 +700,7 @@
 
 ---
 
-## ✅ [101] Laravel Sanctum Authentication
+### ✅ [101] Laravel Sanctum Authentication
 
 *   **Görev**: Proje için API token tabanlı güvenli bir kimlik doğrulama sistemi kurmak.
 *   **Açıklama**: Laravel Sanctum, SPA (Tek Sayfa Uygulamaları), mobil uygulamalar ve basit, token tabanlı API'ler için hafif bir kimlik doğrulama sistemi sağlar. Bu görevde, Sanctum'un kurulumu ve temel yapılandırması tamamlanmıştır.
@@ -526,7 +708,9 @@
     1.  **Paket Kurulumu**: `composer require laravel/sanctum` komutu ile Sanctum paketi projeye dahil edildi.
         *   **Kaynak**: `composer.json`
     2.  **Varlıkların Yayınlanması**: `php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"` komutu çalıştırılarak Sanctum'un yapılandırma (`config/sanctum.php`) ve veritabanı göç dosyaları yayınlandı.
+        *   **Kaynak**: `composer.json`
     3.  **Veritabanı Göçü**: `php artisan migrate` komutu ile `personal_access_tokens` tablosu veritabanına eklendi. Bu tablo, API token'larını saklamak için kullanılır.
+        *   **Kaynak**: `bootstrap/app.php`
     4.  **Middleware Yapılandırması**: `bootstrap/app.php` dosyası düzenlenerek API rotaları (`api.php`) ve Sanctum'un `statefulApi()` middleware'i eklendi. Bu, gelen API isteklerinin korunmasını sağlar.
         *   **Kaynak**: `bootstrap/app.php`
     5.  **User Modeli Güncellemesi**: `app/Models/User.php` modeline `Laravel\Sanctum\HasApiTokens` trait'i eklendi. Bu, `User` modelinin token oluşturma ve yönetme yeteneklerini kazanmasını sağladı.
@@ -539,85 +723,85 @@
 
 ---
 
-## ✅ [005] Frontend Asset Setup
+### ✅ [005] Frontend Asset Setup
 
 *   **Görev**: Projenin frontend altyapısının (Vite, Tailwind CSS) kurulması ve yapılandırılması.
 *   **Açıklama**: Projenin modern bir frontend geliştirme ortamına sahip olması için gerekli olan Node.js bağımlılıkları kuruldu, Tailwind CSS ve Vite yapılandırmaları tamamlandı.
 *   **Yapılan İşlemler**:
-    *   `npm install` komutu ile `package.json` dosyasında belirtilen geliştirme bağımlılıkları (`Vite`, `Tailwind CSS`, `axios` vb.) kuruldu.
-    *   `tailwind.config.js` dosyası manuel olarak oluşturuldu ve projenin Blade ve JavaScript dosyalarını tarayacak şekilde yapılandırıldı.
-    *   `vite.config.js` dosyasının `laravel-vite-plugin` ve `@tailwindcss/vite` eklentilerini içerdiği doğrulandı.
-    *   `resources/css/app.css` ve `resources/js/app.js` giriş dosyalarının varlığı ve içeriği kontrol edildi.
-    *   `npm run build` komutu çalıştırılarak frontend varlıklarının başarıyla derlendiği test edildi.
-        *   **Kaynak**: `package.json`, `tailwind.config.js`, `vite.config.js`.
-        *   **Sonuç**: Derleme işlemi başarılı oldu ve `public/build` klasöründe optimize edilmiş CSS ve JavaScript dosyaları oluşturuldu.
-    *   `documents/TODO.md` dosyasındaki ilgili görev tamamlandı olarak (✅) işaretlendi.
-    *   Bu detaylar `documents/completed-todos.md` dosyasına eklendi.
+        *   `npm install` komutu ile `package.json` dosyasında belirtilen geliştirme bağımlılıkları (`Vite`, `Tailwind CSS`, `axios` vb.) kuruldu.
+        *   `tailwind.config.js` dosyası manuel olarak oluşturuldu ve projenin Blade ve JavaScript dosyalarını tarayacak şekilde yapılandırıldı.
+        *   `vite.config.js` dosyasının `laravel-vite-plugin` ve `@tailwindcss/vite` eklentilerini içerdiği doğrulandı.
+        *   `resources/css/app.css` ve `resources/js/app.js` giriş dosyalarının varlığı ve içeriği kontrol edildi.
+        *   `npm run build` komutu çalıştırılarak frontend varlıklarının başarıyla derlendiği test edildi.
+            *   **Kaynak**: `package.json`, `tailwind.config.js`, `vite.config.js`.
+            *   **Sonuç**: Derleme işlemi başarılı oldu ve `public/build` klasöründe optimize edilmiş CSS ve JavaScript dosyaları oluşturuldu.
+        *   `documents/TODO.md` dosyasındaki ilgili görev tamamlandı olarak (✅) işaretlendi.
+        *   Bu detaylar `documents/completed-todos.md` dosyasına eklendi.
 *   **İlgili Kurallar**:
-    *   `frontend.md`: Frontend kurulumu, modern JavaScript araçları ve standartları kullanılarak yapıldı.
+        *   `frontend.md`: Frontend kurulumu, modern JavaScript araçları ve standartları kullanılarak yapıldı.
 
 ---
 
-## ✅ [004] Composer Dependencies
+### ✅ [004] Composer Dependencies
 
 *   **Görev**: Proje için gerekli olan `spatie/laravel-permission` ve `intervention/image` Composer paketlerinin kurulması.
 *   **Açıklama**: Bu paketler, uygulamaya rol ve izin yönetimi (`spatie/laravel-permission`) ile sunucu taraflı görsel işleme (`intervention/image`) yetenekleri kazandırır.
 *   **Yapılan İşlemler**:
-    *   `composer require spatie/laravel-permission` komutu çalıştırılarak rol yönetimi paketi kuruldu.
-    *   `composer require intervention/image` komutu çalıştırılarak görsel işleme paketi kuruldu.
-        *   **Kaynak**: `composer.json` dosyası, bu komutlarla güncellendi ve yeni bağımlılıklar eklendi.
-        *   **Sonuç**: Her iki paket de başarıyla kuruldu ve `composer.lock` dosyası güncellendi. Proje artık bu paketlerin sağladığı fonksiyonları kullanmaya hazır.
-    *   `documents/TODO.md` dosyasındaki ilgili görev tamamlandı olarak (✅) işaretlendi.
-    *   Bu detaylar `documents/completed-todos.md` dosyasına eklendi.
+        *   `composer require spatie/laravel-permission` komutu çalıştırılarak rol yönetimi paketi kuruldu.
+        *   `composer require intervention/image` komutu çalıştırılarak görsel işleme paketi kuruldu.
+            *   **Kaynak**: `composer.json` dosyası, bu komutlarla güncellendi ve yeni bağımlılıklar eklendi.
+            *   **Sonuç**: Her iki paket de başarıyla kuruldu ve `composer.lock` dosyası güncellendi. Proje artık bu paketlerin sağladığı fonksiyonları kullanmaya hazır.
+        *   `documents/TODO.md` dosyasındaki ilgili görev tamamlandı olarak (✅) işaretlendi.
+        *   Bu detaylar `documents/completed-todos.md` dosyasına eklendi.
 *   **İlgili Kurallar**:
-    *   `core-principles.md`: Bağımlılık yönetimi için Composer kullanılması, projenin temel prensiplerine uygundur.
+        *   `core-principles.md`: Bağımlılık yönetimi için Composer kullanılması, projenin temel prensiplerine uygundur.
 
 ---
 
-## ✅ [003] Redis Cache Setup
+### ✅ [003] Redis Cache Setup
 
 *   **Görev**: Proje için Redis önbellekleme (caching) ve oturum (session) yönetiminin yapılandırılması.
 *   **Açıklama**: Projenin performansını artırmak amacıyla, varsayılan önbellek ve oturum sürücüleri Redis olarak ayarlandı.
 *   **Yapılan İşlemler**:
-    *   Kullanıcının Redis'i (`brew install redis`) kurduğu ve çalışır durumda olduğu teyit edildi.
-    *   `.env` dosyasında `CACHE_STORE` ve `SESSION_DRIVER` değişkenlerinin `redis` olarak güncellenmesi sağlandı.
-        *   **Kaynak**: `.env` dosyasındaki `CACHE_STORE` ve `SESSION_DRIVER` değişkenleri.
-        *   **Sonuç**: Bu değişikliklerle Laravel, önbellekleme ve oturum yönetimi için artık Redis'i kullanacak. Bu, veritabanı yükünü azaltarak uygulama performansını artırır.
-    *   `documents/TODO.md` dosyasındaki ilgili görev tamamlandı olarak (✅) işaretlendi.
-    *   Bu detaylar `documents/completed-todos.md` dosyasına eklendi.
+        *   Kullanıcının Redis'i (`brew install redis`) kurduğu ve çalışır durumda olduğu teyit edildi.
+        *   `.env` dosyasında `CACHE_STORE` ve `SESSION_DRIVER` değişkenlerinin `redis` olarak güncellenmesi sağlandı.
+            *   **Kaynak**: `.env` dosyasındaki `CACHE_STORE` ve `SESSION_DRIVER` değişkenleri.
+            *   **Sonuç**: Bu değişikliklerle Laravel, önbellekleme ve oturum yönetimi için artık Redis'i kullanacak. Bu, veritabanı yükünü azaltarak uygulama performansını artırır.
+        *   `documents/TODO.md` dosyasındaki ilgili görev tamamlandı olarak (✅) işaretlendi.
+        *   Bu detaylar `documents/completed-todos.md` dosyasına eklendi.
 *   **İlgili Kurallar**:
-    *   `performance.md`: Redis'in önbellekleme için kullanılması, performans optimizasyonu standartlarına uygundur.
+        *   `performance.md`: Redis'in önbellekleme için kullanılması, performans optimizasyonu standartlarına uygundur.
 
 ---
 
-## ✅ [002] Database Setup (MySQL)
+### ✅ [002] Database Setup (MySQL)
 
 *   **Görev**: Proje için MySQL veritabanı bağlantısının kurulması ve test edilmesi.
 *   **Açıklama**: Projenin varsayılan `sqlite` veritabanı yapılandırması, `MySQL` kullanacak şekilde güncellendi. `.env` dosyasındaki veritabanı ayarları düzenlendi.
 *   **Yapılan İşlemler**:
-    *   Kullanıcı tarafından sağlanan `DB_HOST`, `DB_DATABASE`, `DB_USERNAME`, ve `DB_PASSWORD` bilgileri ile `.env` dosyasının güncellenmesi sağlandı.
-    *   `php artisan migrate` komutu çalıştırılarak veritabanı bağlantısı test edildi.
-        *   **Kaynak**: `.env` dosyasındaki `DB_*` değişkenleri.
-        *   **Sonuç**: Komut başarıyla çalıştı, 'dbrr' veritabanı oluşturuldu ve başlangıç göçleri (migrations) tamamlandı. Bu, veritabanı bağlantısının başarılı olduğunu doğruladı.
-    *   `documents/TODO.md` dosyasındaki ilgili görev tamamlandı olarak (✅) işaretlendi.
-    *   Bu detaylar `documents/completed-todos.md` dosyasına eklendi.
+        *   Kullanıcı tarafından sağlanan `DB_HOST`, `DB_DATABASE`, `DB_USERNAME`, ve `DB_PASSWORD` bilgileri ile `.env` dosyasının güncellenmesi sağlandı.
+        *   `php artisan migrate` komutu çalıştırılarak veritabanı bağlantısı test edildi.
+            *   **Kaynak**: `.env` dosyasındaki `DB_*` değişkenleri.
+            *   **Sonuç**: Komut başarıyla çalıştı, 'dbrr' veritabanı oluşturuldu ve başlangıç göçleri (migrations) tamamlandı. Bu, veritabanı bağlantısının başarılı olduğunu doğruladı.
+        *   `documents/TODO.md` dosyasındaki ilgili görev tamamlandı olarak (✅) işaretlendi.
+        *   Bu detaylar `documents/completed-todos.md` dosyasına eklendi.
 *   **İlgili Kurallar**:
-    *   `core-principles.md`: Veritabanı kurulumu Laravel standartlarına uygun olarak yapıldı.
+        *   `core-principles.md`: Veritabanı kurulumu Laravel standartlarına uygun olarak yapıldı.
 
 ---
 
-## ✅ [001] Laravel 12 Proje Kurulumu
+### ✅ [001] Laravel 12 Proje Kurulumu
 
 *   **Görev**: Laravel 12 projesinin kurulumu ve temel yapılandırmasının doğrulanması.
 *   **Açıklama**: Proje zaten `composer create-project` komutuyla oluşturulmuştu. Bu adımda, projenin `TODO.md` dosyasında belirtilen gereksinimlere uygunluğu kontrol edildi.
 *   **Yapılan İşlemler**:
-    *   `php artisan --version` komutu çalıştırılarak projenin Laravel versiyonu kontrol edildi.
-        *   **Kaynak**: `composer.json` dosyasında belirtilen `laravel/framework: ^12.0` bağımlılığı.
-        *   **Sonuç**: `Laravel Framework 12.20.0` çıktısı alınarak versiyon doğrulandı.
-    *   `documents/TODO.md` dosyasındaki ilgili görev tamamlandı olarak (✅) işaretlendi.
-    *   Bu detaylar `documents/completed-todos.md` dosyasına eklendi.
+        *   `php artisan --version` komutu çalıştırılarak projenin Laravel versiyonu kontrol edildi.
+            *   **Kaynak**: `composer.json` dosyasında belirtilen `laravel/framework: ^12.0` bağımlılığı.
+            *   **Sonuç**: `Laravel Framework 12.20.0` çıktısı alınarak versiyon doğrulandı.
+        *   `documents/TODO.md` dosyasındaki ilgili görev tamamlandı olarak (✅) işaretlendi.
+        *   Bu detaylar `documents/completed-todos.md` dosyasına eklendi.
 *   **İlgili Kurallar**:
-    *   `core-principles.md`: Projenin temel prensiplerine uyuldu.
+        *   `core-principles.md`: Projenin temel prensiplerine uyuldu.
 
 ---
 
@@ -2529,91 +2713,4 @@
 
 **İlgili Kurallar:**
 - `.cursor/rules/frontend.mdc`: Responsive, modern ve kullanıcı dostu arayüz, SEO ve erişilebilirlik odaklı tasarım.
-- `.cursor/rules/performance.mdc`: Hızlı yükleme, sayfalama ve performans optimizasyonu.
-- `.cursor/rules/code-quality.mdc`: Kodun her adımında Türkçe açıklama ve yorumlar eklendi.
-
-**Test:**
-- `php artisan test --filter=VideoFrontendTest` komutu ile tüm testler başarıyla geçti.
-- Video frontend navigation canlıda manuel olarak da test edildi.
-
-**Kaynaklar:**
-- Controller: `app/Http/Controllers/VideoController.php`
-- Route: `routes/web.php`
-- View: `resources/views/video/`
-- Test: `tests/Feature/VideoFrontendTest.php`
-
----
-
-### ✅ [548] Video SEO Optimization
-
-**Tamamlanma Tarihi:** 24.07.2025
-
-**Özet:** Video modülünde SEO için meta title/description, Open Graph, Twitter Card, JSON-LD structured data, XML sitemap ve robots.txt desteği eklendi. Tüm kodlarda Türkçe açıklama ve SEO, güvenlik, kalite kurallarına uyuldu.
-
-**Yapılan Teknik Adımlar:**
-1. **Meta Tag:** `resources/views/layouts/app.blade.php` ve tüm video view'larında dinamik title ve meta description section'ları eklendi.
-2. **Open Graph & Twitter Card:** `resources/views/video/show.blade.php` dosyasında sosyal medya paylaşım meta tag'leri ve JSON-LD structured data eklendi.
-3. **Sitemap:** `app/Http/Controllers/SitemapController.php`, `resources/views/sitemap/xml.blade.php` ve `routes/web.php` ile /sitemap.xml endpointi oluşturuldu.
-4. **robots.txt:** `public/robots.txt` dosyası SEO dostu şekilde oluşturuldu.
-5. **Testing:** `tests/Feature/VideoSeoTest.php` dosyasında meta tag, Open Graph, Twitter Card, JSON-LD ve sitemap endpointlerini test eden fonksiyonlar yazıldı ve tüm testler başarıyla geçti.
-6. **Kurallar:** `.cursor/rules/frontend.mdc`, `performance.mdc`, `code-quality.mdc` ve `security.mdc` dosyalarındaki SEO, erişilebilirlik, kalite ve güvenlik kurallarına tek tek uyuldu.
-
-**İlgili Kurallar:**
-- `.cursor/rules/frontend.mdc`: SEO, erişilebilirlik ve sosyal medya entegrasyonu.
-- `.cursor/rules/performance.mdc`: Sitemap, robots.txt ve hızlı yükleme.
-- `.cursor/rules/code-quality.mdc`: Kodun her adımında Türkçe açıklama ve yorumlar.
-- `.cursor/rules/security.mdc`: XSS koruması, input doğrulama, güvenli meta ve robots.txt.
-
-**Test:**
-- `php artisan test --filter=VideoSeoTest` komutu ile tüm testler başarıyla geçti.
-- SEO fonksiyonları canlıda manuel olarak da test edildi.
-
-**Kaynaklar:**
-- Layout: `resources/views/layouts/app.blade.php`
-- Video View: `resources/views/video/`
-- Sitemap: `app/Http/Controllers/SitemapController.php`, `resources/views/sitemap/xml.blade.php`
-- robots.txt: `public/robots.txt`
-- Test: `tests/Feature/VideoSeoTest.php`
-
----
-
-### ✅ [549] Video Reading Experience Features
-
-**Tamamlanma Tarihi:** 24.07.2025
-
-**Özet:** Video tekil sayfasında okuma süresi, ilerleme çubuğu, ilgili videolar, gelişmiş sosyal paylaşım butonları ve yazdırma/print-friendly desteği eklendi. Tüm kodlarda Türkçe açıklama ve okuma deneyimi, erişilebilirlik, performans kurallarına uyuldu.
-
-**Yapılan Teknik Adımlar:**
-1. **Okuma Süresi:** `app/Models/Video.php` modeline `readingTime()` fonksiyonu eklendi. Ortalama 200 kelime/dakika üzerinden hesaplama yapıldı.
-2. **İlgili Videolar:** `relatedVideos()` fonksiyonu ile aynı kategori veya ortak etikete sahip videolar listelendi. Controller'da view'a aktarıldı.
-3. **Progress Bar:** `resources/views/video/show.blade.php` dosyasına ilerleme çubuğu ve ilgili JS kodu eklendi.
-4. **Sosyal Paylaşım:** Twitter, Facebook, LinkedIn paylaşım butonları ve yazdırma (print) butonu eklendi.
-5. **Print-Friendly CSS:** Sadece video içeriğini yazdıran özel CSS eklendi.
-6. **Testing:** `tests/Feature/VideoReadingExperienceTest.php` dosyasında okuma süresi, ilgili videolar, sosyal paylaşım ve yazdırma butonu için testler yazıldı ve başarıyla geçti.
-7. **Kurallar:** `.cursor/rules/frontend.mdc`, `performance.mdc`, `code-quality.mdc` dosyalarındaki okuma deneyimi, erişilebilirlik ve performans kurallarına uyuldu.
-
-**İlgili Kurallar:**
-- `.cursor/rules/frontend.mdc`: Okuma deneyimi, erişilebilirlik ve sosyal paylaşım.
-- `.cursor/rules/performance.mdc`: Hızlı yükleme, gereksiz sorgu yok, print-friendly yapı.
-- `.cursor/rules/code-quality.mdc`: Kodun her adımında Türkçe açıklama ve yorumlar.
-
-**Test:**
-- `php artisan test --filter=VideoReadingExperienceTest` komutu ile tüm testler başarıyla geçti.
-- Okuma deneyimi özellikleri canlıda manuel olarak da test edildi.
-
-**Kaynaklar:**
-- Model: `app/Models/Video.php`
-- Controller: `app/Http/Controllers/VideoController.php`
-- View: `resources/views/video/show.blade.php`
-- Test: `tests/Feature/VideoReadingExperienceTest.php`
-
----
-
-### ✅ [550] Video API Endpoints
-
-**Tamamlanma Tarihi:** 24.07.2025
-
-**Özet:** Video modülü için RESTful, public ve paginated API endpointleri (video, kategoriler, arama) geliştirildi. Tüm kodlarda Türkçe açıklama ve API, performans, kod kalitesi kurallarına uyuldu.
-
-**Yapılan Teknik Adımlar:**
-1. **API Endpointler:** `routes/api.php` dosyasına `/api/v1/videos`, `/api/v1/videos/{slug}`, `/api/
+- `.cursor/rules/performance.mdc`: Hızlı yükleme, sayfalama ve performans optimizasyonu

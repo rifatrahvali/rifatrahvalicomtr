@@ -28,6 +28,11 @@
             <!-- Türkçe yorum: Görsel veya video türü seçimi -->
         </div>
         <div class="mb-3">
+            <label for="alt_text" class="form-label">Alt Text (SEO)</label>
+            <input type="text" name="alt_text" id="alt_text" class="form-control">
+            <!-- Türkçe yorum: Görsel için SEO ve erişilebilirlik alt metni alanı -->
+        </div>
+        <div class="mb-3">
             <label for="order" class="form-label">Sıra</label>
             <input type="number" name="order" id="order" class="form-control" value="0">
             <!-- Türkçe yorum: Sıralama için order alanı -->

@@ -30,6 +30,9 @@ return new class extends Migration
             // Öğelerin sıralaması için kullanılacak sütun. Varsayılan 0.
             $table->unsignedInteger('order')->default(0);
 
+            // Türkçe yorum: SEO ve erişilebilirlik için alt metin alanı
+            $table->string('alt_text', 255)->nullable();
+
             // created_at ve updated_at sütunlarını ekler
             $table->timestamps();
         });
