@@ -95,3 +95,6 @@ Route::middleware(['auth', 'role:Admin'])->prefix('secure-admin')->name('admin.'
 
 Route::get('/gallery', [App\Http\Controllers\GalleryController::class, 'publicIndex'])->name('gallery.public.index');
 // Türkçe yorum: Kamuya açık galeri görüntüleme rotası eklendi.
+
+Route::get('/references', [App\Http\Controllers\ReferenceController::class, 'publicIndex'])->name('references.public.index');
+// Türkçe yorum: Kamuya açık referans görüntüleme rotası eklendi.
