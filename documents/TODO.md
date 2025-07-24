@@ -1327,7 +1327,7 @@ class PostController extends Controller
 * **Testing**: Security documentation review
 * **Documentation**: Security handbook
 
-### ☐ [1304] **Maintenance Guide** [Öncelik: Medium] [Süre: 2 saat]
+### ✅ [1304] **Maintenance Guide** [Öncelik: Medium] [Süre: 2 saat]
 * **Cursor Rules**: deployment.mdc, performance.mdc
 * **Description**: Bakım ve güncelleme rehberi
 * **Technical Steps**:
@@ -1339,7 +1339,7 @@ class PostController extends Controller
 * **Testing**: Maintenance procedure validation
 * **Documentation**: Maintenance handbook
 
-### ☐ [1305] **Project Handover & Training** [Öncelik: Medium] [Süre: 3 saat]
+### ✅ [1305] **Project Handover & Training** [Öncelik: Medium] [Süre: 3 saat]
 * **Cursor Rules**: core-principles.mdc
 * **Description**: Proje teslimi ve eğitim
 * **Technical Steps**:

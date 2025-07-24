@@ -2654,3 +2654,26 @@ Model ve servislerin iş mantığı, ilişkileri ve özel fonksiyonları güvenc
 **Not:**
 - Kodun her adımında Türkçe açıklama ve kurallara uygunluk sağlandı.
 - Doküman, hem geliştiriciler hem de sistem yöneticileri için pratik güvenlik rehberi sunar.
+
+### ✅ [1304] Maintenance Guide
+
+**Tamamlanma Tarihi:** {TARIH}
+
+**Özet:** Projenin düzenli bakımı, güncellenmesi, performans izlenmesi ve sorun giderme adımları detaylı ve Türkçe açıklamalarla dokümante edildi. Test ile doğrulandı.
+
+**Yapılan Teknik Adımlar:**
+1. **Bakım ve Güncelleme Rehberi:**
+   - `documents/maintenance-guide.md` dosyasında düzenli bakım prosedürleri, güncelleme/yükseltme adımları, performans izleme rehberi ve troubleshooting bölümleri detaylı ve Türkçe açıklamalarla yazıldı.
+   - Her adımda neden ve nasıl uygulanacağı açıklandı.
+2. **Test:**
+   - `tests/Feature/MaintenanceGuideTest.php` dosyasında rehberin varlığı ve ana başlıkların içerikte yer aldığı test edildi.
+   - Test başarıyla geçti.
+3. **Kurallar:** `.cursor/rules/deployment.mdc`, `.cursor/rules/performance.mdc`, `file-structure.md` ve ilgili bakım kuralları tek tek kontrol edildi.
+
+**Kaynaklar:**
+- Bakım rehberi: `documents/maintenance-guide.md`
+- Test: `tests/Feature/MaintenanceGuideTest.php`
+
+**Not:**
+- Kodun her adımında Türkçe açıklama ve kurallara uygunluk sağlandı.
+- Rehber, sistemin uzun ömürlü ve sorunsuz çalışması için pratik yol haritası sunar.
