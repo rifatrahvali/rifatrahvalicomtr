@@ -76,4 +76,19 @@ class AdminLayoutTest extends TestCase
         $response->assertSee('Yeni Blog Yazısı Ekle');
         // Türkçe yorum: Dashboard istatistik, grafik ve son içerik bölümleri kontrol ediliyor
     }
+
+    /** @test */
+    public function admin_paneline_token_veya_yetki_olmadan_erisilemez()
+    {
+        // Türkçe: Giriş yapmayan kullanıcı admin paneline erişemez
+        $response = $this->get('/secure-admin/dashboard');
+        $response->assertRedirect('/login');
+        // Türkçe: Giriş yapılmadıysa login sayfasına yönlendirme kontrolü
+
+        // Türkçe: Sıradan kullanıcı admin paneline erişemez
+        $user = \App\Models\User::factory()->create();
+        $response = $this->actingAs($user)->get('/secure-admin/dashboard');
+        $response->assertStatus(403);
+        // Türkçe: Yetkisiz kullanıcıya 403 Forbidden dönmeli
+    }
 } 

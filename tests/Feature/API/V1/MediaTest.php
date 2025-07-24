@@ -58,4 +58,32 @@ class MediaTest extends TestCase
         $response->assertStatus(422);
         // Türkçe yorum: Maksimum dosya boyutu aşıldığında hata döner.
     }
+
+    public function test_malicious_file_upload_is_blocked()
+    {
+        \Illuminate\Support\Facades\Storage::fake('public');
+        $user = \App\Models\User::factory()->create();
+        // Türkçe: PHP dosyası gibi zararlı dosya yüklenmeye çalışılır
+        $file = \Illuminate\Http\UploadedFile::fake()->create('evil.php', 10, 'application/x-php');
+        $response = $this->actingAs($user)->postJson('/api/v1/media/upload', [
+            'file' => $file,
+        ]);
+        $response->assertStatus(422);
+        // Türkçe: PHP dosyası yüklenmeye çalışıldığında hata dönmeli
+    }
+
+    public function test_file_name_manipulation_is_prevented()
+    {
+        \Illuminate\Support\Facades\Storage::fake('public');
+        $user = \App\Models\User::factory()->create();
+        // Türkçe: Dosya adı olarak path traversal denenir
+        $file = \Illuminate\Http\UploadedFile::fake()->image('../evil.jpg');
+        $response = $this->actingAs($user)->postJson('/api/v1/media/upload', [
+            'file' => $file,
+        ]);
+        $response->assertStatus(201);
+        $media = \App\Models\Media::first();
+        $this->assertStringNotContainsString('..', $media->file_name);
+        // Türkçe: Dosya adı path traversal içermemeli
+    }
 } 

@@ -79,4 +79,21 @@ class BlogFrontendTest extends TestCase
         $response->assertSee('Laravel');
         // Türkçe yorum: Arama sayfası ve sonuçları başarılı şekilde yükleniyor mu?
     }
+
+    public function test_xss_attack_is_prevented_in_blog_title()
+    {
+        $user = \App\Models\User::factory()->create();
+        $category = \App\Models\BlogCategory::factory()->create();
+        $maliciousTitle = '<script>alert(1)</script>';
+        $post = \App\Models\BlogPost::factory()->create([
+            'status' => 'published',
+            'blog_category_id' => $category->id,
+            'user_id' => $user->id,
+            'title' => $maliciousTitle,
+        ]);
+        $response = $this->get('/blog/' . $post->slug);
+        $response->assertDontSee($maliciousTitle, false);
+        $response->assertSee(htmlspecialchars($maliciousTitle), false);
+        // Türkçe: XSS saldırısı içeren başlık escape edilerek gösterilmeli, raw olarak çıkmamalı
+    }
 } 

@@ -105,4 +105,23 @@ class GalleryCrudTest extends TestCase
         $response->assertStatus(403);
         // Türkçe yorum: Admin olmayan kullanıcı galeri yönetimine erişemez.
     }
+
+    public function test_admin_cannot_upload_malicious_file()
+    {
+        \Illuminate\Support\Facades\Storage::fake('public');
+        $admin = \App\Models\User::factory()->create();
+        $admin->assignRole('Admin');
+        $admin->givePermissionTo('manage-galleries');
+        // Türkçe: PHP dosyası gibi zararlı dosya yüklenmeye çalışılır
+        $file = \Illuminate\Http\UploadedFile::fake()->create('evil.php', 10, 'application/x-php');
+        $response = $this->actingAs($admin)->post(route('admin.gallery.store'), [
+            'title' => 'Zararlı Dosya',
+            'description' => 'Açıklama',
+            'file' => $file,
+            'type' => 'image',
+            'order' => 1,
+        ]);
+        $response->assertSessionHasErrors();
+        // Türkçe: PHP dosyası yüklenmeye çalışıldığında hata dönmeli
+    }
 } 
