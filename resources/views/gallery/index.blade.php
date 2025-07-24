@@ -36,7 +36,15 @@
                     <!-- Görsel İçeriği -->
                     <div style="position: relative; overflow: hidden; height: 250px; cursor: pointer;" onclick="openLightbox('{{ asset('storage/' . $item->path) }}', '{{ $item->title }}')">
                         <!-- Türkçe yorum: Basitleştirilmiş görsel yükleme sistemi -->
-                        <img src="{{ asset('storage/' . $item->path) }}"
+                        @php
+                            $cdn = config('media.cdn_url');
+                            $getCdnUrl = function($path) use ($cdn) {
+                                return $cdn ? rtrim($cdn, '/') . '/' . ltrim($path, '/') : asset('storage/' . $path);
+                            };
+                        @endphp
+                        <img src="{{ $getCdnUrl($item->path) }}"
+                             srcset="{{ $getCdnUrl('uploads/thumbnails/' . basename($item->path)) }} 150w, {{ $getCdnUrl('uploads/medium/' . basename($item->path)) }} 400w, {{ $getCdnUrl('uploads/large/' . basename($item->path)) }} 800w"
+                             sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
                              style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;"
                              alt="{{ $item->alt_text ?? $item->title }}"
                              loading="lazy"

@@ -2,9 +2,9 @@
 
 namespace Tests\Feature;
 
-use App\Models\Gallery;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use App\Models\Gallery;
 
 class GalleryFrontendTest extends TestCase
 {
@@ -74,5 +74,14 @@ class GalleryFrontendTest extends TestCase
         $response->assertStatus(200);
         $this->assertLessThan(2.0, $duration, 'Galeri sayfası 100 görselle 2 saniyeden kısa sürede yüklenmeli.');
         // Türkçe: Galeri sayfası çok sayıda görselle hızlı yüklenmeli (2 sn altında)
+    }
+
+    public function test_gallery_images_have_cdn_and_srcset()
+    {
+        $gallery = Gallery::factory()->create(['type' => 'image', 'path' => 'gallery/test.jpg']);
+        $response = $this->get('/gallery');
+        $response->assertSee('srcset');
+        $response->assertSee('sizes');
+        // Türkçe: Galeri görsellerinde responsive srcset ve sizes attribute'ları var mı kontrol edilir.
     }
 } 
