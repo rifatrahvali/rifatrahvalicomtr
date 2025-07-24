@@ -2740,3 +2740,40 @@ Model ve servislerin iş mantığı, ilişkileri ve özel fonksiyonları güvenc
 **Not:**
 - Her madde için ilgili dosya, test ve dokümantasyon completed-todos.md ve ilgili rehberlerde detaylandırılmıştır.
 - Kodun her adımında Türkçe açıklama ve kurallara uygunluk sağlanmıştır.
+
+### ✅ [410] Blog CRUD Yönetimi
+
+**Tamamlanma Tarihi:** 24.07.2025
+
+**Özet:**
+Admin panelinde BlogPost için tam CRUD (ekle, listele, düzenle, sil, detay) işlemleri eksiksiz ve güvenli şekilde tamamlandı. Tüm işlemler hem backend hem frontendde sorunsuz çalışıyor. Kodun her adımında Türkçe açıklama ve güvenlik kurallarına uyuldu.
+
+**Yapılan Teknik Adımlar:**
+1. **Controller:**
+   - `app/Http/Controllers/Admin/BlogPostController.php` dosyasında tüm CRUD fonksiyonları (index, create, store, edit, update, destroy, show) model binding ile güncellendi.
+   - Store ve update fonksiyonlarında slug, kategori, durum ve yayın tarihi otomasyonu eklendi.
+2. **FormRequest:**
+   - `app/Http/Requests/Admin/StoreBlogPostRequest.php` ve `UpdateBlogPostRequest.php` dosyalarında yetkilendirme ve validasyon kuralları güncellendi.
+3. **View:**
+   - `resources/views/admin/blog/create.blade.php` ve `edit.blade.php` dosyalarına durum ve yayın tarihi alanları eklendi.
+   - `index.blade.php` ve `show.blade.php` dosyaları ile tam listeleme ve detay görünümü sağlandı.
+4. **Route:**
+   - `routes/web.php` dosyasında admin blog resource rotası model binding ile uyumlu şekilde kullanıldı.
+5. **Policy:**
+   - `app/Policies/BlogPostPolicy.php` dosyasında admin rolü için tüm yetkiler tanımlandı.
+6. **Test:**
+   - `tests/Feature/Admin/BlogCrudTest.php` dosyasında ekle, listele, güncelle, sil testlerinin tamamı geçti.
+7. **Rule ve Dosya Yapısı:**
+   - Tüm işlemler .cursor/rules, file-structure.md ve güvenlik/kalite kurallarına uygun yapıldı.
+
+**Test Sonucu:**
+- `php artisan test --filter=BlogCrudTest` ile tüm testler başarıyla geçti.
+- Kodun tamamında Türkçe açıklamalar mevcut.
+
+**Kaynaklar:**
+- Controller: `app/Http/Controllers/Admin/BlogPostController.php`
+- FormRequest: `app/Http/Requests/Admin/StoreBlogPostRequest.php`, `UpdateBlogPostRequest.php`
+- View: `resources/views/admin/blog/`
+- Policy: `app/Policies/BlogPostPolicy.php`
+- Test: `tests/Feature/Admin/BlogCrudTest.php`
+- Route: `routes/web.php`

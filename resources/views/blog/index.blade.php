@@ -33,16 +33,9 @@
             <article style="background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%); border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); overflow: hidden; border: 1px solid #e2e8f0; transition: all 0.3s ease; position: relative;" onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 25px 50px rgba(0,0,0,0.15)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 10px 25px rgba(0,0,0,0.1)';">
                 <!-- Görsel Bölümü -->
                 @if($post->image)
-                    <div style="position: relative; overflow: hidden; height: 200px;">
-                        <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.05)';" onmouseout="this.style.transform='scale(1)';" onerror="this.src='/images/placeholder-blog.jpg';">
-                        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(135deg, rgba(16, 185, 129, 0.8) 0%, rgba(5, 150, 105, 0.6) 100%); opacity: 0; transition: opacity 0.3s ease; display: flex; align-items: center; justify-content: center;" onmouseover="this.style.opacity='1';" onmouseout="this.style.opacity='0';">
-                            <span style="color: white; font-size: 24px;">📖</span>
-                        </div>
-                    </div>
+                    <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}" style="width: 100%; height: 200px; object-fit: cover; border-radius: 12px 12px 0 0;">
                 @else
-                    <div style="height: 200px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); display: flex; align-items: center; justify-content: center;">
-                        <span style="color: white; font-size: 48px;">📝</span>
-                    </div>
+                    <img src="/images/placeholder-blog.jpg" alt="Placeholder" style="width: 100%; height: 200px; object-fit: cover; border-radius: 12px 12px 0 0;">
                 @endif
 
                 <!-- İçerik Bölümü -->
@@ -102,4 +95,4 @@
 </div>
 @endsection
 
-{{-- Türkçe yorum: Blog ana sayfası, yayınlanmış yazıları kartlı ve responsive şekilde listeler. --}} 
+{{-- Türkçe yorum: Blog ana sayfasında her kartta görsel optimize ve responsive şekilde gösterilir. Görsel yoksa placeholder kullanılır. --}} 

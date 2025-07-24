@@ -21,13 +21,13 @@
                 <ul class="nav flex-column">
                     <li class="nav-item"><a class="nav-link @if(request()->routeIs('admin.dashboard')) active @endif" href="{{ route('admin.dashboard') }}">Dashboard</a></li>
                     <li class="nav-item"><a class="nav-link @if(request()->routeIs('admin.profile.*')) active @endif" href="#">CV Yönetimi</a></li>
-                    <li class="nav-item"><a class="nav-link @if(request()->routeIs('admin.blog.*')) active @endif" href="#">Blog</a></li>
+                    <li class="nav-item"><a class="nav-link @if(request()->routeIs('admin.blog.*')) active @endif" href="{{ route('admin.blog.index') }}">Blog</a></li>
                     <li class="nav-item"><a class="nav-link @if(request()->routeIs('admin.gallery.*')) active @endif" href="{{ route('admin.gallery.index') }}">Galeri</a></li>
                     <li class="nav-item"><a class="nav-link @if(request()->routeIs('admin.reference.*')) active @endif" href="{{ route('admin.reference.index') }}">Referanslar</a></li>
-                    <li class="nav-item"><a class="nav-link @if(request()->routeIs('admin.users.*')) active @endif" href="#">Kullanıcılar</a></li>
-                    <li class="nav-item"><a class="nav-link @if(request()->routeIs('admin.settings.*')) active @endif" href="#">Ayarlar</a></li>
+                    <li class="nav-item"><a class="nav-link @if(request()->routeIs('admin.users.*')) active @endif" href="{{ route('admin.users.index') }}">Kullanıcılar</a></li>
+                    <li class="nav-item"><a class="nav-link @if(request()->routeIs('admin.settings.*')) active @endif" href="{{ route('admin.settings.index') }}">Ayarlar</a></li>
                 </ul>
-                <!-- Türkçe yorum: Sidebar menü ve aktif link vurgusu -->
+                <!-- Türkçe yorum: Sidebar menüdeki tüm linkler gerçek admin route'larına yönlendirildi. -->
             </div>
         </nav>
         <main class="col-md-10 ms-sm-auto px-md-4 py-4">

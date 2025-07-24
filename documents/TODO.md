@@ -1353,6 +1353,71 @@ class PostController extends Controller
 
 ---
 
+## Phase X: Eksik CRUD ve Ayar Modülleri
+*Estimated Time: 3-4 gün*
+
+### ✅ [410] **Blog CRUD Yönetimi** [Öncelik: Critical] [Süre: 6 saat]
+* **Cursor Rules**: php-laravel.mdc, admin-panel-security.mdc
+* **Description**: Blog yazıları için tam CRUD (oluşturma, listeleme, güncelleme, silme) yönetimi
+* **Technical Steps**:
+  * BlogPostController ile CRUD işlemleri
+  * Form Request ile validasyon
+  * Kategori ve etiket ilişkileri
+  * SEO alanları ve öne çıkan görsel yönetimi
+* **Dependencies**: [401], [402]
+* **Testing**: Blog CRUD fonksiyonellik ve yetkilendirme testleri
+* **Documentation**: Blog yönetim kılavuzu
+
+### [510] **Galeri CRUD Yönetimi** [Öncelik: High] [Süre: 4 saat]
+* **Cursor Rules**: php-laravel.mdc, admin-panel-security.mdc
+* **Description**: Galeri görselleri için tam CRUD yönetimi
+* **Technical Steps**:
+  * GalleryController ile CRUD işlemleri
+  * Çoklu görsel yükleme ve silme
+  * Görsel meta verileri ve kategori yönetimi
+  * Güvenli dosya yükleme ve validasyon
+* **Dependencies**: [501]
+* **Testing**: Galeri CRUD fonksiyonellik ve güvenlik testleri
+* **Documentation**: Galeri yönetim kılavuzu
+
+### [610] **Referans CRUD Yönetimi** [Öncelik: Medium] [Süre: 3 saat]
+* **Cursor Rules**: php-laravel.mdc, admin-panel-security.mdc
+* **Description**: Referanslar için tam CRUD yönetimi
+* **Technical Steps**:
+  * ReferenceController ile CRUD işlemleri
+  * Çoklu görsel ve link yönetimi
+  * Sıralama ve görünürlük ayarları
+  * Form Request ile validasyon
+* **Dependencies**: [601]
+* **Testing**: Referans CRUD fonksiyonellik ve validasyon testleri
+* **Documentation**: Referans yönetim kılavuzu
+
+### [710] **Yeni Kullanıcı CRUD Yönetimi** [Öncelik: High] [Süre: 4 saat]
+* **Cursor Rules**: php-laravel.mdc, admin-panel-security.mdc
+* **Description**: Admin panelden yeni kullanıcı ekleme, düzenleme, silme ve rol atama işlemleri
+* **Technical Steps**:
+  * UserController ile CRUD işlemleri
+  * Rol atama ve yetkilendirme
+  * Şifre sıfırlama ve e-posta doğrulama
+  * Form Request ile validasyon
+* **Dependencies**: [703]
+* **Testing**: Kullanıcı CRUD ve rol yönetimi testleri
+* **Documentation**: Kullanıcı yönetim kılavuzu
+
+### [320] **Profil Ayarları Sayfası** [Öncelik: High] [Süre: 3 saat]
+* **Cursor Rules**: php-laravel.mdc, frontend.mdc, security.mdc
+* **Description**: Kullanıcıların profil bilgilerini ve ayarlarını yönetebileceği özel sayfa
+* **Technical Steps**:
+  * Profil ayarları için özel route ve controller
+  * Şifre değiştirme, e-posta güncelleme, profil fotoğrafı değiştirme
+  * Bildirim ve gizlilik tercihleri
+  * Form Request ile validasyon
+* **Dependencies**: [301]
+* **Testing**: Profil ayarları fonksiyonellik ve güvenlik testleri
+* **Documentation**: Profil ayarları kullanım kılavuzu
+
+---
+
 ## Project Completion Checklist ✅
 
 ### Final Quality Gates

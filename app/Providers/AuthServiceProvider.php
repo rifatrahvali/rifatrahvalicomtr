@@ -16,6 +16,8 @@ use App\Models\Gallery;
 use App\Policies\GalleryPolicy;
 use App\Models\Reference;
 use App\Policies\ReferencePolicy;
+use App\Models\BlogPost;
+use App\Policies\BlogPostPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -35,6 +37,7 @@ class AuthServiceProvider extends ServiceProvider
         // Türkçe yorum: Gallery için policy kaydı yapıldı.
         Reference::class => ReferencePolicy::class,
         // Türkçe yorum: Reference için policy kaydı yapıldı.
+        BlogPost::class => BlogPostPolicy::class, // Türkçe yorum: BlogPost modeline BlogPostPolicy bağlandı
     ];
 
     /**
