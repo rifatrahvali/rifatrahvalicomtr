@@ -118,4 +118,20 @@ class BlogApiTest extends TestCase
         $this->assertLessThan(1.0, $duration, 'Blog API posts endpointi 1 saniyeden kısa sürede cevap vermeli.');
         // Türkçe: Blog API posts endpointi hızlı cevap vermeli
     }
+
+    public function test_blog_posts_eager_loading_performance()
+    {
+        \App\Models\User::factory()->count(2)->create();
+        $cat = \App\Models\BlogCategory::factory()->create();
+        \App\Models\BlogPost::factory()->count(10)->create([
+            'status' => 'published',
+            'blog_category_id' => $cat->id,
+        ]);
+        \DB::enableQueryLog();
+        $response = $this->get('/blog');
+        $response->assertStatus(200);
+        $queryCount = count(\DB::getQueryLog());
+        $this->assertLessThan(10, $queryCount, 'N+1 problemi var, sorgu sayısı çok yüksek!');
+        // Türkçe: Eager loading ile N+1 problemi oluşmadığı test edilir.
+    }
 } 

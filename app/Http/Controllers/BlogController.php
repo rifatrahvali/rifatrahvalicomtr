@@ -13,6 +13,7 @@ class BlogController extends Controller
     public function index(Request $request)
     {
         $query = BlogPost::with(['category', 'tags'])
+            ->select(['id', 'title', 'slug', 'blog_category_id', 'image', 'status', 'published_at'])
             ->where('status', 'published')
             ->orderByDesc('published_at');
         $posts = $query->paginate(10);
@@ -55,6 +56,7 @@ class BlogController extends Controller
     {
         $q = $request->input('q');
         $posts = BlogPost::with(['category', 'tags'])
+            ->select(['id', 'title', 'slug', 'blog_category_id', 'image', 'status', 'published_at', 'content'])
             ->where('status', 'published')
             ->where(function($query) use ($q) {
                 $query->where('title', 'like', "%$q%")
@@ -67,5 +69,18 @@ class BlogController extends Controller
             ->paginate(10);
         return view('blog.search', compact('posts', 'q'));
         // Türkçe yorum: Arama sorgusuna uygun yayınlanmış yazıları listeler.
+    }
+
+    // Büyük veri setlerinde chunk ile toplu işleme örneği
+    public function exportAllTitles()
+    {
+        $titles = [];
+        BlogPost::select('id', 'title')->chunk(100, function($posts) use (&$titles) {
+            foreach ($posts as $post) {
+                $titles[] = $post->title;
+            }
+        });
+        return response()->json(['titles' => $titles]);
+        // Türkçe: Tüm blog başlıklarını bellek dostu şekilde chunk ile çeker.
     }
 } 

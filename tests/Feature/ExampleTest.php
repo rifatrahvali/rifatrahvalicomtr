@@ -128,4 +128,20 @@ class ExampleTest extends TestCase
         }
         // Türkçe: Migrationlarda tabloların varlığı ve foreign key/index kontrolleri manuel olarak migration dosyalarında incelenmiştir.
     }
+
+    public function test_blogpost_chunk_and_cursor_performance()
+    {
+        \App\Models\BlogPost::factory()->count(250)->create(['status' => 'published']);
+        $count = 0;
+        \App\Models\BlogPost::chunk(50, function($posts) use (&$count) {
+            $count += count($posts);
+        });
+        $this->assertEquals(250, $count);
+        $cursorCount = 0;
+        foreach (\App\Models\BlogPost::cursor() as $post) {
+            $cursorCount++;
+        }
+        $this->assertEquals(250, $cursorCount);
+        // Türkçe: chunk ve cursor ile büyük veri setleri bellek dostu şekilde işlenebiliyor mu test edilir.
+    }
 }
