@@ -51,11 +51,14 @@
                 </a>
             </li>
         </ul>
+        <!-- Türkçe: Çıkış (X) butonu, sadece menü açıkken ve mobilde görünür -->
+        <button id="mobile-menu-close" aria-label="Menüyü Kapat" style="display:none; position:fixed; top:32px; right:24px; background:none; border:none; z-index:9999; font-size:2.2rem; color:white; cursor:pointer; line-height:1;">
+            &times;
+        </button>
     </div>
 </nav>
 <style>
 @media (max-width: 768px) {
-    /* Navigation bar sabit yüksekliği ve arka planı */
     nav[role="navigation"] > div {
         min-height: 80px; /* Türkçe: Arka plan daha aşağı çekildi */
         background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
@@ -65,9 +68,12 @@
     #mobile-menu-toggle {
         display: block !important;
         position: absolute !important;
-        top: 16px !important; /* Türkçe: Hamburger butonu biraz daha aşağıda */
-        left: 32px !important;
+        top: 16px !important;
+        left: 16px !important;
         z-index: 30 !important;
+    }
+    #mobile-menu-close {
+        display: none !important;
     }
     #main-nav-list {
         display: none !important;
@@ -105,39 +111,50 @@
         padding: 16px 24px !important;
         border-radius: 0 !important;
     }
-    /* Menü açıkken hamburger butonunu tamamen gizle */
+    /* Menü açıkken hamburger butonunu gizle, X butonunu göster */
     #main-nav-list.open ~ #mobile-menu-toggle {
         display: none !important;
+    }
+    #main-nav-list.open ~ #mobile-menu-close {
+        display: block !important;
     }
 }
 </style>
 <script>
-// Türkçe: Hamburger butona tıklanınca menü açılır/kapanır (sadece mobilde)
+// Türkçe: Hamburger ve X butonları ile menü aç/kapat (sadece mobilde)
 const btn = document.getElementById('mobile-menu-toggle');
+const closeBtn = document.getElementById('mobile-menu-close');
 const menu = document.getElementById('main-nav-list');
-if(btn && menu){
+if(btn && menu && closeBtn){
     btn.addEventListener('click', function() {
         menu.classList.toggle('open');
         btn.setAttribute('aria-expanded', menu.classList.contains('open') ? 'true' : 'false');
-        // Menü açıldığında hamburger butonunu gizle
         if(menu.classList.contains('open')){
             btn.style.display = 'none';
-            // Sayfa kaymasını engelle
+            closeBtn.style.display = 'block';
             document.body.style.overflow = 'hidden';
         } else {
             btn.style.display = 'block';
+            closeBtn.style.display = 'none';
             document.body.style.overflow = '';
         }
     });
-    // Menüden bir linke tıklanınca menüyü kapat
+    closeBtn.addEventListener('click', function() {
+        menu.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+        btn.style.display = 'block';
+        closeBtn.style.display = 'none';
+        document.body.style.overflow = '';
+    });
     menu.querySelectorAll('a').forEach(function(link){
         link.addEventListener('click', function(){
             menu.classList.remove('open');
             btn.setAttribute('aria-expanded', 'false');
             btn.style.display = 'block';
+            closeBtn.style.display = 'none';
             document.body.style.overflow = '';
         });
     });
 }
 </script>
-<!-- Türkçe: Navigation bar arka planı ve hamburger butonu biraz daha aşağı çekildi. --> 
+<!-- Türkçe: Menü açıldığında sağ üstte Çıkış (X) butonu eklenmiştir. --> 
