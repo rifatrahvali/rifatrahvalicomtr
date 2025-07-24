@@ -21,8 +21,10 @@
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Vite/Tailwind/Bootstrap -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <!-- Türkçe: Modern CSS/JS dosyaları ve FontAwesome ikonları dahil edildi -->
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <link rel="preload" as="font" href="https://fonts.bunny.net/css?family=Nunito" crossorigin>
+    <link rel="prefetch" as="script" href="{{ asset('build/assets/app.js') }}">
+    <!-- Türkçe: Vite ile assetler tek satırda eklenir, Vite::asset fonksiyonu kullanılmaz. -->
     
     <!-- Global Image Fallback Script -->
     <script>
