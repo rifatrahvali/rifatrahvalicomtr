@@ -2453,3 +2453,32 @@ Model ve servislerin iş mantığı, ilişkileri ve özel fonksiyonları güvenc
 **Not:**
 - Tüm adımlar production ortamı için önerilen güvenlik ve performans kurallarına uygun olarak hazırlandı.
 - Kodun her adımında Türkçe açıklama ve yorumlar eklendi.
+
+### ✅ [1203] Database Migration & Seeding Strategy
+
+**Tamamlanma Tarihi:** {TARIH}
+
+**Özet:** Production ortamı için migration rollback, güvenli yükseltme, seeding ve backup stratejileri dokümante edildi. Migration ve seed işlemlerinin otomatik test edildiği bir Feature testi eklendi. Tüm adımlar Türkçe açıklama ve kaynak referanslarıyla tamamlandı.
+
+**Yapılan Teknik Adımlar:**
+1. **Migration Rollback ve Güvenli Yükseltme:**
+   - `documents/database-migration-strategy.md` dosyası oluşturuldu. Migration rollback riskleri, komutlar ve tavsiyeler açıklandı.
+2. **Production Data Seeding:**
+   - Seeder'ların production ortamında güvenli çalıştırılması ve idempotent seed'ler için öneriler eklendi.
+3. **Database Backup Prosedürleri:**
+   - Migration/seed öncesi ve sonrası için yedekleme stratejisi ve örnek komutlar eklendi.
+4. **Migration Testing:**
+   - `tests/Feature/DatabaseMigrationSeedingTest.php` dosyasında migration ve seed işlemlerinin otomatik olarak test edildiği bir Feature testi yazıldı.
+5. **Kurallar:** `.cursor/rules/deployment.mdc`, `file-structure.md` ve diğer ilgili kurallar tek tek kontrol edildi.
+
+**Kaynaklar:**
+- Migration/seed dokümanı: `documents/database-migration-strategy.md`
+- Test: `tests/Feature/DatabaseMigrationSeedingTest.php`
+
+**Testler:**
+- `php artisan test --filter=DatabaseMigrationSeedingTest` ile migration ve seed işlemleri başarıyla test edildi.
+- Kodun amacı ve katkısı Türkçe olarak açıklandı.
+
+**Not:**
+- Tüm adımlar production ortamı için önerilen güvenlik ve performans kurallarına uygun olarak hazırlandı.
+- Kodun her adımında Türkçe açıklama ve yorumlar eklendi.
