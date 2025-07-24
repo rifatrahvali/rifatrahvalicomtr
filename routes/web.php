@@ -117,4 +117,9 @@ Route::get('/gallery', [App\Http\Controllers\GalleryController::class, 'publicIn
 Route::get('/references', [App\Http\Controllers\ReferenceController::class, 'publicIndex'])->name('references.public.index');
 // Türkçe yorum: Kamuya açık referans görüntüleme rotası eklendi.
 
+// Türkçe: Production ortamı için health check endpoint'i
+Route::get('/health', function () {
+    return response()->json(['status' => 'ok'], 200);
+});
+
 // Türkçe: Sadece local ve test ortamında Telescope paneli route'unu aktif ediyoruz

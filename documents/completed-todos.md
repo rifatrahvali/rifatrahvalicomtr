@@ -2369,3 +2369,55 @@ Model ve servislerin iş mantığı, ilişkileri ve özel fonksiyonları güvenc
 **Not:**
 - Test ortamında panel erişimi ve log kaydı garanti edilemediği için testler localde manuel olarak doğrulandı.
 - Kodun her adımında Türkçe açıklama ve yorumlar eklendi.
+
+### ✅ [1201] Production Environment Setup
+
+**Tamamlanma Tarihi:** {TARIH}
+
+**Özet:** Canlı sunucu ortamı için Nginx/Apache, PHP-FPM, MySQL, Redis, SSL ve dosya izinleriyle ilgili örnek konfigürasyonlar ve güvenlik ayarları hazırlandı. Health check ve SSL testleri eklendi. Tüm adımlar Türkçe açıklama ve kaynak referanslarıyla tamamlandı.
+
+**Yapılan Teknik Adımlar:**
+1. **Nginx Konfigürasyonu:**
+   - `documents/nginx-production.conf` dosyası oluşturuldu. HTTPS redirect, gzip, cache, HSTS ve güvenlik başlıkları eklendi.
+   - Türkçe açıklama: Nginx ile Laravel için önerilen production ayarları ve SSL yönlendirmesi örneği verildi.
+2. **Apache Konfigürasyonu:**
+   - `documents/apache-production.conf` dosyası oluşturuldu. SSL, mod_rewrite, güvenlik başlıkları ve gzip örneği eklendi.
+   - Türkçe açıklama: Apache ile Laravel için önerilen production ayarları ve SSL yönlendirmesi örneği verildi.
+3. **PHP-FPM Ayarları:**
+   - `documents/php-fpm-production.conf` dosyası oluşturuldu. `pm.max_children`, `pm.max_requests`, `memory_limit` gibi önerilen değerler eklendi.
+   - Türkçe açıklama: Yüksek trafik ve güvenlik için PHP-FPM ayarları açıklandı.
+4. **MySQL Production Ayarları:**
+   - `documents/mysql-production.cnf` dosyası oluşturuldu. Güvenli bağlantı, slow query log, buffer ve charset ayarları eklendi.
+   - Türkçe açıklama: MySQL için güvenlik ve performans ayarları örneği verildi.
+5. **Redis Production Setup:**
+   - `documents/redis-production.conf` dosyası oluşturuldu. Güvenlik, maxmemory ve persistence ayarları eklendi.
+   - Türkçe açıklama: Redis için önerilen production ayarları ve güvenlik önlemleri açıklandı.
+6. **SSL Sertifikası Kurulumu:**
+   - `documents/ssl-setup.md` dosyası oluşturuldu. Let's Encrypt ile ücretsiz SSL kurulumu ve otomatik yenileme adımları anlatıldı.
+   - Nginx/Apache için SSL redirect ve HSTS örneği eklendi.
+7. **Dosya/Dizin İzinleri:**
+   - `storage` ve `bootstrap/cache` dizinlerinin www-data:www-data ve 775 izinle olması gerektiği belirtildi.
+   - Türkçe açıklama: Laravel için güvenli dosya/dizin izinleri açıklandı.
+8. **Health Check Endpoint:**
+   - `routes/web.php` dosyasına `/health` endpoint'i eklendi. 200 dönen basit bir kontrol.
+   - Test: `tests/Feature/ProductionHealthCheckTest.php` dosyasında endpoint'in çalıştığı test edildi.
+9. **SSL ve HTTPS Testi:**
+   - `tests/Feature/ProductionHealthCheckTest.php` dosyasında HTTPS yönlendirme ve SSL sertifikası testi eklendi.
+10. **Kurallar:** `.cursor/rules/deployment.mdc`, `file-structure.md` ve diğer ilgili kurallar tek tek kontrol edildi.
+
+**Kaynaklar:**
+- Nginx: `documents/nginx-production.conf`
+- Apache: `documents/apache-production.conf`
+- PHP-FPM: `documents/php-fpm-production.conf`
+- MySQL: `documents/mysql-production.cnf`
+- Redis: `documents/redis-production.conf`
+- SSL: `documents/ssl-setup.md`
+- Health check: `routes/web.php`, `tests/Feature/ProductionHealthCheckTest.php`
+
+**Testler:**
+- `php artisan test --filter=ProductionHealthCheckTest` ile health check ve SSL testleri başarıyla geçti.
+- Kodun amacı ve katkısı Türkçe olarak açıklandı.
+
+**Not:**
+- Tüm adımlar production ortamı için önerilen güvenlik ve performans kurallarına uygun olarak hazırlandı.
+- Kodun her adımında Türkçe açıklama ve yorumlar eklendi.

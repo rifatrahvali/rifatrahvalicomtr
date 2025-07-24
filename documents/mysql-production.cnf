@@ -1,0 +1,17 @@
+# MySQL Production Config - Laravel
+# Türkçe: Laravel için önerilen MySQL production ayarları
+
+[mysqld]
+bind-address = 127.0.0.1
+max_connections = 200
+innodb_buffer_pool_size = 512M
+innodb_log_file_size = 128M
+innodb_flush_log_at_trx_commit = 1
+slow_query_log = 1
+slow_query_log_file = /var/log/mysql/slow.log
+long_query_time = 2
+character-set-server = utf8mb4
+collation-server = utf8mb4_unicode_ci
+skip-symbolic-links
+# Güvenlik: root ile giriş engellenmeli, ayrı bir kullanıcı kullanılmalı
+# Türkçe: Bu dosya production ortamı için önerilen MySQL ayarlarını içerir. 
