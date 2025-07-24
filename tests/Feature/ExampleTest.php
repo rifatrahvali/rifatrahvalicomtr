@@ -82,4 +82,22 @@ class ExampleTest extends TestCase
         $this->assertStringNotContainsString('<b>', $clean); // HTMLPurifier varsa b etiketi de gider
         // Türkçe: InputSanitizer, XSS ve zararlı HTML içeriğini temizlemeli.
     }
+
+    public function test_session_cookie_security_settings()
+    {
+        $response = $this->get('/');
+        $cookies = $response->headers->getCookies();
+        $sessionCookie = null;
+        foreach ($cookies as $cookie) {
+            if (str_contains($cookie->getName(), 'session')) {
+                $sessionCookie = $cookie;
+                break;
+            }
+        }
+        $this->assertNotNull($sessionCookie, 'Session cookie bulunamadı');
+        $this->assertTrue($sessionCookie->isSecure(), 'Session cookie secure değil');
+        $this->assertTrue($sessionCookie->isHttpOnly(), 'Session cookie httpOnly değil');
+        $this->assertEquals('strict', strtolower($sessionCookie->getSameSite()), 'Session cookie sameSite strict değil');
+        // Türkçe: Session cookie güvenlik ayarları test edildi.
+    }
 }
