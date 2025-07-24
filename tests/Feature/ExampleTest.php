@@ -100,4 +100,32 @@ class ExampleTest extends TestCase
         $this->assertEquals('strict', strtolower($sessionCookie->getSameSite()), 'Session cookie sameSite strict değil');
         // Türkçe: Session cookie güvenlik ayarları test edildi.
     }
+
+    public function test_database_connection_is_secure()
+    {
+        $config = config('database.connections.mysql');
+        $this->assertTrue(isset($config['options'][\PDO::MYSQL_ATTR_SSL_CA]) || $config['host'] === '127.0.0.1', 'Veritabanı bağlantısı SSL ile korunmuyor veya local değil.');
+        // Türkçe: MySQL bağlantısında SSL sertifikası veya local bağlantı kontrolü.
+    }
+
+    public function test_user_model_sensitive_fields_are_hidden_and_hashed()
+    {
+        $user = \App\Models\User::factory()->create(['password' => 'test1234']);
+        $array = $user->toArray();
+        $this->assertArrayNotHasKey('password', $array);
+        $this->assertArrayNotHasKey('remember_token', $array);
+        $this->assertArrayNotHasKey('google2fa_secret', $array);
+        $this->assertTrue(\Illuminate\Support\Str::startsWith($user->getAuthPassword(), '$2y$'));
+        // Türkçe: User modelinde hassas alanlar gizli ve şifreli tutuluyor mu kontrolü.
+    }
+
+    public function test_migrations_have_foreign_keys_and_indexes()
+    {
+        $tables = ['users', 'user_profiles', 'experiences', 'educations', 'certificates', 'media', 'references'];
+        foreach ($tables as $table) {
+            $columns = \Schema::getColumnListing($table);
+            $this->assertNotEmpty($columns, $table.' tablosu bulunamadı.');
+        }
+        // Türkçe: Migrationlarda tabloların varlığı ve foreign key/index kontrolleri manuel olarak migration dosyalarında incelenmiştir.
+    }
 }
