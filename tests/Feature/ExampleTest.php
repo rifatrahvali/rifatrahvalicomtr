@@ -44,4 +44,20 @@ class ExampleTest extends TestCase
         $this->assertLessThan(1.5, $duration, 'Blog ana sayfası 1.5 saniyeden kısa sürede yüklenmeli.');
         // Türkçe: Blog ana sayfası response süresi 1.5 saniyeden kısa olmalı
     }
+
+    public function test_http_request_redirects_to_https()
+    {
+        // Türkçe: HTTP ile gelen istek otomatik olarak HTTPS'e yönlendirilir mi?
+        $response = $this->get('http://localhost/');
+        $response->assertRedirect('https://localhost/');
+        // Türkçe: HTTP istekler otomatik olarak HTTPS'e yönlendirilmelidir.
+    }
+
+    public function test_hsts_header_is_set()
+    {
+        // Türkçe: HTTPS ile gelen istekte HSTS header var mı?
+        $response = $this->get('/', ['HTTPS' => 'on']);
+        $response->assertHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
+        // Türkçe: HSTS header'ı eklenmiş olmalı.
+    }
 }

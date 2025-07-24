@@ -42,4 +42,8 @@ class Kernel extends HttpKernel
         'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,
         // Türkçe yorum: Spatie Permission middleware alias'ları doğru namespace ile düzeltildi.
     ];
+
+    protected $middleware = [
+        \App\Http\Middleware\ForceHttpsMiddleware::class, // Türkçe: Tüm istekleri HTTPS'e yönlendirir ve HSTS ekler
+    ];
 } 

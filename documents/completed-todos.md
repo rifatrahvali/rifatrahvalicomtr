@@ -1979,3 +1979,34 @@ Model ve servislerin iş mantığı, ilişkileri ve özel fonksiyonları güvenc
 
 **Kaynaklar:**
 - .github/workflows/ci.yml
+
+### [1001] SSL/HTTPS Configuration (SSL/HTTPS Yapılandırması) - TAMAMLANDI
+
+**Yapılanlar:**
+
+1. **ForceHttpsMiddleware Oluşturuldu**
+   - `app/Http/Middleware/ForceHttpsMiddleware.php` dosyası eklendi.
+   - Açıklama: Tüm istekleri HTTPS'e yönlendirir ve HSTS header ekler. Kodun altına detaylı Türkçe açıklama eklendi.
+
+2. **Global Middleware Olarak Eklendi**
+   - `app/Http/Kernel.php` dosyasında `$middleware` dizisine ForceHttpsMiddleware eklendi.
+   - Açıklama: Tüm uygulama genelinde HTTPS zorunluluğu ve HSTS aktif oldu. Kodun altına Türkçe açıklama eklendi.
+
+3. **Test Eklendi**
+   - `tests/Feature/ExampleTest.php` dosyasına HTTP isteklerin otomatik olarak HTTPS'e yönlendirilip yönlendirilmediğini ve HSTS header'ın eklenip eklenmediğini test eden fonksiyonlar eklendi.
+   - Açıklama: Testlerin altına detaylı Türkçe açıklama eklendi.
+
+4. **Kuralların Kontrolü:**
+   - @/.cursor/rules altındaki tüm güvenlik, deployment ve kod kalitesi kuralları tek tek kontrol edildi ve uygulandı.
+   - file-structure.md'ye uygun hareket edildi.
+   - Kodun altına detaylı Türkçe açıklamalar eklendi.
+   - UTF-8 hatalarına dikkat edildi.
+
+**Testler:**
+- Testler çalıştırıldı, middleware'in yönlendirme ve HSTS header ekleme işlevi başarıyla doğrulandı.
+- Testler sırasında eklenen kodların amacı ve katkısı Türkçe olarak açıklandı.
+
+**Kaynaklar:**
+- app/Http/Middleware/ForceHttpsMiddleware.php
+- app/Http/Kernel.php
+- tests/Feature/ExampleTest.php
