@@ -18,15 +18,72 @@
       }
     </script>
     <!-- Türkçe: PWA manifest ve service worker eklenmiştir. -->
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Vite/Tailwind/Bootstrap -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <!-- Türkçe: Modern CSS/JS dosyaları dahil edildi -->
+    <!-- Türkçe: Modern CSS/JS dosyaları ve FontAwesome ikonları dahil edildi -->
+    
+    <!-- Global Image Fallback Script -->
+    <script>
+    // Türkçe: Tüm kırık görseller için otomatik fallback
+    document.addEventListener('DOMContentLoaded', function() {
+        // Mevcut tüm img etiketleri için fallback ekle
+        document.querySelectorAll('img').forEach(function(img) {
+            if (!img.hasAttribute('data-fallback-added')) {
+                img.setAttribute('data-fallback-added', 'true');
+                img.addEventListener('error', function() {
+                    // Görsel türüne göre uygun placeholder seç
+                    let fallbackSrc = '/images/placeholder-gallery.jpg';
+                    if (img.src.includes('blog') || img.alt.toLowerCase().includes('blog')) {
+                        fallbackSrc = '/images/placeholder-blog.jpg';
+                    } else if (img.src.includes('project') || img.alt.toLowerCase().includes('proje')) {
+                        fallbackSrc = '/images/placeholder-project.jpg';
+                    }
+                    
+                    // Sonsuz döngüyü önlemek için kontrol
+                    if (this.src !== window.location.origin + fallbackSrc) {
+                        this.src = fallbackSrc;
+                    }
+                });
+            }
+        });
+        
+        // Dinamik olarak eklenen img etiketleri için observer
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                mutation.addedNodes.forEach(function(node) {
+                    if (node.nodeType === 1) {
+                        const imgs = node.tagName === 'IMG' ? [node] : node.querySelectorAll('img');
+                        imgs.forEach(function(img) {
+                            if (!img.hasAttribute('data-fallback-added')) {
+                                img.setAttribute('data-fallback-added', 'true');
+                                img.addEventListener('error', function() {
+                                    let fallbackSrc = '/images/placeholder-gallery.jpg';
+                                    if (img.src.includes('blog') || img.alt.toLowerCase().includes('blog')) {
+                                        fallbackSrc = '/images/placeholder-blog.jpg';
+                                    } else if (img.src.includes('project') || img.alt.toLowerCase().includes('proje')) {
+                                        fallbackSrc = '/images/placeholder-project.jpg';
+                                    }
+                                    if (this.src !== window.location.origin + fallbackSrc) {
+                                        this.src = fallbackSrc;
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            });
+        });
+        
+        observer.observe(document.body, { childList: true, subtree: true });
+    });
+    </script>
 </head>
 <body class="bg-gray-50 text-gray-900 min-h-screen flex flex-col">
     <!-- Türkçe: Header bileşeni -->
     @include('components.partials.header')
-    <!-- Türkçe: Navigation bileşeni -->
-    @include('components.partials.navigation')
+    <!-- Türkçe: Navigasyon, header bileşenine taşındı -->
     <!-- Türkçe: Breadcrumb bileşeni ana menünün hemen altında gösterilir. -->
     @include('components.partials.breadcrumb')
     <main class="flex-1 container mx-auto px-4 py-6">

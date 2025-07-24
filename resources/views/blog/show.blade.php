@@ -64,9 +64,12 @@
                      sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
                      class="img-fluid rounded mb-3"
                      alt="{{ $post->title }}"
-                     loading="lazy">
+                     loading="lazy"
+                     onerror="this.src='/images/placeholder-blog.jpg'">
             </picture>
             <!-- Türkçe yorum: WebP desteği, responsive srcset ve picture etiketi ile optimize görsel sunumu -->
+        @else
+            <img src="/images/placeholder-blog.jpg" class="img-fluid rounded mb-3" alt="{{ $post->title }}" loading="lazy">
         @endif
         <div class="mb-4 blog-content">
             {!! $post->content !!}

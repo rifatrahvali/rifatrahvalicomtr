@@ -108,4 +108,14 @@ class User extends Authenticatable
         return $this->morphToMany(Skill::class, 'skillable');
         // Türkçe: Kullanıcının yetenekleri (skills) ile morphToMany ilişki.
     }
+
+    /**
+     * Get the courses for the user.
+     */
+    // Kullanıcının tüm kurs kayıtlarını getiren ilişkiyi tanımlar.
+    // 'hasMany' ilişkisi, bir kullanıcının birden çok kurs kaydı olabileceğini belirtir.
+    public function courses()
+    {
+        return $this->hasMany(Course::class);
+    }
 }
