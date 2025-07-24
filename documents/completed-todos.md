@@ -2531,3 +2531,32 @@ Model ve servislerin iş mantığı, ilişkileri ve özel fonksiyonları güvenc
 
 **Not:**
 - Sonraki adımda log rotasyonu ve log dosyalarının doğruluğu test edilecek.
+
+### ✅ [1206] Backup & Recovery Procedures
+
+**Tamamlanma Tarihi:** {TARIH}
+
+**Özet:** Otomatik veritabanı ve dosya sistemi yedekleme (backup) ile geri yükleme (restore) scriptleri yazıldı. Testler başarıyla geçti. Tüm adımlar dosya referansları ve Türkçe açıklamalarla tamamlandı.
+
+**Yapılan Teknik Adımlar:**
+1. **Backup Scripti:**
+   - `scripts/deployment/backup.sh` dosyasında veritabanı ve dosya sistemi yedeği alınmasını sağlayan bash scripti yazıldı.
+   - Yedekler `storage/private/backups/database/` ve `storage/private/backups/files/` dizinlerine kaydediliyor.
+   - Her adımın altına Türkçe açıklama eklendi.
+2. **Restore Scripti:**
+   - `scripts/deployment/restore.sh` dosyasında en son alınan yedeği otomatik bulup geri yükleyen bash scripti yazıldı.
+   - Hem veritabanı hem dosya sistemi için otomatik restore işlemi sağlandı.
+   - Her adımın altına Türkçe açıklama eklendi.
+3. **Testler:**
+   - `tests/Feature/BackupRestoreTest.php` dosyasında backup ve restore scriptlerinin çalıştığı ve yedeklerin oluştuğu test edildi.
+   - Testler başarıyla geçti.
+4. **Kurallar:** `.cursor/rules/deployment.mdc`, `.cursor/rules/security.mdc`, `file-structure.md` ve ilgili yedekleme kuralları tek tek kontrol edildi.
+
+**Kaynaklar:**
+- Backup script: `scripts/deployment/backup.sh`
+- Restore script: `scripts/deployment/restore.sh`
+- Test: `tests/Feature/BackupRestoreTest.php`
+
+**Not:**
+- Scriptler, .env dosyasından veritabanı bilgilerini otomatik okur ve yedekleme işlemlerini güvenli şekilde gerçekleştirir.
+- Kodun her adımında Türkçe açıklama ve kurallara uygunluk sağlandı.
