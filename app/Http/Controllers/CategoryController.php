@@ -32,6 +32,7 @@ class CategoryController extends Controller
             'parent_id' => 'nullable|exists:blog_categories,id',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
+        $validated['name'] = \App\Services\Security\InputSanitizer::clean($validated['name']);
         $validated['slug'] = Str::slug($validated['name']);
         // Türkçe yorum: Kategori resmi yükleme (hazırlık)
         if ($request->hasFile('image')) {
@@ -58,6 +59,7 @@ class CategoryController extends Controller
             'parent_id' => 'nullable|exists:blog_categories,id',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
+        $validated['name'] = \App\Services\Security\InputSanitizer::clean($validated['name']);
         $validated['slug'] = Str::slug($validated['name']);
         if ($request->hasFile('image')) {
             $validated['image'] = $request->file('image')->store('category-images', 'public');

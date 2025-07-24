@@ -60,6 +60,11 @@ class LearnedController extends Controller
         } else {
             $validated['activity_tags'] = $tags ?? [];
         }
+        $validated['description'] = \App\Services\Security\InputSanitizer::clean($validated['description']);
+        $validated['activity_field'] = \App\Services\Security\InputSanitizer::clean($validated['activity_field']);
+        if (is_array($validated['activity_tags'])) {
+            $validated['activity_tags'] = array_map([\App\Services\Security\InputSanitizer::class, 'clean'], $validated['activity_tags']);
+        }
         LearnedExperience::create($validated);
         return redirect()->route('learned.experiences.index')->with('success', 'Kazanım eklendi.');
         // Türkçe yorum: Yeni iş deneyimi kazanımı kaydedilir.
@@ -80,6 +85,12 @@ class LearnedController extends Controller
         $general = $request->input('general_learnings');
         $validated['core_learnings'] = is_string($core) ? array_filter(array_map('trim', explode(',', $core))) : ($core ?? []);
         $validated['general_learnings'] = is_string($general) ? array_filter(array_map('trim', explode(',', $general))) : ($general ?? []);
+        if (is_array($validated['core_learnings'])) {
+            $validated['core_learnings'] = array_map([\App\Services\Security\InputSanitizer::class, 'clean'], $validated['core_learnings']);
+        }
+        if (is_array($validated['general_learnings'])) {
+            $validated['general_learnings'] = array_map([\App\Services\Security\InputSanitizer::class, 'clean'], $validated['general_learnings']);
+        }
         LearnedEducation::create($validated);
         return redirect()->route('learned.educations.index')->with('success', 'Kazanım eklendi.');
         // Türkçe yorum: Yeni eğitim kazanımı kaydedilir.

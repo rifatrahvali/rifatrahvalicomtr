@@ -73,12 +73,12 @@ class UserProfileController extends Controller
 
         // UserProfile modelini güncelle veya oluştur
         $profileData = [
-            'first_name' => $validatedData['first_name'],
-            'last_name' => $validatedData['last_name'],
-            'title' => $validatedData['title'],
-            'phone' => $validatedData['phone'],
-            'website' => $validatedData['website'],
-            'address' => $validatedData['address'],
+            'first_name' => \App\Services\Security\InputSanitizer::clean($validatedData['first_name']),
+            'last_name' => \App\Services\Security\InputSanitizer::clean($validatedData['last_name']),
+            'title' => \App\Services\Security\InputSanitizer::clean($validatedData['title']),
+            'phone' => \App\Services\Security\InputSanitizer::clean($validatedData['phone']),
+            'website' => \App\Services\Security\InputSanitizer::clean($validatedData['website']),
+            'address' => \App\Services\Security\InputSanitizer::clean($validatedData['address']),
             'social_links' => $validatedData['social_links'] ?? [],
         ];
 
@@ -95,7 +95,7 @@ class UserProfileController extends Controller
 
         // About modelini güncelle veya oluştur
         $aboutData = [
-            'bio' => $validatedData['about']['bio'] ?? null,
+            'bio' => isset($validatedData['about']['bio']) ? \App\Services\Security\InputSanitizer::clean($validatedData['about']['bio']) : null,
         ];
 
         // CV yükleme

@@ -71,4 +71,15 @@ class ExampleTest extends TestCase
         $response->assertHeader('X-Content-Type-Options', 'nosniff');
         // Türkçe: Tüm önemli güvenlik header'ları response'ta olmalı.
     }
+
+    public function test_input_sanitizer_removes_xss_and_html()
+    {
+        $dirty = '<script>alert(1)</script><b>kalın</b> <img src=x onerror=alert(2)>';
+        $clean = \App\Services\Security\InputSanitizer::clean($dirty);
+        $this->assertStringNotContainsString('<script>', $clean);
+        $this->assertStringNotContainsString('onerror', $clean);
+        $this->assertStringNotContainsString('<img', $clean);
+        $this->assertStringNotContainsString('<b>', $clean); // HTMLPurifier varsa b etiketi de gider
+        // Türkçe: InputSanitizer, XSS ve zararlı HTML içeriğini temizlemeli.
+    }
 }

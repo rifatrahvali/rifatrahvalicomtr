@@ -84,6 +84,9 @@ class PostController extends Controller
             'tags' => 'nullable|array',
             'tags.*' => 'string|max:100',
         ]);
+        // Türkçe: Başlık ve içerik alanlarını XSS ve zararlı HTML'den temizle
+        $validated['title'] = \App\Services\Security\InputSanitizer::clean($validated['title']);
+        $validated['content'] = \App\Services\Security\InputSanitizer::clean($validated['content']);
         $validated['slug'] = Str::slug($validated['title']);
         if ($request->hasFile('image')) {
             $validated['image'] = $request->file('image')->store('post-images', 'public');
