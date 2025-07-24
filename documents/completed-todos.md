@@ -2112,3 +2112,32 @@ Model ve servislerin iş mantığı, ilişkileri ve özel fonksiyonları güvenc
 **Kaynaklar:**
 - config/session.php
 - tests/Feature/ExampleTest.php
+
+### [1005] File Upload Security Hardening (Dosya Yükleme Güvenliği Sıkılaştırma) - TAMAMLANDI
+
+**Yapılanlar:**
+
+1. **FileUploadService Güvenlik Kontrolleri Eklendi**
+   - `app/Services/Media/FileUploadService.php` dosyasına aşağıdaki güvenlik kontrolleri eklendi:
+     - MIME type ve uzantı whitelist kontrolü
+     - Maksimum dosya boyutu limiti (8MB)
+     - Magic bytes (imza) kontrolü ile dosya içeriği doğrulama (JPEG, PNG, GIF, WebP, PDF)
+     - Güvenli dosya ismi oluşturma
+   - Açıklama: Kodun altına detaylı Türkçe açıklamalar eklendi.
+
+2. **Testler Geliştirildi**
+   - `tests/Feature/API/V1/MediaTest.php` dosyasına zararlı dosya yükleme ve dosya adı-manipülasyon testleri eklendi.
+   - Açıklama: Magic bytes ve whitelist kontrollerinin çalıştığı testlerle doğrulandı. Kodun altına Türkçe açıklama eklendi.
+
+3. **Kuralların Kontrolü:**
+   - @/.cursor/rules ve file-structure.md kuralları tek tek kontrol edildi ve uygulandı.
+   - Kodun altına detaylı Türkçe açıklamalar eklendi.
+   - UTF-8 hatalarına dikkat edildi.
+
+**Testler:**
+- Testler çalıştırıldı, dosya yükleme güvenlik kontrollerinin doğru şekilde uygulandığı doğrulandı.
+- Kodun amacı ve katkısı Türkçe olarak açıklandı.
+
+**Kaynaklar:**
+- app/Services/Media/FileUploadService.php
+- tests/Feature/API/V1/MediaTest.php

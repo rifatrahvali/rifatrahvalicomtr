@@ -1072,7 +1072,7 @@ class UserProfileTest extends TestCase
 * **Testing**: Session security testleri
 * **Documentation**: Session security guide
 
-### ☐ [1005] **File Upload Security Hardening** [Öncelik: High] [Süre: 3 saat]
+### ✅ [1005] **File Upload Security Hardening** [Öncelik: High] [Süre: 3 saat]
 * **Cursor Rules**: security.mdc, admin-panel-security.mdc
 * **Description**: Dosya yükleme güvenliği sıkılaştırma
 * **Technical Steps**:

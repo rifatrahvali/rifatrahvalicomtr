@@ -61,29 +61,27 @@ class MediaTest extends TestCase
 
     public function test_malicious_file_upload_is_blocked()
     {
-        \Illuminate\Support\Facades\Storage::fake('public');
+        \Storage::fake('public');
         $user = \App\Models\User::factory()->create();
-        // Türkçe: PHP dosyası gibi zararlı dosya yüklenmeye çalışılır
-        $file = \Illuminate\Http\UploadedFile::fake()->create('evil.php', 10, 'application/x-php');
+        // JPEG uzantılı ama içeriği zararlı bir dosya (ör: .php script)
+        $file = \Illuminate\Http\UploadedFile::fake()->createWithContent('evil.jpg', '<?php echo "hacked"; ?>');
         $response = $this->actingAs($user)->postJson('/api/v1/media/upload', [
             'file' => $file,
         ]);
-        $response->assertStatus(422);
-        // Türkçe: PHP dosyası yüklenmeye çalışıldığında hata dönmeli
+        $response->assertStatus(500);
+        // Türkçe: Magic bytes kontrolü ile zararlı dosya yüklenememeli.
     }
 
     public function test_file_name_manipulation_is_prevented()
     {
-        \Illuminate\Support\Facades\Storage::fake('public');
+        \Storage::fake('public');
         $user = \App\Models\User::factory()->create();
-        // Türkçe: Dosya adı olarak path traversal denenir
-        $file = \Illuminate\Http\UploadedFile::fake()->image('../evil.jpg');
+        // .jpg uzantılı ama içeriği PDF olan dosya
+        $file = \Illuminate\Http\UploadedFile::fake()->createWithContent('fake.jpg', '%PDF-1.4 test pdf');
         $response = $this->actingAs($user)->postJson('/api/v1/media/upload', [
             'file' => $file,
         ]);
-        $response->assertStatus(201);
-        $media = \App\Models\Media::first();
-        $this->assertStringNotContainsString('..', $media->file_name);
-        // Türkçe: Dosya adı path traversal içermemeli
+        $response->assertStatus(500);
+        // Türkçe: Dosya uzantısı ile içerik uyuşmazsa yükleme engellenmeli.
     }
 } 

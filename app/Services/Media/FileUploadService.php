@@ -32,6 +32,46 @@ class FileUploadService
         $height = null;
         $webpPath = null;
         $optimized = false;
+        // MIME type ve uzantı whitelist
+        $allowedMimes = [
+            'image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml',
+            'video/mp4', 'video/quicktime', 'video/x-msvideo',
+            'application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+        ];
+        $allowedExtensions = [
+            'jpg', 'jpeg', 'png', 'gif', 'webp', 'svg', 'mp4', 'mov', 'avi', 'pdf', 'doc', 'docx'
+        ];
+        if (!in_array($mime, $allowedMimes) || !in_array(strtolower($extension), $allowedExtensions)) {
+            throw new \Exception('Geçersiz dosya türü.');
+        }
+        // Dosya boyutu limiti (8MB)
+        if ($size > 8 * 1024 * 1024) {
+            throw new \Exception('Dosya boyutu 8MB üzerinde.');
+        }
+        // Magic bytes (imza) kontrolü: Sadece resim ve PDF için örnek
+        if (in_array($mime, ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'application/pdf'])) {
+            $handle = fopen($file->getRealPath(), 'rb');
+            $magic = fread($handle, 4);
+            fclose($handle);
+            $signatures = [
+                'image/jpeg' => ["\xFF\xD8\xFF"],
+                'image/png' => ["\x89PNG"],
+                'image/gif' => ["GIF8"],
+                'image/webp' => ["RIFF"],
+                'application/pdf' => ["%PDF"],
+            ];
+            $ok = false;
+            foreach ($signatures[$mime] ?? [] as $sig) {
+                if (strpos($magic, $sig) === 0) {
+                    $ok = true;
+                    break;
+                }
+            }
+            if (!$ok) {
+                throw new \Exception('Dosya imzası geçersiz veya zararlı dosya.');
+            }
+        }
+        // Türkçe: Dosya yüklemede MIME, uzantı, boyut ve magic bytes kontrolleri ile güvenlik artırıldı.
         // Sadece resimler için boyut ve WebP işlemleri
         if (Str::startsWith($mime, 'image/')) {
             $manager = new ImageManager(\Intervention\Image\Drivers\Gd\Driver::class);
