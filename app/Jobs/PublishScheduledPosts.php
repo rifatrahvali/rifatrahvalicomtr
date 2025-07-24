@@ -31,4 +31,14 @@ class PublishScheduledPosts implements ShouldQueue
             // Türkçe yorum: Zamanı gelen yazı otomatik olarak yayınlanır ve loglanır.
         }
     }
+
+    /**
+     * Bu job'ı yüksek öncelikli kuyruğa dispatch etmek için yardımcı fonksiyon.
+     * Türkçe: Yüksek öncelikli (high) kuyruğa job gönderimi örneği.
+     */
+    public static function dispatchToHighPriority()
+    {
+        // Türkçe: Job'ı 'high' kuyruğuna gönderiyoruz
+        return self::dispatch()->onQueue('high');
+    }
 } 

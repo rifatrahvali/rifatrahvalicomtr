@@ -2317,3 +2317,30 @@ Model ve servislerin iş mantığı, ilişkileri ve özel fonksiyonları güvenc
 - vite.config.js
 - resources/views/layouts/app.blade.php
 - tests/Feature/DesignSystemTest.php
+
+### [1105] Queue & Job Optimization
+
+**Tamamlanma Tarihi:** {TARIH}
+
+**Özet:** Kuyruk sistemi Redis ile optimize edildi, önceliklendirilmiş kuyruklar (high, default, low) tanımlandı, job dispatch örneği eklendi, failed job yönetimi ve worker ayarları güncellendi. Kodun her adımında Türkçe açıklamalar ve testler eklendi.
+
+**Yapılan Teknik Adımlar:**
+1. **Queue Konfigürasyonu:** `config/queue.php` dosyasında varsayılan bağlantı `redis` olarak ayarlandı. Yüksek ve düşük öncelikli kuyruklar için `redis_high` ve `redis_low` bağlantıları eklendi. `block_for` ve `retry_after` parametreleri optimize edildi.
+2. **Job Prioritization:** `app/Jobs/PublishScheduledPosts.php` dosyasına, job'ın yüksek öncelikli kuyruğa (`high`) dispatch edilmesini sağlayan `dispatchToHighPriority()` fonksiyonu eklendi.
+3. **Failed Job Handling:** Laravel'in varsayılan failed job yönetimi (database-uuids) aktif bırakıldı. Gerekirse notification/loglama için altyapı hazır.
+4. **Queue Worker Yönetimi:** Worker'ların supervisor veya horizon ile yönetilmesi önerildi. (Not: Supervisor config örneği ve horizon entegrasyonu için dökümana bakılabilir.)
+5. **Testler:** Kuyruğa job gönderimi, önceliklendirme ve failed job mekanizması için testler yazıldı (test dosyası aşağıda).
+6. **Kurallar:** `.cursor/rules/performance.mdc`, `php-laravel.mdc`, `deployment.mdc` dosyalarındaki queue, job ve worker yönetimi kurallarına uyuldu.
+
+**Kaynaklar:**
+- Queue config: `config/queue.php`
+- Job örneği: `app/Jobs/PublishScheduledPosts.php`
+- Migration: `database/migrations/0001_01_01_000002_create_jobs_table.php`
+
+**Test:**
+- `tests/Feature/QueueJobOptimizationTest.php` dosyasında job dispatch, öncelik ve failed job için testler yazıldı.
+- `php artisan queue:work --queue=high,default,low` komutu ile öncelikli kuyruklar test edildi.
+
+**Not:**
+- Worker yönetimi için production ortamında supervisor veya horizon kullanılması önerilir.
+- Her kod parçasında Türkçe açıklama ve yorumlar eklendi.

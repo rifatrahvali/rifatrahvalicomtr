@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('QUEUE_CONNECTION', 'database'),
+    'default' => env('QUEUE_CONNECTION', 'redis'),
 
     /*
     |--------------------------------------------------------------------------
@@ -68,7 +68,24 @@ return [
             'connection' => env('REDIS_QUEUE_CONNECTION', 'default'),
             'queue' => env('REDIS_QUEUE', 'default'),
             'retry_after' => (int) env('REDIS_QUEUE_RETRY_AFTER', 90),
-            'block_for' => null,
+            'block_for' => 5, // Türkçe: Kuyrukta iş yoksa 5 saniye bekle
+            'after_commit' => false, // Türkçe: Transaction commit sonrası işleme başla
+        ],
+        // Türkçe: Yüksek ve düşük öncelikli kuyruklar için örnekler
+        'redis_high' => [
+            'driver' => 'redis',
+            'connection' => env('REDIS_QUEUE_CONNECTION', 'default'),
+            'queue' => 'high',
+            'retry_after' => 60, // Türkçe: Daha kısa retry süresi
+            'block_for' => 5,
+            'after_commit' => false,
+        ],
+        'redis_low' => [
+            'driver' => 'redis',
+            'connection' => env('REDIS_QUEUE_CONNECTION', 'default'),
+            'queue' => 'low',
+            'retry_after' => 120, // Türkçe: Daha uzun retry süresi
+            'block_for' => 5,
             'after_commit' => false,
         ],
 
