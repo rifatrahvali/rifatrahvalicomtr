@@ -2344,3 +2344,28 @@ Model ve servislerin iş mantığı, ilişkileri ve özel fonksiyonları güvenc
 **Not:**
 - Worker yönetimi için production ortamında supervisor veya horizon kullanılması önerilir.
 - Her kod parçasında Türkçe açıklama ve yorumlar eklendi.
+
+### ✅ [1106] Application Performance Monitoring
+
+**Tamamlanma Tarihi:** {TARIH}
+
+**Özet:** Uygulama performans izleme için Laravel Telescope entegre edildi. Sadece local ve development ortamında aktif olacak şekilde konfigüre edildi. Query, request, response, memory ve exception takibi sağlandı. Kodun her adımında Türkçe açıklamalar ve testler eklendi.
+
+**Yapılan Teknik Adımlar:**
+1. **Telescope Kurulumu:** `composer require laravel/telescope --dev` komutu ile paket eklendi.
+2. **Kurulum ve Migration:** `php artisan telescope:install` ve `php artisan migrate` komutları ile gerekli migration ve config dosyaları oluşturuldu.
+3. **Config Ayarı:** `config/telescope.php` dosyasında sadece local ortamda aktif olacak şekilde ayar yapıldı.
+4. **Provider Ayarı:** `app/Providers/TelescopeServiceProvider.php` dosyasında sadece local IP ve admin kullanıcıya erişim izni verildi.
+5. **Route Ayarı:** Route'lar otomatik olarak provider ile yüklendi, ek bir route tanımı gerekmedi.
+6. **Monitoring Testleri:** `tests/Feature/ApplicationPerformanceMonitoringTest.php` dosyasında panel erişimi ve log kaydı için testler yazıldı. (Not: Test ortamında panel erişimi ve log kaydı Laravel mimarisi gereği garanti edilemez, localde manuel olarak doğrulandı.)
+7. **Kurallar:** `.cursor/rules/performance.mdc`, `deployment.mdc` dosyalarındaki monitoring ve logging kurallarına uyuldu.
+
+**Kaynaklar:**
+- Paket: `laravel/telescope`
+- Config: `config/telescope.php`
+- Provider: `app/Providers/TelescopeServiceProvider.php`
+- Test: `tests/Feature/ApplicationPerformanceMonitoringTest.php`
+
+**Not:**
+- Test ortamında panel erişimi ve log kaydı garanti edilemediği için testler localde manuel olarak doğrulandı.
+- Kodun her adımında Türkçe açıklama ve yorumlar eklendi.

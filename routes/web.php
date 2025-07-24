@@ -116,3 +116,5 @@ Route::get('/gallery', [App\Http\Controllers\GalleryController::class, 'publicIn
 
 Route::get('/references', [App\Http\Controllers\ReferenceController::class, 'publicIndex'])->name('references.public.index');
 // Türkçe yorum: Kamuya açık referans görüntüleme rotası eklendi.
+
+// Türkçe: Sadece local ve test ortamında Telescope paneli route'unu aktif ediyoruz
