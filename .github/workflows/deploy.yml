@@ -1,0 +1,74 @@
+name: Production Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Kodu Checkout Et
+        uses: actions/checkout@v3
+
+      - name: PHP Kurulumu
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          extensions: mbstring, bcmath, xml, curl, mysql, redis
+
+      - name: Node Kurulumu
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Composer Kurulumu
+        run: composer install --no-interaction --prefer-dist --optimize-autoloader
+
+      - name: NPM Kurulumu
+        run: npm ci && npm run build
+
+      - name: Ortam Dosyasını Kopyala
+        run: cp documents/env.production.example .env
+
+      - name: Uygulama Anahtarını Ayarla
+        run: php artisan key:generate --force
+
+      - name: Config, Route ve View Cache
+        run: |
+          php artisan config:cache
+          php artisan route:cache
+          php artisan view:cache
+
+      - name: Migration ve Seed
+        run: php artisan migrate --force
+
+      - name: Testleri Çalıştır
+        run: php artisan test --env=testing
+
+      - name: Deploy Sunucuya (SSH ile)
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        run: |
+          echo "$SSH_PRIVATE_KEY" > private_key && chmod 600 private_key
+          ssh -i private_key -o StrictHostKeyChecking=no user@your-production-server 'cd /var/www/laravel && git pull origin main && composer install --no-interaction --prefer-dist --optimize-autoloader && php artisan migrate --force && npm ci && npm run build && php artisan config:cache && php artisan route:cache && php artisan view:cache'
+        # Türkçe: SSH ile production sunucuya bağlanıp kodu güncelliyoruz
+
+      - name: Rollback (Hata Durumunda)
+        if: failure()
+        run: |
+          echo "Rollback işlemi için manuel müdahale gereklidir. (Örnek: git reset --hard <önceki-commit>)"
+        # Türkçe: Otomatik rollback için örnek komut, gerçek ortamda manuel veya otomasyon eklenebilir
+
+      - name: Slack Bildirimi
+        if: always()
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          fields: repo,message,commit,author
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        # Türkçe: Deploy sonucu Slack kanalına bildirim gönderilir
+
+# Türkçe: Bu dosya production ortamı için otomatik deploy pipeline'ını içerir. Test, build, migration, deploy ve bildirim adımları ile tam CI/CD örneğidir. 

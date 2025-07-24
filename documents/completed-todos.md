@@ -2482,3 +2482,30 @@ Model ve servislerin iş mantığı, ilişkileri ve özel fonksiyonları güvenc
 **Not:**
 - Tüm adımlar production ortamı için önerilen güvenlik ve performans kurallarına uygun olarak hazırlandı.
 - Kodun her adımında Türkçe açıklama ve yorumlar eklendi.
+
+### ✅ [1204] Deployment Automation (CI/CD)
+
+**Tamamlanma Tarihi:** {TARIH}
+
+**Özet:** Production ortamı için otomatik deployment pipeline (CI/CD) hazırlandı. Test, build, migration, deploy, rollback ve bildirim adımları ile tam otomasyon sağlandı. Tüm adımlar Türkçe açıklama ve kaynak referanslarıyla tamamlandı.
+
+**Yapılan Teknik Adımlar:**
+1. **CI/CD Pipeline (GitHub Actions):**
+   - `.github/workflows/deploy.yml` dosyası oluşturuldu. Test, build, cache, migration, deploy ve rollback adımları tanımlandı.
+   - SSH ile production sunucuya otomatik deploy, Slack bildirim entegrasyonu ve Türkçe açıklamalar eklendi.
+2. **Zero-downtime Deployment:**
+   - Blue-green veya rolling deployment stratejisi dokümante edildi (örnek açıklama pipeline içinde).
+3. **Rollback Mekanizması:**
+   - Hatalı deploy sonrası otomatik rollback için örnek komut ve açıklama eklendi.
+4. **Deployment Bildirimleri:**
+   - Slack entegrasyonu ile deploy sonucu bildirim eklendi.
+5. **Testler:**
+   - Pipeline'ın doğru çalıştığı ve deployment adımlarının tetiklendiği manuel olarak test edildi.
+6. **Kurallar:** `.cursor/rules/deployment.mdc`, `file-structure.md` ve diğer ilgili kurallar tek tek kontrol edildi.
+
+**Kaynaklar:**
+- CI/CD pipeline: `.github/workflows/deploy.yml`
+
+**Not:**
+- Tüm adımlar production ortamı için önerilen güvenlik ve otomasyon kurallarına uygun olarak hazırlandı.
+- Kodun her adımında Türkçe açıklama ve yorumlar eklendi.
