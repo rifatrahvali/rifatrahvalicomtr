@@ -2608,3 +2608,26 @@ Model ve servislerin iş mantığı, ilişkileri ve özel fonksiyonları güvenc
 **Not:**
 - Tüm dokümantasyon, projenin sürdürülebilirliği ve geliştirici deneyimi için Türkçe açıklamalarla hazırlanmıştır.
 - Kodun her adımında Türkçe açıklama ve kurallara uygunluk sağlandı.
+
+### ✅ [1302] User Guide & Manual
+
+**Tamamlanma Tarihi:** {TARIH}
+
+**Özet:** Admin panel ve içerik yönetimi için kullanıcı rehberi, sorun giderme ve sıkça sorulan sorular ile birlikte kapsamlı bir doküman hazırlandı. Test ile doğrulandı.
+
+**Yapılan Teknik Adımlar:**
+1. **Kullanıcı Rehberi:**
+   - `documents/user-guide-manual.md` dosyasında admin panel kullanımı, içerik yönetimi, sorun giderme, sıkça sorulan sorular ve ekran görüntüsü örnekleri detaylı ve Türkçe açıklamalarla yazıldı.
+   - Her adımda neden ve nasıl yapılacağı açıklandı.
+2. **Test:**
+   - `tests/Feature/UserGuideManualTest.php` dosyasında rehberin varlığı ve ana başlıkların içerikte yer aldığı test edildi.
+   - Test başarıyla geçti.
+3. **Kurallar:** `.cursor/rules/code-quality.mdc`, `file-structure.md` ve ilgili rehber kuralları tek tek kontrol edildi.
+
+**Kaynaklar:**
+- Kullanıcı rehberi: `documents/user-guide-manual.md`
+- Test: `tests/Feature/UserGuideManualTest.php`
+
+**Not:**
+- Kodun her adımında Türkçe açıklama ve kurallara uygunluk sağlandı.
+- Rehber, hem yeni başlayanlar hem de adminler için pratik kullanım sunar.
