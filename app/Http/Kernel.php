@@ -45,5 +45,6 @@ class Kernel extends HttpKernel
 
     protected $middleware = [
         \App\Http\Middleware\ForceHttpsMiddleware::class, // Türkçe: Tüm istekleri HTTPS'e yönlendirir ve HSTS ekler
+        \App\Http\Middleware\SecurityHeadersMiddleware::class, // Türkçe: Tüm response'lara güvenlik header'ları ekler
     ];
 } 

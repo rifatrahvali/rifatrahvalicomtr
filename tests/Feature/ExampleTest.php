@@ -60,4 +60,15 @@ class ExampleTest extends TestCase
         $response->assertHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
         // Türkçe: HSTS header'ı eklenmiş olmalı.
     }
+
+    public function test_security_headers_are_set()
+    {
+        $response = $this->get('/');
+        $response->assertHeader('Content-Security-Policy');
+        $response->assertHeader('X-Frame-Options', 'DENY');
+        $response->assertHeader('X-XSS-Protection', '1; mode=block');
+        $response->assertHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+        $response->assertHeader('X-Content-Type-Options', 'nosniff');
+        // Türkçe: Tüm önemli güvenlik header'ları response'ta olmalı.
+    }
 }
