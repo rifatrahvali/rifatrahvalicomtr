@@ -2580,3 +2580,31 @@ Model ve servislerin iş mantığı, ilişkileri ve özel fonksiyonları güvenc
 **Not:**
 - Tüm örnekler ve açıklamalar, gerçek domain yönetimi ve güvenliği için uygulanabilir şekilde hazırlandı.
 - Kodun her adımında Türkçe açıklama ve kurallara uygunluk sağlandı.
+
+### ✅ [1301] Technical Documentation
+
+**Tamamlanma Tarihi:** {TARIH}
+
+**Özet:** Projenin API, veritabanı şeması, mimari genel bakış ve kod stili rehberi detaylı ve Türkçe açıklamalarla dokümante edildi.
+
+**Yapılan Teknik Adımlar:**
+1. **API Dokümantasyonu:**
+   - `documents/technical-documentation.md` dosyasında OpenAPI/Swagger formatında örnek API endpointleri ve veri şemaları açıklandı.
+   - Her endpointin amacı ve dönen veri şeması Türkçe olarak belirtildi.
+2. **Veritabanı Şeması:**
+   - Temel tablolar ve ilişkiler tablo ve Mermaid diyagramı ile gösterildi.
+   - Her tablo ve ilişki amacıyla birlikte açıklandı.
+3. **Mimari Genel Bakış:**
+   - Katmanlı mimari (Controller, Service, Model, Request, Resource, Policy) ve klasör yapısı detaylandırıldı.
+   - Her katmanın sorumluluğu Türkçe olarak açıklandı.
+4. **Kod Stili Rehberi:**
+   - PSR-12 standartları, Türkçe açıklama gerekliliği, örnek fonksiyon ve kod blokları ile gösterildi.
+   - Değişken/fonksiyon isimlendirme, test ve encoding kuralları belirtildi.
+5. **Kurallar:** `.cursor/rules/code-quality.mdc`, `.cursor/rules/core-principles.mdc`, `file-structure.md` ve ilgili dokümantasyon kuralları tek tek kontrol edildi.
+
+**Kaynaklar:**
+- Teknik dokümantasyon: `documents/technical-documentation.md`
+
+**Not:**
+- Tüm dokümantasyon, projenin sürdürülebilirliği ve geliştirici deneyimi için Türkçe açıklamalarla hazırlanmıştır.
+- Kodun her adımında Türkçe açıklama ve kurallara uygunluk sağlandı.
