@@ -17,12 +17,14 @@ class BlogApiController extends Controller
     // Tüm yayınlanmış blog yazılarını (paginated) döndürür
     public function posts(Request $request)
     {
-        $posts = BlogPost::with(['category', 'tags'])
-            ->where('status', 'published')
-            ->orderByDesc('published_at')
-            ->paginate($request->get('per_page', 10));
+        $posts = \Cache::remember('api_blog_posts_' . $request->get('page', 1), 60, function() use ($request) {
+            return BlogPost::with(['category', 'tags'])
+                ->where('status', 'published')
+                ->orderByDesc('published_at')
+                ->paginate($request->get('per_page', 10));
+        });
         return BlogPostResource::collection($posts);
-        // Türkçe yorum: Yayınlanmış blog yazılarını resource ile döndürür.
+        // Türkçe: API ana sayfa yazı listesi cache'den döndürülür.
     }
 
     // Tekil blog yazısı detayını döndürür
@@ -39,9 +41,11 @@ class BlogApiController extends Controller
     // Tüm kategorileri döndürür
     public function categories()
     {
-        $categories = BlogCategory::all();
+        $categories = \Cache::rememberForever('api_blog_categories', function() {
+            return BlogCategory::all();
+        });
         return BlogCategoryResource::collection($categories);
-        // Türkçe yorum: Tüm blog kategorilerini resource ile döndürür.
+        // Türkçe: API kategori listesi cache'den döndürülür.
     }
 
     // Bir kategorideki yazıları döndürür
@@ -56,9 +60,11 @@ class BlogApiController extends Controller
     // Tüm etiketleri döndürür
     public function tags()
     {
-        $tags = Tag::all();
+        $tags = \Cache::rememberForever('api_blog_tags', function() {
+            return Tag::all();
+        });
         return TagResource::collection($tags);
-        // Türkçe yorum: Tüm blog etiketlerini resource ile döndürür.
+        // Türkçe: API etiket listesi cache'den döndürülür.
     }
 
     // Bir etikete ait yazıları döndürür
