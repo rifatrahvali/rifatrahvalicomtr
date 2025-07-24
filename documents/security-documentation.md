@@ -61,6 +61,44 @@
 - Yedekler düzenli olarak test edilmeli.
 // Türkçe: Zafiyet değerlendirmesi düzenli yapılmalı ve raporlanmalıdır.
 
+## 5. Örnek Saldırı Senaryoları ve Log İnceleme
+
+### SQL Injection Saldırısı
+- Saldırgan, bir form inputuna `' OR 1=1 --` gibi bir değer girer.
+- Loglarda olağan dışı SELECT sorguları ve hata mesajları görülebilir.
+// Türkçe: Input validasyonu ve prepared statement ile bu saldırı önlenir.
+
+### XSS Saldırısı
+- Kullanıcı, bir form alanına `<script>alert('xss')</script>` yazar.
+- Loglarda veya sayfa kaynağında script tag'leri tespit edilebilir.
+// Türkçe: Blade otomatik escape ve input sanitizasyonu ile önlenir.
+
+### Brute Force Saldırısı
+- Aynı IP'den çok sayıda başarısız giriş denemesi loglarda görülür.
+- Rate limiting ve IP bloklama ile önlenir.
+
+## 6. Parola Politikası ve Güvenlik Güncelleme Süreci
+
+- Parolalar en az 12 karakter, büyük/küçük harf, rakam ve özel karakter içermeli.
+- Parola sıfırlama işlemleri e-posta ile ve tek kullanımlık token ile yapılmalı.
+- Güvenlik güncellemeleri için Laravel, PHP ve bağımlılıklar aylık kontrol edilmeli.
+- Güvenlik güncellemesi sonrası testler ve log kontrolleri yapılmalı.
+// Türkçe: Parola ve güncelleme politikası, sistemin güvenliğini artırır.
+
+## 7. Sosyal Mühendislik ve Phishing Uyarıları
+
+- Hiçbir zaman şifre, token veya hassas bilgi e-posta ile istenmez.
+- Kullanıcılar, şüpheli e-posta ve bağlantılara karşı uyarılmalı.
+- Admin panel erişimi sadece güvenli cihazlardan yapılmalı.
+// Türkçe: Sosyal mühendislik saldırılarına karşı kullanıcılar bilinçlendirilmeli.
+
+## 8. Güvenlik Test Araçları ve Otomasyon
+
+- Otomatik güvenlik testleri için: `php artisan test`, `npm audit`, `composer audit`
+- Dış güvenlik taramaları için: OWASP ZAP, Nessus, Burp Suite, Snyk
+- Log ve saldırı analizi için: Fail2Ban, Logwatch, ELK Stack
+// Türkçe: Güvenlik testleri ve otomasyon araçları ile sistem düzenli olarak kontrol edilmelidir.
+
 ---
 
-> Türkçe: Bu dosya, projenin güvenlik gereksinimlerini, olay müdahale adımlarını, en iyi uygulamaları ve zafiyet değerlendirme raporunu içerir. Her adımda neden ve nasıl uygulanacağı detaylı anlatılmıştır. 
+> Türkçe: Bu dosya, projenin güvenlik gereksinimlerini, olay müdahale adımlarını, en iyi uygulamaları, zafiyet değerlendirme raporunu, saldırı senaryolarını, parola politikası ve güvenlik test araçlarını detaylı olarak sunar. Her adımda neden ve nasıl uygulanacağı açıklanmıştır. 

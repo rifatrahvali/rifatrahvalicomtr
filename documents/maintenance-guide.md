@@ -40,6 +40,37 @@
 - **Cache sorunları:** `php artisan config:clear && php artisan cache:clear` komutlarını çalıştırın.
 // Türkçe: Sorun giderme adımlarında loglar ve hata mesajları yol göstericidir.
 
+## 5. Bakım Takvimi ve Otomasyon
+
+- Haftalık: Yedekleme, log arşivleme, disk alanı kontrolü
+- Aylık: Tüm bağımlılıkların güncellenmesi, güvenlik taraması
+- 3 Aylık: Penetrasyon testi, yedeklerin geri yükleme testi
+- Otomasyon scriptleri: `scripts/deployment/backup.sh`, `scripts/deployment/restore.sh` ile yedekleme ve geri yükleme otomatikleştirilebilir.
+// Türkçe: Bakım işlemlerinin düzenli ve otomatik yapılması için takvim ve scriptler kullanılır.
+
+## 6. Log Rotasyonu ve Yedek Doğrulama
+
+- Log dosyaları için günlük veya haftalık rotasyon ayarlanmalı (`logrotate` veya Laravel daily log).
+- Yedeklerin bütünlüğü ve erişilebilirliği düzenli olarak test edilmeli.
+- Yedek dosyalarının SHA256 hash kontrolü yapılabilir.
+// Türkçe: Log ve yedek yönetimi, veri kaybı ve disk doluluğu riskini azaltır.
+
+## 7. Acil Durum Prosedürü
+
+- Kritik hata veya saldırı durumunda bakım moduna alın: `php artisan down`
+- Son yedeği geri yükle: `scripts/deployment/restore.sh`
+- Logları ve sistem kaynaklarını incele, gerekirse destek ekibiyle iletişime geç.
+// Türkçe: Acil durumda hızlı aksiyon için adımlar önceden belirlenmelidir.
+
+## 8. Bakım Sonrası Test Checklist’i
+
+- Uygulama açılıyor mu?
+- Tüm ana fonksiyonlar (kayıt, giriş, içerik ekleme) çalışıyor mu?
+- Loglarda hata var mı?
+- Performans metrikleri normal mi?
+- Yedekler erişilebilir mi?
+// Türkçe: Bakım sonrası sistemin sağlıklı çalıştığı test edilmelidir.
+
 ---
 
-> Türkçe: Bu dosya, projenin düzenli bakımı, güncellenmesi, performans izlenmesi ve sorun giderme adımlarını içerir. Her adımda neden ve nasıl yapılacağı detaylı anlatılmıştır. 
+> Türkçe: Bu dosya, projenin düzenli bakımı, güncellenmesi, performans izlenmesi ve sorun giderme adımlarını, bakım takvimi, otomasyon, log rotasyonu ve acil durum prosedürü ile birlikte detaylı olarak sunar. Her adımda neden ve nasıl yapılacağı açıklanmıştır. 

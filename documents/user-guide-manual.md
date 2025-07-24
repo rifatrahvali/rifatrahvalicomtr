@@ -6,6 +6,23 @@
 - Girişte e-posta ve şifrenizi girin, 2FA aktifse doğrulama kodunu girin.
 // Türkçe: Admin paneline güvenli giriş için 2FA zorunludur.
 
+### Kullanıcı Rolleri ve Yetkileri
+- Admin: Tüm modüllere erişim ve tam yetki.
+- Editor: Blog ve galeri yönetimi, referans ekleme/düzenleme.
+- Viewer: Sadece içerik görüntüleme.
+// Türkçe: Her rolün yetkileri açıkça tanımlanmıştır.
+
+### Sık Yapılan Hatalar ve Çözümler
+- Zorunlu alanları doldurmadan kaydetme: Hata mesajlarını dikkatlice okuyun.
+- Görsel yükleme hatası: Dosya boyutu ve formatını kontrol edin.
+- Yetkisiz işlem: Giriş yaptığınız rolün yetkilerini kontrol edin.
+// Türkçe: Sık yapılan hatalar ve çözüm yolları pratik olarak eklenmiştir.
+
+### Video/GIF ve Ekran Görüntüsü Önerileri
+- Her modül için kısa video veya GIF ile adım adım anlatım eklenebilir.
+- Ekran görüntülerinin altına açıklama yazılmalı.
+// Türkçe: Görsel ve video ile öğrenme kolaylaştırılır.
+
 ### Navigasyon
 - Sol menüden kullanıcı, blog, galeri, referans, ayarlar gibi modüllere erişebilirsiniz.
 - Her modülün üst kısmında "Ekle", "Düzenle", "Sil" gibi işlemler için butonlar bulunur.
@@ -58,4 +75,4 @@ C: Dosya boyutu 2MB'den büyükse veya format desteklenmiyorsa yükleme başarı
 
 ---
 
-> Türkçe: Bu dosya, admin panel ve içerik yönetimi için kullanıcı rehberi, sorun giderme ve sıkça sorulan sorular ile birlikte hazırlanmıştır. Her adımda neden ve nasıl yapılacağı detaylı anlatılmıştır. 
+> Türkçe: Bu dosya, admin panel ve içerik yönetimi için kullanıcı rehberi, sorun giderme, sıkça sorulan sorular, roller, hatalar ve pratik öneriler ile birlikte hazırlanmıştır. Her adımda neden ve nasıl yapılacağı detaylı anlatılmıştır. 

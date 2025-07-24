@@ -76,6 +76,44 @@ Content-Type: application/json
 | 429 | Çok fazla istek         |
 | 500 | Sunucu hatası           |
 
+### Ek API Endpoint Örnekleri
+
+#### Kullanıcı Kaydı
+```http
+POST /api/v1/register
+Content-Type: application/json
+
+{
+  "name": "Yeni Kullanıcı",
+  "email": "newuser@example.com",
+  "password": "gucluSifre123!"
+}
+```
+// Türkçe: Kullanıcı kaydı için endpoint örneği.
+
+#### Kullanıcı Bilgisi Getir
+```http
+GET /api/v1/profile
+Authorization: Bearer {token}
+```
+// Türkçe: Giriş yapan kullanıcının profilini döner.
+
+#### Blog Kategorileri
+```http
+GET /api/v1/categories
+```
+// Türkçe: Tüm blog kategorilerini listeler.
+
+#### Hata Örneği
+```json
+{
+  "success": false,
+  "message": "Yetkisiz erişim.",
+  "errors": null
+}
+```
+// Türkçe: Yetkisiz erişim durumunda dönen hata örneği.
+
 ### OpenAPI/Swagger Örneği
 ```yaml
 openapi: 3.0.0
@@ -186,6 +224,31 @@ Schema::create('users', function (Blueprint $table) {
 // Türkçe: Kullanıcılar tablosu migration örneği
 ```
 
+### Ek Migration ve Model Örneği
+```php
+// BlogPost migration örneği
+Schema::create('blog_posts', function (Blueprint $table) {
+    $table->id();
+    $table->foreignId('user_id')->constrained();
+    $table->foreignId('category_id')->constrained('blog_categories');
+    $table->string('title');
+    $table->text('content');
+    $table->string('slug')->unique();
+    $table->timestamp('published_at')->nullable();
+    $table->enum('status', ['draft', 'published']);
+    $table->timestamps();
+});
+// Türkçe: Blog yazısı için migration örneği
+
+// BlogPost model örneği
+class BlogPost extends Model {
+    protected $fillable = ['user_id', 'category_id', 'title', 'content', 'slug', 'published_at', 'status'];
+    // Türkçe: Mass assignment koruması için fillable alanlar tanımlandı
+    public function user() { return $this->belongsTo(User::class); }
+    public function category() { return $this->belongsTo(BlogCategory::class); }
+}
+// Türkçe: Blog yazısı ile kullanıcı ve kategori ilişkisi örneği
+
 #### İlişki Diyagramı (Mermaid)
 ```mermaid
 erDiagram
@@ -236,6 +299,119 @@ erDiagram
   - `resources/views/components/` : Blade component'lar
   - `tests/` : Tüm testler
 // Türkçe: Modern Laravel uygulamasında tüm katmanlar ve klasörler yukarıdaki gibi ayrılmıştır.
+
+### Service, Policy, Event, Observer, Job, Queue, Cache, Middleware, Helper, Blade Component, Test Örnekleri
+
+#### Service Sınıfı
+```php
+namespace App\Services;
+class BlogService {
+    public function publish(BlogPost $post) {
+        $post->status = 'published';
+        $post->published_at = now();
+        $post->save();
+        // Türkçe: Blog yazısı yayınlanır ve zamanı kaydedilir
+    }
+}
+```
+
+#### Policy Örneği
+```php
+class BlogPostPolicy {
+    public function update(User $user, BlogPost $post) {
+        return $user->id === $post->user_id;
+        // Türkçe: Sadece yazının sahibi güncelleyebilir
+    }
+}
+```
+
+#### Event ve Listener
+```php
+// BlogPostPublished event
+class BlogPostPublished {
+    public $post;
+    public function __construct(BlogPost $post) { $this->post = $post; }
+}
+// Listener örneği
+class SendPublishNotification {
+    public function handle(BlogPostPublished $event) {
+        // Türkçe: Yayınlanan yazı için bildirim gönder
+    }
+}
+```
+
+#### Observer
+```php
+class BlogPostObserver {
+    public function creating(BlogPost $post) {
+        $post->slug = Str::slug($post->title);
+        // Türkçe: Yeni yazı oluşturulurken otomatik slug atanır
+    }
+}
+```
+
+#### Job ve Queue
+```php
+class SendNewsletterJob implements ShouldQueue {
+    public function handle() {
+        // Türkçe: Kuyrukta çalışan e-posta gönderim işlemi
+    }
+}
+```
+
+#### Cache Kullanımı
+```php
+$posts = Cache::remember('blog_posts', 60, fn() => BlogPost::all());
+// Türkçe: Blog yazıları 60 dakika cache'de tutulur
+```
+
+#### Middleware
+```php
+class AdminOnly {
+    public function handle($request, Closure $next) {
+        if (!auth()->user() || !auth()->user()->hasRole('admin')) {
+            abort(403);
+        }
+        return $next($request);
+        // Türkçe: Sadece admin rolüne sahip kullanıcılar erişebilir
+    }
+}
+```
+
+#### Helper Fonksiyonu
+```php
+function formatDateTR($date) {
+    return \Carbon\Carbon::parse($date)->format('d.m.Y');
+    // Türkçe: Tarihi Türkçe formatta döndürür
+}
+```
+
+#### Blade Component
+```blade
+<x-alert type="success">İşlem başarılı!</x-alert>
+// Türkçe: Başarı mesajı için blade component kullanımı
+```
+
+#### Test Örneği
+```php
+public function test_blog_yazisi_olusturulabilir() {
+    $user = User::factory()->create();
+    $this->actingAs($user)
+        ->post('/blog', [
+            'title' => 'Test Yazı',
+            'content' => 'İçerik',
+            'category_id' => 1
+        ]);
+    $this->assertDatabaseHas('blog_posts', ['title' => 'Test Yazı']);
+    // Türkçe: Blog yazısı başarıyla oluşturulmuş mu kontrol edilir
+}
+```
+
+#### Kod İnceleme ve CI/CD
+- Her merge request öncesi kod gözden geçirilir, testler çalıştırılır.
+- CI/CD pipeline'da otomatik test, build ve deploy adımları bulunur.
+- Kodun okunabilirliği, güvenliği ve performansı kontrol edilir.
+// Türkçe: Kod kalitesi ve sürdürülebilirliği için kod inceleme ve CI/CD süreçleri zorunludur.
 
 ---
 
