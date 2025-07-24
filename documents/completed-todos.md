@@ -2509,3 +2509,25 @@ Model ve servislerin iş mantığı, ilişkileri ve özel fonksiyonları güvenc
 **Not:**
 - Tüm adımlar production ortamı için önerilen güvenlik ve otomasyon kurallarına uygun olarak hazırlandı.
 - Kodun her adımında Türkçe açıklama ve yorumlar eklendi.
+
+### ✅ [1205] Monitoring & Logging Setup (2. Adım)
+
+**Tamamlanma Tarihi:** {TARIH}
+
+**Özet:** Prometheus uyumlu /metrics endpoint'i eklendi ve test edildi. Uptime, bellek kullanımı ve istek sayısı gibi temel metrikler sağlanıyor. Test başarıyla geçti.
+
+**Yapılan Teknik Adımlar:**
+1. **Monitoring Endpoint:**
+   - `routes/web.php` dosyasına Prometheus uyumlu `/metrics` endpoint'i eklendi.
+   - Uygulama çalışma süresi, bellek kullanımı ve toplam istek sayısı metrikleri sağlanıyor.
+2. **Test:**
+   - `tests/Feature/MonitoringMetricsTest.php` dosyasında endpoint'in doğru formatta ve içerikte döndüğü test edildi.
+   - Test başarıyla geçti.
+3. **Kurallar:** `.cursor/rules/deployment.mdc`, `file-structure.md` ve ilgili monitoring kuralları kontrol edildi.
+
+**Kaynaklar:**
+- Monitoring endpoint: `routes/web.php`
+- Test: `tests/Feature/MonitoringMetricsTest.php`
+
+**Not:**
+- Sonraki adımda log rotasyonu ve log dosyalarının doğruluğu test edilecek.

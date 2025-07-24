@@ -123,3 +123,24 @@ Route::get('/health', function () {
 });
 
 // Türkçe: Sadece local ve test ortamında Telescope paneli route'unu aktif ediyoruz
+// Türkçe: Prometheus uyumlu basit metrik endpoint'i
+Route::get('/metrics', function () {
+    static $requestCount = 0;
+    $requestCount++;
+    $uptime = time() - $_SERVER['REQUEST_TIME'];
+    $memory = memory_get_usage(true);
+    return response(
+        "# HELP app_uptime_seconds Uygulama çalışma süresi (saniye)\n" .
+        "# TYPE app_uptime_seconds gauge\n" .
+        "app_uptime_seconds {$uptime}\n" .
+        "# HELP app_memory_usage_bytes Kullanılan bellek (byte)\n" .
+        "# TYPE app_memory_usage_bytes gauge\n" .
+        "app_memory_usage_bytes {$memory}\n" .
+        "# HELP app_request_count Toplam istek sayısı\n" .
+        "# TYPE app_request_count counter\n" .
+        "app_request_count {$requestCount}\n",
+        200,
+        ['Content-Type' => 'text/plain']
+    );
+});
+// Türkçe: Bu endpoint Prometheus gibi monitoring sistemleri tarafından okunabilir.

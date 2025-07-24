@@ -63,6 +63,7 @@ return [
             'path' => storage_path('logs/laravel.log'),
             'level' => env('LOG_LEVEL', 'debug'),
             'replace_placeholders' => true,
+            'formatter' => env('LOG_SINGLE_FORMATTER', \Monolog\Formatter\JsonFormatter::class), // Türkçe: Loglar JSON formatında yazılır
         ],
 
         'daily' => [
@@ -71,6 +72,7 @@ return [
             'level' => env('LOG_LEVEL', 'debug'),
             'days' => env('LOG_DAILY_DAYS', 14),
             'replace_placeholders' => true,
+            'formatter' => env('LOG_DAILY_FORMATTER', \Monolog\Formatter\JsonFormatter::class), // Türkçe: Günlük loglar JSON formatında tutulur
         ],
 
         'slack' => [
@@ -80,6 +82,7 @@ return [
             'emoji' => env('LOG_SLACK_EMOJI', ':boom:'),
             'level' => env('LOG_LEVEL', 'critical'),
             'replace_placeholders' => true,
+            // Türkçe: Kritik hatalar Slack kanalına gönderilir
         ],
 
         'papertrail' => [
@@ -92,6 +95,7 @@ return [
                 'connectionString' => 'tls://'.env('PAPERTRAIL_URL').':'.env('PAPERTRAIL_PORT'),
             ],
             'processors' => [PsrLogMessageProcessor::class],
+            // Türkçe: Loglar Papertrail gibi merkezi log sistemine gönderilebilir
         ],
 
         'stderr' => [
