@@ -1274,7 +1274,7 @@ class PostController extends Controller
 * **Testing**: Backup/restore testleri
 * **Documentation**: Backup procedures guide
 
-### ☐ [1207] **Domain & DNS Configuration** [Öncelik: High] [Süre: 2 saat]
+### ✅ [1207] **Domain & DNS Configuration** [Öncelik: High] [Süre: 2 saat]
 * **Cursor Rules**: deployment.mdc
 * **Description**: rifatrahvali.com.tr domain konfigürasyonu
 * **Technical Steps**:

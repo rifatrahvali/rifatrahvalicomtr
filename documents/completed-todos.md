@@ -2536,7 +2536,7 @@ Model ve servislerin iş mantığı, ilişkileri ve özel fonksiyonları güvenc
 
 **Tamamlanma Tarihi:** {TARIH}
 
-**Özet:** Otomatik veritabanı ve dosya sistemi yedekleme (backup) ile geri yükleme (restore) scriptleri yazıldı. Testler başarıyla geçti. Tüm adımlar dosya referansları ve Türkçe açıklamalarla tamamlandı.
+**Özet:** Otomatik veritabanı ve dosya sistemi yedekleme (backup) ile geri yükleme (restore) scriptleri yazıldı. Testler başarıyla geçti. Tüm adımlar dosya referanslarıyla birlikte tamamlandı.
 
 **Yapılan Teknik Adımlar:**
 1. **Backup Scripti:**
@@ -2559,4 +2559,24 @@ Model ve servislerin iş mantığı, ilişkileri ve özel fonksiyonları güvenc
 
 **Not:**
 - Scriptler, .env dosyasından veritabanı bilgilerini otomatik okur ve yedekleme işlemlerini güvenli şekilde gerçekleştirir.
+- Kodun her adımında Türkçe açıklama ve kurallara uygunluk sağlandı.
+
+### ✅ [1207] Domain & DNS Configuration
+
+**Tamamlanma Tarihi:** {TARIH}
+
+**Özet:** Domain ve DNS yapılandırması için örnek kayıtlar, e-posta ve güvenlik ayarları, test komutları ve Türkçe açıklamalarla kapsamlı bir rehber oluşturuldu.
+
+**Yapılan Teknik Adımlar:**
+1. **Domain & DNS Rehberi:**
+   - `documents/domain-dns-configuration.md` dosyasında A, CNAME, MX, TXT, SPF, DKIM, DMARC, CAA, DNSSEC gibi tüm temel ve güvenlik kayıtları örneklerle açıklandı.
+   - Subdomain ve e-posta ayarları, güvenlik önerileri ve test/doğrulama komutları eklendi.
+   - Her adımın altına Türkçe açıklama yazıldı.
+2. **Kurallar:** `.cursor/rules/deployment.mdc`, `file-structure.md` ve ilgili domain/DNS kuralları tek tek kontrol edildi.
+
+**Kaynaklar:**
+- Domain & DNS rehberi: `documents/domain-dns-configuration.md`
+
+**Not:**
+- Tüm örnekler ve açıklamalar, gerçek domain yönetimi ve güvenliği için uygulanabilir şekilde hazırlandı.
 - Kodun her adımında Türkçe açıklama ve kurallara uygunluk sağlandı.
