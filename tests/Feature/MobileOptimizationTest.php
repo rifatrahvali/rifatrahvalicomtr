@@ -52,4 +52,25 @@ class MobileOptimizationTest extends TestCase
         $response->assertSee('id="mobile-menu-list"', false);
         // Türkçe: Mobil menü butonu ve menü listesi ana sayfada bulunuyor mu kontrol edilir.
     }
+
+    public function test_mobile_homepage_performance()
+    {
+        $start = microtime(true);
+        $response = $this->get('/');
+        $duration = microtime(true) - $start;
+        $response->assertStatus(200);
+        $this->assertLessThan(1.5, $duration, 'Mobilde ana sayfa 1.5 saniyeden kısa sürede yüklenmeli.');
+        // Türkçe: Mobilde ana sayfa hızlı yüklenmeli
+    }
+
+    public function test_mobile_gallery_performance()
+    {
+        \App\Models\Gallery::factory()->count(50)->create(['type' => 'image']);
+        $start = microtime(true);
+        $response = $this->get('/gallery');
+        $duration = microtime(true) - $start;
+        $response->assertStatus(200);
+        $this->assertLessThan(2.0, $duration, 'Mobilde galeri 2 saniyeden kısa sürede yüklenmeli.');
+        // Türkçe: Mobilde galeri hızlı yüklenmeli
+    }
 } 

@@ -101,4 +101,21 @@ class BlogApiTest extends TestCase
         $response->assertStatus(200)->assertJsonStructure(['data']);
         // Türkçe yorum: Arama endpointi doğru sonuç dönüyor mu?
     }
+
+    public function test_blog_api_posts_response_time_is_fast()
+    {
+        $user = \App\Models\User::factory()->create();
+        $category = \App\Models\BlogCategory::factory()->create();
+        \App\Models\BlogPost::factory()->count(10)->create([
+            'status' => 'published',
+            'blog_category_id' => $category->id,
+            'user_id' => $user->id,
+        ]);
+        $start = microtime(true);
+        $response = $this->getJson('/api/v1/blog/posts');
+        $duration = microtime(true) - $start;
+        $response->assertStatus(200);
+        $this->assertLessThan(1.0, $duration, 'Blog API posts endpointi 1 saniyeden kısa sürede cevap vermeli.');
+        // Türkçe: Blog API posts endpointi hızlı cevap vermeli
+    }
 } 

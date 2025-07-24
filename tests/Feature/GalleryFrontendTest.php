@@ -64,4 +64,15 @@ class GalleryFrontendTest extends TestCase
         $response->assertSee('loading="lazy"', false);
         // Türkçe yorum: Görselde hem alt attribute'u hem de lazy loading birlikte var mı?
     }
+
+    public function test_gallery_page_performance_with_many_items()
+    {
+        \App\Models\Gallery::factory()->count(100)->create(['type' => 'image']);
+        $start = microtime(true);
+        $response = $this->get('/gallery');
+        $duration = microtime(true) - $start;
+        $response->assertStatus(200);
+        $this->assertLessThan(2.0, $duration, 'Galeri sayfası 100 görselle 2 saniyeden kısa sürede yüklenmeli.');
+        // Türkçe: Galeri sayfası çok sayıda görselle hızlı yüklenmeli (2 sn altında)
+    }
 } 

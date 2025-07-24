@@ -96,4 +96,22 @@ class BlogFrontendTest extends TestCase
         $response->assertSee(htmlspecialchars($maliciousTitle), false);
         // Türkçe: XSS saldırısı içeren başlık escape edilerek gösterilmeli, raw olarak çıkmamalı
     }
+
+    public function test_blog_posts_eager_loading_performance()
+    {
+        \Illuminate\Database\Eloquent\Factories\Factory::new()->count(10)->create();
+        $user = \App\Models\User::factory()->create();
+        $category = \App\Models\BlogCategory::factory()->create();
+        \App\Models\BlogPost::factory()->count(10)->create([
+            'status' => 'published',
+            'blog_category_id' => $category->id,
+            'user_id' => $user->id,
+        ]);
+        \DB::enableQueryLog();
+        $this->get('/blog');
+        $queries = \DB::getQueryLog();
+        $selectQueries = array_filter($queries, function($q) { return str_starts_with($q['query'], 'select'); });
+        $this->assertLessThan(10, count($selectQueries), 'N+1 problemi olmamalı, eager loading kullanılmalı.');
+        // Türkçe: Blog ana sayfasında N+1 query problemi olmamalı, eager loading ile az sorgu yapılmalı
+    }
 } 

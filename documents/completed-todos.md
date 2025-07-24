@@ -1904,3 +1904,78 @@ Model ve servislerin iş mantığı, ilişkileri ve özel fonksiyonları güvenc
 
 **İlgili Kurallar:**
 - `.cursor/rules/php-laravel.mdc`, `code-quality.mdc`, `testing.mdc`, `security.mdc`, `frontend.mdc`, `file-structure.md`
+
+### [905] Performance Testing (Performans Testleri) - TAMAMLANDI
+
+**Yapılanlar:**
+
+1. **Page Load Time Testleri**
+   - `tests/Feature/ExampleTest.php` dosyasına ana sayfa ve blog ana sayfası için response süresi (page load time) testleri eklendi.
+   - Açıklama: Bu testler, sayfaların 1.5 saniyeden kısa sürede yüklenmesini bekler. Kodun altına detaylı Türkçe açıklama eklendi.
+
+2. **N+1 Query ve Eager Loading Testi**
+   - `tests/Feature/BlogFrontendTest.php` dosyasına blog postlarında N+1 query problemi ve eager loading performans testi eklendi.
+   - Açıklama: Bu test, blog ana sayfasında gereksiz çoklu sorgu yapılmadığını ve performansın yüksek olduğunu doğrular. Kodun altına detaylı Türkçe açıklama eklendi.
+
+3. **Galeri Büyük Veri Performans Testi**
+   - `tests/Feature/GalleryFrontendTest.php` dosyasına galeri sayfası için 100 görselle response süresi ve lazy loading performans testi eklendi.
+   - Açıklama: Bu test, galeri sayfasının çok sayıda görselle hızlı yüklenmesini ve lazy loading'in çalışmasını kontrol eder. Kodun altına detaylı Türkçe açıklama eklendi.
+
+4. **Blog API Response Time Testi**
+   - `tests/Feature/BlogApiTest.php` dosyasına blog API endpointleri için response süresi ve cache performans testi eklendi.
+   - Açıklama: Bu test, API endpointlerinin hızlı cevap verdiğini ve cache'in etkili olduğunu doğrular. Kodun altına detaylı Türkçe açıklama eklendi.
+
+5. **Mobil Performans Testleri**
+   - `tests/Feature/MobileOptimizationTest.php` dosyasına mobilde ana sayfa ve galeri için response süresi ve asset boyutu performans testleri eklendi.
+   - Açıklama: Bu testler, mobilde sayfaların hızlı yüklenmesini ve asset boyutlarının makul olmasını kontrol eder. Kodun altına detaylı Türkçe açıklama eklendi.
+
+**Kuralların Kontrolü:**
+- @/.cursor/rules altındaki tüm performans, test ve kod kalitesi kuralları tek tek kontrol edildi ve uygulandı.
+- file-structure.md'ye uygun hareket edildi.
+- Kodun altına detaylı Türkçe açıklamalar eklendi.
+- UTF-8 hatalarına dikkat edildi.
+
+**Testler:**
+- Tüm testler çalıştırıldı, performans testleri başarıyla eklendi ve çalıştı.
+- Testler sırasında eklenen kodların amacı ve performans katkısı Türkçe olarak açıklandı.
+
+**Kaynaklar:**
+- tests/Feature/ExampleTest.php
+- tests/Feature/BlogFrontendTest.php
+- tests/Feature/GalleryFrontendTest.php
+- tests/Feature/BlogApiTest.php
+- tests/Feature/MobileOptimizationTest.php
+
+### [906] Automated Testing Pipeline (Otomatik Test Pipeline'ı) - TAMAMLANDI
+
+**Yapılanlar:**
+
+1. **GitHub Actions ile CI/CD Pipeline Kurulumu**
+   - `.github/workflows/ci.yml` dosyası oluşturuldu.
+   - Açıklama: Her push ve pull request'te otomatik olarak composer install, npm install, npm run build ve php artisan test adımlarını çalıştıran bir pipeline tanımlandı. Kodun altına detaylı Türkçe açıklama eklendi.
+
+2. **Pipeline Adımları:**
+   - Kodu checkout et (repo kodunu çek)
+   - PHP kurulumu (doğru sürüm)
+   - Composer ile PHP bağımlılıklarını yükle
+   - Node.js kurulumu (doğru sürüm)
+   - NPM ile frontend bağımlılıklarını yükle
+   - Vite ile assetleri derle
+   - Ortam dosyasını kopyala (.env.example -> .env)
+   - Uygulama anahtarını oluştur (php artisan key:generate)
+   - Veritabanı migrasyonlarını çalıştır (php artisan migrate --force)
+   - Testleri çalıştır (php artisan test --testsuite=Feature --testsuite=Unit)
+   - Her adımın altına Türkçe açıklama eklendi.
+
+3. **Kuralların Kontrolü:**
+   - @/.cursor/rules altındaki tüm CI/CD, test ve kod kalitesi kuralları tek tek kontrol edildi ve uygulandı.
+   - file-structure.md'ye uygun hareket edildi.
+   - Kodun altına detaylı Türkçe açıklamalar eklendi.
+   - UTF-8 hatalarına dikkat edildi.
+
+**Testler:**
+- Pipeline ile testlerin otomatik çalıştırılması sağlandı.
+- Testler sırasında eklenen kodların amacı ve katkısı Türkçe olarak açıklandı.
+
+**Kaynaklar:**
+- .github/workflows/ci.yml

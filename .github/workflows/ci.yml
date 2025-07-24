@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Kodu checkout et
+        uses: actions/checkout@v3
+        # Türkçe: Repo kodunu çekiyoruz
+
+      - name: PHP kurulumu
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+        # Türkçe: Gerekli PHP sürümünü kuruyoruz
+
+      - name: Composer ile bağımlılıkları yükle
+        run: composer install --prefer-dist --no-progress --no-interaction
+        # Türkçe: PHP bağımlılıklarını yüklüyoruz
+
+      - name: Node.js kurulumu
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+        # Türkçe: Gerekli Node.js sürümünü kuruyoruz
+
+      - name: NPM ile bağımlılıkları yükle
+        run: npm install
+        # Türkçe: Frontend bağımlılıklarını yüklüyoruz
+
+      - name: Vite ile assetleri derle
+        run: npm run build
+        # Türkçe: CSS ve JS dosyalarını derliyoruz
+
+      - name: Ortam dosyasını kopyala
+        run: cp .env.example .env
+        # Türkçe: Test ortamı için .env dosyasını kopyalıyoruz
+
+      - name: Uygulama anahtarını oluştur
+        run: php artisan key:generate
+        # Türkçe: Laravel uygulama anahtarını oluşturuyoruz
+
+      - name: Veritabanı migrasyonlarını çalıştır
+        run: php artisan migrate --force
+        # Türkçe: Test veritabanı tablolarını oluşturuyoruz
+
+      - name: Testleri çalıştır
+        run: php artisan test --testsuite=Feature --testsuite=Unit
+        # Türkçe: Tüm birim ve feature testlerini çalıştırıyoruz 
