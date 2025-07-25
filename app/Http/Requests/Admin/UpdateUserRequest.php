@@ -8,7 +8,7 @@ class UpdateUserRequest extends FormRequest
     public function authorize()
     {
         // Türkçe yorum: Sadece admin yetkisi olanlar kullanıcı güncelleyebilir
-        return auth()->user() && auth()->user()->hasRole('Admin');
+        return auth()->user() && auth()->user()->hasRole('admin');
     }
 
     public function rules()
