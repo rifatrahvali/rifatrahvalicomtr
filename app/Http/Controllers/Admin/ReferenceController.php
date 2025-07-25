@@ -10,6 +10,7 @@ use App\Http\Requests\Admin\UpdateReferenceRequest;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Log; // Türkçe: Log sınıfı kullanımı için gerekli import.
 
 class ReferenceController extends Controller
 {
@@ -31,6 +32,8 @@ class ReferenceController extends Controller
     // Referans kaydetme
     public function store(StoreReferenceRequest $request)
     {
+        Log::info('Referans store fonksiyonu çalıştı', $request->all());
+        // Türkçe: Store fonksiyonu tetiklendiğinde loga veri yazılır.
         $data = $request->validated();
         $images = [];
         if ($request->hasFile('images')) {
@@ -39,7 +42,11 @@ class ReferenceController extends Controller
             }
         }
         $data['images'] = $images;
+        $data['is_active'] = $request->boolean('is_active');
+        // Türkçe: is_active alanı her zaman true/false olarak kaydedilir.
         Reference::create($data);
+        Log::info('Referans başarıyla kaydedildi');
+        // Türkçe: Kayıt işlemi başarılı olursa loga yazılır.
         return redirect()->route('admin.reference.index')->with('success', 'Referans eklendi.');
         // Türkçe yorum: Yeni referans kaydedilir.
     }
