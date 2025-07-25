@@ -92,8 +92,12 @@ Route::get('/sitemap.xml', [\App\Http\Controllers\SitemapController::class, 'ind
 // Admin paneli için tüm rotalar tek bir grupta
 Route::middleware(['auth', 'role:admin'])->prefix('secure-admin')->name('admin.')->group(function () {
     Route::get('dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
-    Route::resource('blog', App\Http\Controllers\Admin\BlogPostController::class);
+    // Toplu yükleme rotalarını resource'dan önce tanımla
+    Route::get('gallery/bulk-upload', [App\Http\Controllers\Admin\GalleryController::class, 'bulkUpload'])->name('gallery.bulk-upload');
+    Route::post('gallery/bulk-upload', [App\Http\Controllers\Admin\GalleryController::class, 'bulkUploadStore'])->name('gallery.bulk-upload.store');
+    // Türkçe: Galeri için toplu yükleme işlemleri
     Route::resource('gallery', App\Http\Controllers\Admin\GalleryController::class);
+    Route::resource('blog', App\Http\Controllers\Admin\BlogPostController::class);
     Route::resource('reference', App\Http\Controllers\Admin\ReferenceController::class);
     Route::resource('users', App\Http\Controllers\Admin\UserController::class);
     Route::post('users/bulk', [App\Http\Controllers\Admin\UserController::class, 'bulkAction'])->name('users.bulk'); // Türkçe: Kullanıcılar için toplu işlem endpointi

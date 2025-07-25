@@ -27,7 +27,7 @@ class GalleryCrudTest extends TestCase
         if (!Permission::where('name', 'manage-galleries')->exists()) {
             Permission::create(['name' => 'manage-galleries']);
         }
-        // Türkçe yorum: Test ortamında Admin ve User rolleri ile manage-galleries izni programatik olarak oluşturuluyor.
+        // Türkçe: Test ortamında Admin ve User rolleri ile manage-galleries izni programatik olarak oluşturuluyor.
     }
 
     public function test_admin_can_create_gallery_item()
@@ -35,7 +35,7 @@ class GalleryCrudTest extends TestCase
         Storage::fake('public');
         $admin = User::factory()->create();
         $admin->assignRole('Admin');
-        $admin->givePermissionTo('manage-galleries');
+        $admin->givePermissionTo('manage-galleries'); // Türkçe: Admin kullanıcısına izin atanıyor
         $file = UploadedFile::fake()->image('test.jpg');
         $response = $this->actingAs($admin)->post(route('admin.gallery.store'), [
             'title' => 'Test Görseli',
@@ -46,7 +46,7 @@ class GalleryCrudTest extends TestCase
         ]);
         $response->assertRedirect(route('admin.gallery.index'));
         $this->assertDatabaseHas('galleries', ['title' => 'Test Görseli']);
-        // Türkçe yorum: Admin yeni galeri öğesi ekleyebilir.
+        // Türkçe: Admin yeni galeri öğesi ekleyebilir.
     }
 
     public function test_admin_can_update_gallery_item()
@@ -54,7 +54,7 @@ class GalleryCrudTest extends TestCase
         Storage::fake('public');
         $admin = User::factory()->create();
         $admin->assignRole('Admin');
-        $admin->givePermissionTo('manage-galleries');
+        $admin->givePermissionTo('manage-galleries'); // Türkçe: Admin kullanıcısına izin atanıyor
         $gallery = Gallery::factory()->create();
         $file = UploadedFile::fake()->image('update.jpg');
         $response = $this->actingAs($admin)->put(route('admin.gallery.update', $gallery), [
@@ -66,18 +66,19 @@ class GalleryCrudTest extends TestCase
         ]);
         $response->assertRedirect(route('admin.gallery.index'));
         $this->assertDatabaseHas('galleries', ['title' => 'Güncellenmiş Başlık']);
-        // Türkçe yorum: Admin galeri öğesini güncelleyebilir.
+        // Türkçe: Admin galeri öğesini güncelleyebilir.
     }
 
     public function test_admin_can_delete_gallery_item()
     {
         $admin = User::factory()->create();
         $admin->assignRole('Admin');
+        $admin->givePermissionTo('manage-galleries'); // Türkçe: Admin kullanıcısına izin atanıyor
         $gallery = Gallery::factory()->create();
         $response = $this->actingAs($admin)->delete(route('admin.gallery.destroy', $gallery));
         $response->assertRedirect(route('admin.gallery.index'));
         $this->assertDatabaseMissing('galleries', ['id' => $gallery->id]);
-        // Türkçe yorum: Admin galeri öğesini silebilir.
+        // Türkçe: Admin galeri öğesini silebilir.
     }
 
     public function test_admin_can_bulk_upload_gallery_items()
@@ -85,6 +86,7 @@ class GalleryCrudTest extends TestCase
         Storage::fake('public');
         $admin = User::factory()->create();
         $admin->assignRole('Admin');
+        $admin->givePermissionTo('manage-galleries'); // Türkçe: Admin kullanıcısına izin atanıyor
         $files = [
             UploadedFile::fake()->image('bulk1.jpg'),
             UploadedFile::fake()->image('bulk2.jpg'),
@@ -94,7 +96,7 @@ class GalleryCrudTest extends TestCase
         ]);
         $response->assertRedirect(route('admin.gallery.index'));
         $this->assertDatabaseCount('galleries', 2);
-        // Türkçe yorum: Admin birden fazla dosyayı toplu yükleyebilir.
+        // Türkçe: Admin birden fazla dosyayı toplu yükleyebilir.
     }
 
     public function test_non_admin_cannot_access_gallery_routes()

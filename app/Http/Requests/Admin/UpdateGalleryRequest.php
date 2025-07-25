@@ -17,10 +17,10 @@ class UpdateGalleryRequest extends FormRequest
         return [
             'title' => 'required|string|max:200',
             'description' => 'nullable|string',
-            'file' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg,mp4,mov,avi|max:8192',
+            'file' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg,webp,heic|max:8192',
             'type' => 'required|in:image,video',
             'order' => 'nullable|integer',
         ];
-        // Türkçe yorum: Galeri güncelleme için validasyon kuralları.
+        // Türkçe: HEIC formatı da dahil edildi.
     }
 } 
